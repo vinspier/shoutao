@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vinspier.dao.OrderDao">
+
+    <insert id="createOrder" parameterType="order">
+        insert into orders (oid,ordertime,total,state,address,contactname,telephone,uid)
+        values(#{oid,jdbcType=VARCHAR},#{ordertime,jdbcType=VARCHAR},#{total,jdbcType=INTEGER},#{state,jdbcType=INTEGER},
+                #{address,jdbcType=VARCHAR},#{contactname,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},#{user.uid,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="createOrderItem" parameterType="orderItem">
+        insert into orderitem (itemid,counts,subtotal,pid,oid)
+        values(#{itemid,jdbcType=VARCHAR},#{counts,jdbcType=INTEGER},#{subtotal,jdbcType=INTEGER},#{product.pid,jdbcType=VARCHAR},#{order.oid,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="getOrderByOrderID" parameterType="java.lang.String" resultType="order">
+        select * from orders where oid = #{0}
+    </select>
+
+    <select id="getOrderByUid" parameterType="java.lang.String" resultType="order">
+        select * from orders where uid = #{0} ORDER BY ordertime DESC
+    </select>
+
+    <select id="getOrderByUidAndState" resultType="order">
+        select * from orders where state = #{1} AND uid = #{0} ORDER BY ordertime DESC
+    </select>
+
+
+    <select id="getOrderItems" parameterType="java.lang.String" resultMap="OrderItemMap">
+        select * from orderitem items,product p where items.pid = p.pid and items.oid = #{0}
+    </select>
+    <resultMap id="OrderItemMap" type="com.vinspier.pojo.OrderItem">
+        <id property="itemid" column="itemid"/>
+        <result property="counts" column="counts"/>
+        <result property="subtotal" column="subtotal"/>
+        <association property="product" javaType="com.vinspier.pojo.Product">
+            <id property="pid" column="pid"/>
+            <result property="pname" column="pname"/>
+            <result property="market_price" column="market_price"/>
+            <result property="shop_price" column="shop_price"/>
+            <result property="pimage" column="pimage"/>
+            <result property="pdate" column="pdate"/>
+            <result property="is_hot" column="is_hot"/>
+            <result property="pdesc" column="pdesc"/>
+            <result property="pflag" column="pflag"/>
+            <result property="cid" column="cid"/>
+        </association>
+    </resultMap>
+</mapper>

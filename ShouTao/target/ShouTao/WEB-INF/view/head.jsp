@@ -1,0 +1,90 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2017/11/30 0030
+  Time: 14:56
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script language="javascript">
+        $().ready(function () {
+            //发送ajax 查询所有分类
+            $.post("/findCategory", function (obj) {
+                //alert(obj);
+                //遍历json列表,获取每一个分类,包装成li标签,插入到ul内部
+                //$.each($(obj),function(){});
+                $(obj).each(function () {
+                    $("#category_list").append("<li><a href='/getByPage?pageNumber=1&cid=" + this.cid + "'>" + this.cname + "</a></li>");
+                });
+            }, "json");
+        });
+    </script>
+</head>
+<body>
+<!--
+    时间：2015-12-30
+    描述：菜单栏
+-->
+<div class="container-fluid">
+    <div class="col-md-4">
+        <%--        <img src="${pageContext.request.contextPath}/img/logo2.png" />--%>
+    </div>
+    <div class="col-md-5">
+        <img src="${pageContext.request.contextPath}/img/header.png"/>
+    </div>
+    <div class="col-md-3" style="padding-top:20px">
+        <ol class="list-inline">
+            <c:if test="${empty user }">
+                <li><a href="${pageContext.request.contextPath }/login">亲，登录</a></li>
+                <li><a href="${pageContext.request.contextPath }/register">免费注册</a></li>
+            </c:if>
+            <c:if test="${not empty user }">
+                <li>欢迎:<a href="/userInformation?uid=${user.uid}">${user.username }</a></li>
+                <li><a href="/order_list">我的订单</a></li>
+                <li><a href="/cart">我的购物车</a></li>
+                <li><a href="${pageContext.request.contextPath }/logout">退出</a></li>
+            </c:if>
+        </ol>
+    </div>
+</div>
+<!--
+    时间：2015-12-30
+    描述：导航条
+-->
+<div class="container-fluid">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/index">首页</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" id="category_list">
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="shoutao@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="shoutao">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="bbs2009"/>
+    <schema id="4" parent="1" name="hibernate"/>
+    <schema id="5" parent="1" name="hibernate1"/>
+    <schema id="6" parent="1" name="hibernate3"/>
+    <schema id="7" parent="1" name="information_schema"/>
+    <schema id="8" parent="1" name="jquery"/>
+    <schema id="9" parent="1" name="library"/>
+    <schema id="10" parent="1" name="maven"/>
+    <schema id="11" parent="1" name="mvc"/>
+    <schema id="12" parent="1" name="mybatis1"/>
+    <schema id="13" parent="1" name="mysql"/>
+    <schema id="14" parent="1" name="performance_schema"/>
+    <schema id="15" parent="1" name="phpmyadmin"/>
+    <schema id="16" parent="1" name="spring"/>
+    <schema id="17" parent="1" name="test"/>
+    <table id="18" parent="2" name="cart"/>
+    <table id="19" parent="2" name="category"/>
+    <table id="20" parent="2" name="orderitem"/>
+    <table id="21" parent="2" name="orders"/>
+    <table id="22" parent="2" name="product"/>
+    <table id="23" parent="2" name="user_info"/>
+    <column id="24" parent="18" name="itemid">
+      <Position>1</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="18" name="counts">
+      <Position>2</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="18" name="pid">
+      <Position>3</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="18" name="uid">
+      <Position>4</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="18" name="subtotal">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="29" parent="18" name="pid">
+      <ColNames>pid</ColNames>
+    </index>
+    <index id="30" parent="18" name="uid">
+      <ColNames>uid</ColNames>
+    </index>
+    <key id="31" parent="18" name="PRIMARY">
+      <ColNames>itemid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="32" parent="19" name="cid">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="19" name="cname">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <key id="34" parent="19" name="PRIMARY">
+      <ColNames>cid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="35" parent="20" name="itemid">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="20" name="subtotal">
+      <Position>3</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="37" parent="20" name="pid">
+      <Position>4</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="38" parent="20" name="oid">
+      <Position>5</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="39" parent="20" name="counts">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="40" parent="20" name="fk_0001">
+      <ColNames>pid</ColNames>
+    </index>
+    <index id="41" parent="20" name="fk_0002">
+      <ColNames>oid</ColNames>
+    </index>
+    <key id="42" parent="20" name="PRIMARY">
+      <ColNames>itemid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="43" parent="20" name="fk_0001">
+      <ColNames>pid</ColNames>
+      <RefSchemaName>shoutao</RefSchemaName>
+      <RefTableName>product</RefTableName>
+      <RefColNames>pid</RefColNames>
+    </foreign-key>
+    <foreign-key id="44" parent="20" name="fk_0002">
+      <ColNames>oid</ColNames>
+      <RefSchemaName>shoutao</RefSchemaName>
+      <RefTableName>orders</RefTableName>
+      <RefColNames>oid</RefColNames>
+    </foreign-key>
+    <column id="45" parent="21" name="oid">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="21" name="ordertime">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="47" parent="21" name="total">
+      <Position>3</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="48" parent="21" name="state">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="49" parent="21" name="address">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="50" parent="21" name="telephone">
+      <Position>7</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="51" parent="21" name="uid">
+      <Position>8</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="52" parent="21" name="contactname">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <index id="53" parent="21" name="uid">
+      <ColNames>uid</ColNames>
+    </index>
+    <key id="54" parent="21" name="PRIMARY">
+      <ColNames>oid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="55" parent="22" name="pid">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="22" name="pname">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="57" parent="22" name="market_price">
+      <Position>3</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="58" parent="22" name="shop_price">
+      <Position>4</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="59" parent="22" name="pimage">
+      <Position>5</Position>
+      <DataType>varchar(200)|0</DataType>
+    </column>
+    <column id="60" parent="22" name="pdate">
+      <Position>6</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="61" parent="22" name="is_hot">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="62" parent="22" name="pdesc">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="63" parent="22" name="pflag">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="64" parent="22" name="cid">
+      <Position>10</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <index id="65" parent="22" name="sfk_0001">
+      <ColNames>cid</ColNames>
+    </index>
+    <key id="66" parent="22" name="PRIMARY">
+      <ColNames>pid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="67" parent="22" name="sfk_0001">
+      <ColNames>cid</ColNames>
+      <RefSchemaName>shoutao</RefSchemaName>
+      <RefTableName>category</RefTableName>
+      <RefColNames>cid</RefColNames>
+    </foreign-key>
+    <column id="68" parent="23" name="uid">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="69" parent="23" name="username">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="70" parent="23" name="password">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="71" parent="23" name="realname">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="72" parent="23" name="email">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="73" parent="23" name="telephone">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="74" parent="23" name="birthday">
+      <Position>7</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="75" parent="23" name="sex">
+      <Position>8</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="76" parent="23" name="state">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="77" parent="23" name="code">
+      <Position>10</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <key id="78" parent="23" name="PRIMARY">
+      <ColNames>uid</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vinspier.dao.CartDao">
+
+    <insert id="addToCart" parameterType="cartItem">
+        insert into cart (itemid,counts,pid,uid,subtotal)
+        values(#{itemId,jdbcType=VARCHAR},#{counts,jdbcType=INTEGER},#{product.pid,jdbcType=VARCHAR},#{user.uid,jdbcType=VARCHAR},#{subtotal,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteFromCart" parameterType="java.lang.String">
+        delete from cart where itemid = #{0}
+    </delete>
+
+    <select id="getCartItemById" parameterType="java.lang.String" resultMap="cartItemMap">
+        SELECT * FROM cart cart,product p WHERE cart.pid = p.pid and itemid = #{0}
+    </select>
+
+    <select id="cartList" parameterType="java.lang.String" resultMap="cartItemMap">
+        select * from cart cart,product p where cart.pid = p.pid and uid = #{0}
+    </select>
+    <resultMap id="cartItemMap" type="com.vinspier.pojo.CartItem">
+        <id property="itemId" column="itemId"/>
+        <result property="counts" column="counts"/>
+        <result property="subtotal" column="subtotal"/>
+        <association property="product" javaType="com.vinspier.pojo.Product">
+            <id property="pid" column="pid"/>
+            <result property="pname" column="pname"/>
+            <result property="market_price" column="market_price"/>
+            <result property="shop_price" column="shop_price"/>
+            <result property="pimage" column="pimage"/>
+            <result property="pdate" column="pdate"/>
+            <result property="is_hot" column="is_hot"/>
+            <result property="pdesc" column="pdesc"/>
+            <result property="pflag" column="pflag"/>
+            <result property="cid" column="cid"/>
+        </association>
+    </resultMap>
+
+    <update id="cleanCart">
+        truncate cart
+    </update>
+
+    <update id="updateCart" parameterType="cartItem">
+        update cart
+        <set>
+            <if test="counts != null">
+                counts = #{counts},
+            </if>
+            <if test="subtotal != null">
+                subtotal = #{subtotal},
+            </if>
+        </set>
+        where itemid = #{itemId}
+    </update>
+
+</mapper>
