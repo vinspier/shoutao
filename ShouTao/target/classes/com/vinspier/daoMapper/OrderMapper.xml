@@ -47,4 +47,11 @@
             <result property="cid" column="cid"/>
         </association>
     </resultMap>
+
+    <delete id="orderItemsDeleteByOid" parameterType="String" >
+        DELETE FROM orderitem WHERE oid = #{0}
+    </delete>
+    <delete id="orderDeleteByOid" parameterType="String" >
+        DELETE FROM orders WHERE oid = #{0}
+    </delete>
 </mapper>

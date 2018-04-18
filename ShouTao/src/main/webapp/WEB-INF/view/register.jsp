@@ -42,7 +42,6 @@
     </style>
     <script type="text/javascript">
         function checkedItems() {
-            var mailMatch = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
             var empty = "";
             var passwordSet = $("#inputPassword3").val();
             var passwordConfirm = $("#confirmpwd").val();
@@ -65,12 +64,6 @@
                             empty += "no";
                             alert("邮箱不允许为空");
                             $("#inputEmail3").focus();
-                        }else {
-                            if(!(mailMatch.test($.trim($("#inputEmail3").val())))){
-                                empty += "no";
-                                alert("请输入正确邮箱");
-                                $("#inputEmail3").focus();
-                            }
                         }
                     }
                 }

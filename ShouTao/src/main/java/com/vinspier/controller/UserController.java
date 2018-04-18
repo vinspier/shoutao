@@ -63,9 +63,9 @@ public class UserController {
             if(loginUser != null) {
                 request.getSession().setAttribute("user", loginUser);
                 if (Constant.USER_IS_ACTIVE != loginUser.getState()) {
-                    String emailMsg="恭喜"+loginUser.getRealname()+":成为我们商城的一员,<a href='http://localhost:8080/Active?code="+loginUser.getCode()+"'>点此激活</a>";
+                    String emailMsg="恭喜"+loginUser.getRealname()+":成为我们商城的一员,请登录邮箱</a>激活";
                     System.out.println(emailMsg);
-                    request.setAttribute("msg", "此用户未激活，请先<a href='http://localhost:8080/Active?code="+loginUser.getCode()+"'>激活</a>后登录");
+                    request.setAttribute("msg", "此用户未激活，请先登录邮箱激活后登录");
                     return "view/notification_message";
                 }
                 //将登陆的用户保存在session中

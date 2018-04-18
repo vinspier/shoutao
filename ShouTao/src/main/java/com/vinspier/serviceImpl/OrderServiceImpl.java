@@ -2,6 +2,7 @@ package com.vinspier.serviceImpl;
 
 import com.vinspier.dao.CartDao;
 import com.vinspier.dao.OrderDao;
+import com.vinspier.dao.ProductDao;
 import com.vinspier.pojo.*;
 import com.vinspier.service.OrderService;
 import com.vinspier.utils.UUIDUtils;
@@ -9,7 +10,6 @@ import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +23,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
     @Autowired
     private CartDao cartDao;
+    @Autowired
+    private ProductDao productDao;
 
     public Order createOrder(List<String> itemIds, String address, String contactname, String telephone,User user) throws Exception{
         Order order = new Order();
@@ -60,6 +62,34 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+    public Order createDirectBuyOrder(String pid,int count,String address, String contactname, String telephone, User user) throws Exception{
+        Order order = new Order();
+        order.setOid(UUIDUtils.getId());
+        order.setOrdertime(new Date());
+        order.setState(Constant.ORDER_UN_PAY);
+        order.setAddress(address);
+        order.setContactname(contactname);
+        order.setTelephone(telephone);
+
+        List<OrderItem> orderItems = new ArrayList<OrderItem>();
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItemid(UUIDUtils.getId());
+        orderItem.setCounts(count);
+        Product product = productDao.getById(pid);
+        orderItem.setSubtotal(product.getShop_price()*count);
+        orderItem.setProduct(product);
+        orderItem.setOrder(order);
+        orderItems.add(orderItem);
+
+        order.setTotal(product.getShop_price()*count);
+        order.setUser(user);
+        order.setOrderItems(orderItems);
+
+        orderDao.createOrderItem(orderItem);
+        orderDao.createOrder(order);
+        return order;
+    }
+
     public Order getOrderByOrderID(String orderID) throws Exception{
         return orderDao.getOrderByOrderID(orderID);
     }
@@ -75,4 +105,9 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderItem> getOrderItems(String oid) throws Exception{
         return orderDao.getOrderItems(oid);
     }
+   public void orderDeleteByOid(String oid) throws Exception{
+        orderDao.orderItemsDeleteByOid(oid);
+        orderDao.orderDeleteByOid(oid);
+   }
+
 }

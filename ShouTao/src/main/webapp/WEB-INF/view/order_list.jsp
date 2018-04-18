@@ -70,6 +70,7 @@
                         <c:if test="${order.state == 3}">已完成</c:if>
                     </th>
                     <th colspan="2">订单时间:<fmt:formatDate value="${order.ordertime}" pattern="yyyy-MM-dd HH:mm;ss"/></th>
+                    <th>操作</th>
                 </tr>
                 <tr class="warning">
                     <th>图片</th>
@@ -77,7 +78,7 @@
                     <th>价格</th>
                     <th>数量</th>
                     <th>小计</th>
-                    <th>操作</th>
+                    <th><a href="/deleteOrderByOid?oid=${order.oid}">删除订单</a></th>
                 </tr>
                 <c:forEach items="${order.orderItems}" var="orderItem">
                     <tr class="active">
@@ -106,10 +107,8 @@
                         <td width="15%">
                             <span class="subtotal">￥${orderItem.subtotal}</span>
                         </td>
+                        <td></td>
                 </c:forEach>
-                <td>
-                    <a href="/#">删除订单</a>
-                </td>
                     </tr>
                 </tbody>
                 </c:forEach>

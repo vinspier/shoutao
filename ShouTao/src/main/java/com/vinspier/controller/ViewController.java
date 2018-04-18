@@ -76,4 +76,24 @@ public class ViewController {
             return "redirect:cart";
         }
     }
+
+    @RequestMapping(value = "/makeSureDirectBuy")
+    public String directBuy(HttpServletRequest request,Model model) throws Exception{
+        try {
+            User user = (User) request.getSession().getAttribute("user");
+            if( user == null){
+                return "redirect:login";
+            }
+            int count = Integer.parseInt(request.getParameter("count"));
+            String pid = request.getParameter("pid");
+            Product product = productService.getById(pid);
+            model.addAttribute("product",product);
+            model.addAttribute("count",count);
+            model.addAttribute("totalPay",count*product.getShop_price());
+        } catch (Exception e) {
+            request.setAttribute("msg","购买失败，青重新尝试");
+            return "view/notification_message";
+        }
+        return "view/orderSure_directBuy";
+    }
 }

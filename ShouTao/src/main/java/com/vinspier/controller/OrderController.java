@@ -27,20 +27,24 @@ public class OrderController {
     @RequestMapping(value = "/createOrder")
     public String createOrder(HttpServletRequest request,@RequestParam("orderItemId") List<String> idItems,Model model) throws Exception{
         try {
-
-            User user = (User) request.getSession().getAttribute("user");
-            if(user == null){
-                return "redirect:/login";
-            }else {
-
-               Order order = orderService.createOrder(idItems,request.getParameter("address"),request.getParameter("contactname"),request.getParameter("telephone"),user);
+               Order order = orderService.createOrder(idItems,request.getParameter("address"),request.getParameter("contactname"),request.getParameter("telephone"),(User) request.getSession().getAttribute("user"));
                 model.addAttribute("order",order);
-            }
-
         } catch(Exception e) {
             request.setAttribute("msg","提交订单失败，请重新提交");
             return "view/msg";
         }
+        return "view/pay_information";
+    }
+
+    @RequestMapping(value = "/createDirectBuyOrder")
+    public String createDirectBuyOrder(HttpServletRequest request,Model model) throws Exception{
+        String pid = request.getParameter("pid");
+        int count = Integer.parseInt(request.getParameter("count"));
+        String address = request.getParameter("address");
+        String contactname = request.getParameter("contactname");
+        String telephone = request.getParameter("telephone");
+        Order order = orderService.createDirectBuyOrder(pid,count,address,contactname,telephone,(User)request.getSession().getAttribute("user"));
+        model.addAttribute("order",order);
         return "view/pay_information";
     }
 
@@ -86,5 +90,11 @@ public class OrderController {
         }
         model.addAttribute("orders", orders);
         return "view/order_list";
+    }
+
+    @RequestMapping(value = "/deleteOrderByOid")
+    public String deleteOrderByOid(@RequestParam("oid") String oid) throws Exception{
+        orderService.orderDeleteByOid(oid);
+        return "redirect:order_list";
     }
 }

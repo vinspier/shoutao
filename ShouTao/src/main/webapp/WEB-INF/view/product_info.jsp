@@ -71,12 +71,19 @@
                             <input id="quantity" name="count" value="1" maxlength="4" size="10" type="text">
                         </div>
                     </form>
+                    <form action="/makeSureDirectBuy" method="post" id="directBuyForm">
+                        <input type="hidden" name="pid" value="${product.pid}">
+                    </form>
 
                     <div style="margin:20px 0 10px 0;;text-align: center;">
                         <a href="javascript:void(0)" onclick="subForm()">
                             <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
                                    value="加入购物车" type="button">
-                        </a> &nbsp;收藏商品
+                        </a>
+                        <a href="javascript:void(0)" onclick="subDirectBuyForm()">
+                            <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
+                                   value="直接购买" type="button">
+                        </a>
                     </div>
 
                 </div>
@@ -124,6 +131,19 @@
 <script type="text/javascript">
     function subForm() {
         document.getElementById("cartMessage").submit();
+    }
+    function getCount() {
+        var directBuyForm = document.getElementById("directBuyForm");
+        var count = $("#quantity").val();
+        var inputElement = document.createElement("input");
+        inputElement.setAttribute("type", "hidden");
+        inputElement.setAttribute("name", "count");
+        inputElement.setAttribute("value", count);
+        directBuyForm.appendChild(inputElement);
+    }
+    function subDirectBuyForm() {
+        getCount();
+        document.getElementById("directBuyForm").submit();
     }
 </script>
 

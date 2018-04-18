@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService{
         userDao.save(user);
         String emailMsg="恭喜"+user.getRealname()+":成为我们商城的一员,<a href='http://localhost:8080/Active?code="+user.getCode()+"'>点此激活</a>";
         System.out.println(emailMsg);
-        MailUtil.sendMail(user.getUsername(),user.getEmail(),emailMsg);
+        // MailUtil.sendMail(user.getUsername(),user.getEmail(),emailMsg);
     }
     /**
      * 用户激活

@@ -11,8 +11,10 @@ import java.util.List;
  */
 public interface OrderService {
     Order createOrder(List<String> itemIds, String address, String contactname, String telephone, User user) throws Exception;
+    Order createDirectBuyOrder(String pid,int count,String address, String contactname, String telephone, User user) throws Exception;
     Order getOrderByOrderID(String orderID) throws Exception;
     List<Order> getOrderByUid(String uid) throws Exception;
     List<Order> getOrderByUidAndState(String uid,Integer state) throws Exception;
     List<OrderItem> getOrderItems(String oid) throws Exception;
+    void orderDeleteByOid(String oid) throws Exception;
 }

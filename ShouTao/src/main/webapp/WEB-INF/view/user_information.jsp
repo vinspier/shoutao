@@ -42,31 +42,24 @@
     </style>
     <script type="text/javascript">
         var empty ="";
-        var mailMatch = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
         function checkItems() {
-            if($("#username").val() != null){
-                if($("#inputEmail3").val() == null){
-                    empty = "no";
-                    alert("用户邮箱修改后不应为空");
-                    $("#inputEmail3").focus();
-                }else{
-                    if(!mailMatch.test($("#inputEmail3"))){
-                        empty += "no";
-                        alert("请输入正确邮箱");
-                        $("#inputEmail3").focus();
-                    }
-                }
-            }else{
+            if($("#username").val() == null || $("#username").val() == ""){
                 empty = "no";
                 alert("用户名修改后不应为空");
                 $("#username").focus();
+            }else{
+                if($("#inputEmail3").val() == "" || $("#inputEmail3").val() == null){
+                    empty = "no";
+                    alert("用户邮箱修改后不应为空");
+                    $("#inputEmail3").focus();
+                }
             }
-            if(empty == null || empty == ""){
+            if(empty == ""){
                 submitModifyForm();
             }
         }
         function submitModifyForm() {
-            document.getElementById("form-modify").submit();
+            document.getElementById("form-horizontal").submit();
         }
     </script>
 </head>
@@ -78,7 +71,7 @@
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
             <div align="center"><font>会员信息</font>USER INFORMATION</div>
             <br/>
-            <form class="form-horizontal" id="form-modify" style="margin-top:5px;align-self: center" method="post" action="/modifyUserInformation?uid=${user.uid}" >
+            <form class="form-horizontal" id="form-horizontal" style="margin-top:5px;align-self: center" method="post" action="/modifyUserInformation?uid=${user.uid}" >
                 <input type="hidden" name="method" value="regist">
                 <div  class="form-group">
                     <label for="username" class="col-sm-2 control-label">用户名</label>
@@ -127,7 +120,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button" id="modifyForm" onclick="checkItems()" width="100" value="确认修改" name="submit" border="0"
+                        <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">
                     </div>

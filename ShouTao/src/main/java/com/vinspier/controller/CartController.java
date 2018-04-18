@@ -72,6 +72,7 @@ public class CartController {
 
         } catch (Exception e) {
             request.setAttribute("msg","添加购物车失败");
+            return "view/notification_message";
         }
         return "redirect:/cart";
     }
