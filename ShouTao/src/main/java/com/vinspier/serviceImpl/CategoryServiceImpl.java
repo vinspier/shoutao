@@ -33,4 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return value;
     }
+    public Category getByCid(String cid) throws Exception{
+        return categoryDao.getByCid(cid);
+    }
 }

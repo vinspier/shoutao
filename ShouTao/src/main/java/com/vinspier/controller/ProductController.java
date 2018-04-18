@@ -1,7 +1,9 @@
 package com.vinspier.controller;
 
 import com.vinspier.entity.Page;
+import com.vinspier.pojo.Category;
 import com.vinspier.pojo.Product;
+import com.vinspier.service.CategoryService;
 import com.vinspier.service.ProductService;
 import constant.Constant;
 import org.apache.ibatis.annotations.Param;
@@ -19,11 +21,16 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/getByPid")
     public String getByPid(@Param("pid") String pid,Model model) throws Exception{
         Product product = productService.getById(pid);
+        String cid = product.getCid();
+        Category category = categoryService.getByCid(cid);
         model.addAttribute("product",product);
+        model.addAttribute("category",category);
         return "view/product_info";
     }
 

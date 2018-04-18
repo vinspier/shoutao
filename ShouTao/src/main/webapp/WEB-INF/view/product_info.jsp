@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page isELIgnored="false" %>
 <%
     String path = request.getContextPath();
@@ -39,8 +40,8 @@
     <div class="row">
         <div style="border: 1px solid #e4e4e4;width:930px;margin-bottom:10px;margin:0 auto;padding:10px;margin-bottom:10px;">
             <a href="/index">首页&nbsp;&nbsp;&gt;</a>
-            <a href="./蔬菜分类.htm">蔬菜&nbsp;&nbsp;&gt;</a>
-            <a>无公害蔬菜</a>
+            <a href="/getByPage?pageNumber=1&cid=${category.cid}">${category.cname}&nbsp;&nbsp;&gt;</a>
+            <a>${fn:substring(product.pname,0 ,10 )}···</a>
         </div>
 
         <div style="margin:0 auto;width:950px;">

@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface CategoryService {
     List<Category> findAll() throws Exception;
+    Category getByCid(String cid) throws Exception;
 }
