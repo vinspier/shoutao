@@ -39,7 +39,7 @@
     <div class="row">
 
         <div style="margin:0 auto;margin-top:10px;width:950px;">
-            <strong>订单详情</strong>
+            <strong>付款详情</strong>
             <table class="table table-bordered">
                 <tbody>
                 <tr class="warning">
@@ -145,8 +145,8 @@
             </p>
             <hr/>
             <p style="text-align:right;margin-right:100px;">
-                <a href="javascript:document.getElementById('orderForm').submit();">
-                    <img src="${pageContext.request.contextPath}/images/finalbutton.gif" width="204" height="51"
+                <a href="/payDone?oid=${order.oid}">
+                    <img src="${pageContext.request.contextPath}/images/finalPay.gif" width="204" height="51"
                          border="0"/>
                 </a>
             </p>

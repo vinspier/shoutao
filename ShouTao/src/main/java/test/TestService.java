@@ -4,10 +4,7 @@ import com.vinspier.dao.CartDao;
 import com.vinspier.dao.OrderDao;
 import com.vinspier.dao.ProductDao;
 import com.vinspier.dao.UserDao;
-import com.vinspier.pojo.CartItem;
-import com.vinspier.pojo.Order;
-import com.vinspier.pojo.OrderItem;
-import com.vinspier.pojo.User;
+import com.vinspier.pojo.*;
 import com.vinspier.service.CartService;
 import com.vinspier.utils.MailUtil;
 import com.vinspier.utils.UUIDUtils;
@@ -141,6 +138,14 @@ public class TestService {
         String emailMsg="恭喜"+"FXB"+":成为我们商城的一员,<a href='http://localhost:8080/Active?code=afhahfkjahklfhlkadhlfka'>点此激活</a>";
         MailUtil emailUtil = new MailUtil();
         emailUtil.sendMail("fxb","954579147@qq.com",emailMsg);
+    }
+
+    @Test
+    public void searchByPage() throws Exception{
+        List<Product> productList = productDao.searchByPage("华为",0,1,8);
+        for(Product product: productList){
+            System.out.println(product.getPname());
+        }
     }
 
 }

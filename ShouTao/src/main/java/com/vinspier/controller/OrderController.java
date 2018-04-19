@@ -3,6 +3,7 @@ package com.vinspier.controller;
 import com.vinspier.pojo.*;
 
 import com.vinspier.service.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -64,15 +66,35 @@ public class OrderController {
 
     @RequestMapping(value = "/getOrdersByState")
     public String getOrdersByState(@RequestParam("uid") String uid,@RequestParam("state") String state,Model model) throws Exception{
-        List<Order> orders = orderService.getOrderByUidAndState(uid,Integer.parseInt(state));
-        for(Order order:orders) {
-            List<OrderItem> orderItems = orderService.getOrderItems(order.getOid());
-            for (OrderItem orderItem : orderItems) {
-                orderItem.setProduct(orderItem.getProduct());
-                order.getOrderItems().add(orderItem);
+        List<Order> orderList = orderService.getOrderByUid(uid);
+        Iterator<Order> orderIterator = orderList.iterator();
+        int allCounts = orderList.size();
+        int unPay = 0;
+        int unDelivery = 0;
+        int alreadyDelivery = 0;
+        int alreadyDone = 0;
+        while(orderIterator.hasNext()){
+            Order order = orderIterator.next();
+            if(order.getState() == 0){unPay++;}
+            if(order.getState() == 1){unDelivery++;}
+            if(order.getState() == 2){alreadyDelivery++;}
+            if(order.getState() == 3){alreadyDone++;}
+            if(order.getState() == Integer.parseInt(state)){
+                List<OrderItem> orderItems = orderService.getOrderItems(order.getOid());
+                for (OrderItem orderItem : orderItems) {
+                    orderItem.setProduct(orderItem.getProduct());
+                    order.getOrderItems().add(orderItem);
+                }
+            }else {
+                orderIterator.remove();
             }
         }
-        model.addAttribute("orders", orders);
+        model.addAttribute("orders", orderList);
+        model.addAttribute("allCounts",allCounts);
+        model.addAttribute("unPay",unPay);
+        model.addAttribute("unDelivery",unDelivery);
+        model.addAttribute("alreadyDelivery",alreadyDelivery);
+        model.addAttribute("alreadyDone",alreadyDone);
         return "view/order_list";
     }
 
@@ -80,7 +102,15 @@ public class OrderController {
     public String orderList(HttpServletRequest request,Model model) throws Exception{
         User user = (User) request.getSession().getAttribute("user");
         List<Order> orders = orderService.getOrderByUid(user.getUid());
+        int unPay = 0;
+        int unDelivery = 0;
+        int alreadyDelivery = 0;
+        int alreadyDone = 0;
         for(Order order:orders) {
+            if(order.getState() == 0){unPay++;}
+            if(order.getState() == 1){unDelivery++;}
+            if(order.getState() == 2){alreadyDelivery++;}
+            if(order.getState() == 3){alreadyDone++;}
             order.setUser(user);
             List<OrderItem> orderItems = orderService.getOrderItems(order.getOid());
             for (OrderItem orderItem : orderItems) {
@@ -89,6 +119,11 @@ public class OrderController {
             }
         }
         model.addAttribute("orders", orders);
+        model.addAttribute("allCounts",orders.size());
+        model.addAttribute("unPay",unPay);
+        model.addAttribute("unDelivery",unDelivery);
+        model.addAttribute("alreadyDelivery",alreadyDelivery);
+        model.addAttribute("alreadyDone",alreadyDone);
         return "view/order_list";
     }
 
@@ -96,5 +131,13 @@ public class OrderController {
     public String deleteOrderByOid(@RequestParam("oid") String oid) throws Exception{
         orderService.orderDeleteByOid(oid);
         return "redirect:order_list";
+    }
+
+    @RequestMapping(value = "/payDone")
+    public String payDone(HttpServletRequest request,@RequestParam("oid") String oid) throws Exception{
+        orderService.orderPayDone(oid);
+        String message = "付款成功!      <a href=\"/order_list\">查看我的订单</a>";
+        request.setAttribute("msg",message);
+        return "view/msg";
     }
 }

@@ -41,4 +41,16 @@ public class ProductServiceImpl implements ProductService {
 
         return productPage;
     }
+
+    public Page<Product> searchByPage(int pageNumber, int pageSize, String searchContent) throws Exception{
+        Page<Product> productPage = new Page<Product>(pageNumber,pageSize);
+
+        List<Product> productList = productDao.searchByPage(searchContent,Constant.PRODUCT_FLAG_UP,productPage.getStartIndex(),productPage.getPageSize());
+        productPage.setData(productList);
+
+        int totalRecords = productDao.getTotalRecord(searchContent,Constant.PRODUCT_FLAG_UP);
+        productPage.setTotalRecord(totalRecords);
+
+        return productPage;
+    }
 }

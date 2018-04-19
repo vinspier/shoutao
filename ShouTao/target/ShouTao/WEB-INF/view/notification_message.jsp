@@ -13,6 +13,7 @@
 <body>
 <div align="center">
     <h3>${msg}</h3>
+    <a href="/order_list">查看我的订单</a>
 </div>
 </body>
 </html>

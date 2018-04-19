@@ -37,8 +37,10 @@ public interface Constant {
 	//每页展示的条数
 	int PRODUCT_PAGE_SIZE = 12;
 
+	/**未付款*/
 	int ORDER_UN_PAY = 0;
-
+	/**未发货*/
+	int ORDER_UN_DELIVERY = 1;
 
 	String MAIL_TRANSPORT_PROTOCOL = "smtp";
 	String MAIL_SMTP_HOST = "smtp.163.com";

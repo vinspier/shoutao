@@ -70,6 +70,8 @@
                         <input type="hidden" name="pid" value="${product.pid}">
                         <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
                             <input id="quantity" name="count" value="1" maxlength="4" size="10" type="text">
+                            <input type="button" id="add" onclick="addUp()" name="add" value="+" style="width: 30px">
+                            <input type="button" id="delete" onclick="cutDown()" name="delete" value="-" style="width: 30px">
                         </div>
                     </form>
                     <form action="/makeSureDirectBuy" method="post" id="directBuyForm">
@@ -92,18 +94,21 @@
         </div>
         <div class="clear"></div>
         <div style="width:950px;margin:0 auto;">
-            <div style="background-color:#d3d3d3;width:930px;padding:10px 10px;margin:10px 0 10px 0;">
-                <strong>商品介绍</strong>
+            <div style="background-color:#d3d3d3;width:400px;padding:10px 10px;margin:10px 0 10px 0;">
+                <strong>商品简介</strong>
             </div>
 
             <div>
                 <img src="../${product.pimage}">
+                <th>${product.pname}</th>
             </div>
 
-            <div style="background-color:#d3d3d3;width:930px;padding:10px 10px;margin:10px 0 10px 0;">
+            <div style="background-color:#d3d3d3;width:400px;padding:10px 10px;margin:10px 0 10px 0;">
+                <strong>商品详情</strong>
+            </div>
+            <div style="width: 700px">
                 <strong>${product.pdesc}</strong>
             </div>
-
 
         </div>
     </div>
@@ -145,6 +150,24 @@
     function subDirectBuyForm() {
         getCount();
         document.getElementById("directBuyForm").submit();
+    }
+
+    function addUp() {
+        let count = $("#quantity").val();
+        console.log(count);
+        count++;
+        console.log(count);
+        $("#quantity").val(count);
+    }
+    function cutDown() {
+        let count = $("#quantity").val();
+        if(count<=1){
+            $("#quantity").focus();
+        }else{
+            count--;
+            console.log(count);
+            $("#quantity").val(count);
+        }
     }
 </script>
 

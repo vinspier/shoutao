@@ -54,4 +54,11 @@
     <delete id="orderDeleteByOid" parameterType="String" >
         DELETE FROM orders WHERE oid = #{0}
     </delete>
+    <update id="orderPayDone">
+        UPDATE orders
+        <set>
+            state = #{1}
+        </set>
+        WHERE oid = #{0}
+    </update>
 </mapper>

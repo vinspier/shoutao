@@ -19,4 +19,5 @@ public interface OrderDao {
     List<OrderItem> getOrderItems(String oid) throws Exception;
     void orderDeleteByOid(String oid) throws Exception;
     void orderItemsDeleteByOid(String oid) throws Exception;
+    void orderPayDone(String oid,int state) throws Exception;
 }

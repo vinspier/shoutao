@@ -23,4 +23,8 @@
         SELECT * FROM product WHERE cid = #{0} AND pflag = #{1} limit #{2},#{3}
     </select>
 
+    <select id="searchByPage"  resultType="product">
+        SELECT * FROM product WHERE pname LIKE "%"#{0}"%" AND pflag = #{1} limit #{2},#{3}
+    </select>
+
 </mapper>

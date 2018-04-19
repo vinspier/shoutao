@@ -73,11 +73,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" id="category_list">
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
+                <form class="navbar-form navbar-right" id="searchForm" role="search" method="post" action="/searchByPage?pageNumber=1">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" id="searchContent" name="searchContent" placeholder="Search">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <input type="button" onclick="checkSearchContent()" class="btn btn-default" value="Submit">Submit</input>
                 </form>
 
             </div>
@@ -86,5 +86,17 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
+<script type="text/javascript">
+    function checkSearchContent() {
+        if($("#searchContent").val() == ""){
+            $("#searchContent").focus();
+        }else{
+            searchFormSubmit()
+        }
+    }
+    function searchFormSubmit() {
+        $("#searchForm").submit();
+    }
+</script>
 </body>
 </html>

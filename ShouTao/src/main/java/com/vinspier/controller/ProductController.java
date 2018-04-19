@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,6 +44,19 @@ public class ProductController {
             model.addAttribute("productPage",productPage);
         } catch (Exception e) {
             request.setAttribute("msg","分页查询失败");
+        }
+        return "view/product_list";
+    }
+
+    @RequestMapping(value = "/searchByPage")
+    public String searchByPage(@RequestParam("pageNumber") String pageNumber,@RequestParam("searchContent") String searchContent,Model model) throws Exception{
+        try {
+            int pageNumber1 = Integer.parseInt(pageNumber);
+            int pageSize = Constant.PRODUCT_PAGE_SIZE;
+            Page<Product> productPage = productService.searchByPage(pageNumber1,pageSize,searchContent);
+            model.addAttribute("productPage",productPage);
+        } catch (NumberFormatException e) {
+            return "redirect:index";
         }
         return "view/product_list";
     }

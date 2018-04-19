@@ -110,4 +110,7 @@ public class OrderServiceImpl implements OrderService {
         orderDao.orderDeleteByOid(oid);
    }
 
+   public void orderPayDone(String oid) throws Exception{
+        orderDao.orderPayDone(oid,Constant.ORDER_UN_DELIVERY);
+   }
 }
