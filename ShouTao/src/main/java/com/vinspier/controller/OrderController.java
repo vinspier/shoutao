@@ -3,7 +3,6 @@ package com.vinspier.controller;
 import com.vinspier.pojo.*;
 
 import com.vinspier.service.OrderService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class OrderController {
                 model.addAttribute("order",order);
         } catch(Exception e) {
             request.setAttribute("msg","提交订单失败，请重新提交");
-            return "view/msg";
+            return "view/notification_message";
         }
         return "view/pay_information";
     }
@@ -138,6 +137,6 @@ public class OrderController {
         orderService.orderPayDone(oid);
         String message = "付款成功!      <a href=\"/order_list\">查看我的订单</a>";
         request.setAttribute("msg",message);
-        return "view/msg";
+        return "view/notification_message";
     }
 }
