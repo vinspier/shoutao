@@ -29,6 +29,24 @@
             width: 100%;
             height: 300px;
         }
+
+        .container .row div {
+            /* position:relative;
+            float:left; */
+        }
+
+        font {
+            color: #3164af;
+            font-size: 18px;
+            font-weight: normal;
+            padding: 0 10px;
+        }
+
+        #footer_bottom{
+            position: fixed;
+            bottom: 0px;
+        }
+
     </style>
 </head>
 
@@ -125,24 +143,24 @@
                 </tbody>
                 </c:forEach>
             </table>
-
         </div>
     </div>
 </div>
 
-
-<div style="text-align: center;margin-top: 5px;">
-    <ul class="list-inline">
-        <li><a>关于我们</a></li>
-        <li><a>联系我们</a></li>
-        <li><a>招贤纳士</a></li>
-        <li><a>法律声明</a></li>
-        <li><a>友情链接</a></li>
-        <li><a target="_blank">支付方式</a></li>
-        <li><a target="_blank">配送方式</a></li>
-        <li><a>服务声明</a></li>
-        <li><a>广告声明</a></li>
-    </ul>
+<div class="container-fluid" id="footer_bottom">
+    <div style="text-align: center;margin-top: 5px;">
+        <ul class="list-inline">
+            <li><a href="info.html">关于我们</a></li>
+            <li><a>联系我们</a></li>
+            <li><a>招贤纳士</a></li>
+            <li><a>法律声明</a></li>
+            <li><a>友情链接</a></li>
+            <li><a>支付方式</a></li>
+            <li><a>配送方式</a></li>
+            <li><a>服务声明</a></li>
+            <li><a>广告声明</a></li>
+        </ul>
+    </div>
 </div>
 
 </body>

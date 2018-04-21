@@ -9,9 +9,7 @@
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <introspection-schemas>*:shoutao</introspection-schemas>
       <resolve-scope>shoutao:</resolve-scope>
-      <unqualified-resolve-schemas>shoutao:</unqualified-resolve-schemas>
     </data-source>
   </component>
 </project>

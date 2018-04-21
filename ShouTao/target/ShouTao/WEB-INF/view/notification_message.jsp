@@ -1,19 +1,49 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2017/11/21 0021
-  Time: 13:50
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
 <html>
+
 <head>
-    <title>Title</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>信息提示</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css"/>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        #footer_bottom{
+            position: fixed;
+            bottom: 0px;
+        }
+    </style>
 </head>
+
 <body>
-<div align="center">
-    <h3>${msg}</h3>
-    <a href="/order_list">查看我的订单</a>
+<div class="container-fluid">
+    <%@include file="head.jsp" %>
+
+    <div class="container-fluid">
+        <h3>${msg}</h3>
+    </div>
+
 </div>
+<div class="container-fluid" id="footer_bottom" >
+    <div style="text-align: center;margin-top: 5px;" >
+        <ul class="list-inline">
+            <li><a href="info.html">关于我们</a></li>
+            <li><a>联系我们</a></li>
+            <li><a>招贤纳士</a></li>
+            <li><a>法律声明</a></li>
+            <li><a>友情链接</a></li>
+            <li><a>支付方式</a></li>
+            <li><a>配送方式</a></li>
+            <li><a>服务声明</a></li>
+            <li><a>广告声明</a></li>
+        </ul>
+    </div>
+</div>
+
 </body>
+
 </html>

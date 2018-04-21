@@ -26,7 +26,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    /*用户注册*/
+    /**用户注册*/
     @RequestMapping(value = "/Register")
     public String register(HttpServletRequest request, @ModelAttribute User user) throws ServletException,IOException{
         try {
@@ -38,7 +38,7 @@ public class UserController {
         return "view/notification_message";
     }
 
-    /*用户激活*/
+    /**用户激活*/
     @RequestMapping(value = "/Active")
     public String active(HttpServletRequest request) throws ServletException,IOException{
         try {
@@ -55,7 +55,7 @@ public class UserController {
         return "view/notification_message";
     }
 
-    /*用户登录*/
+    /**用户登录*/
     @RequestMapping(value = "/Login")
     public String login(HttpServletRequest request, HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password") String password) throws ServletException,IOException{
         try {
@@ -101,7 +101,7 @@ public class UserController {
             }
             else {
                 request.setAttribute("msg", "用户名或密码有误");
-                return "redirect:login";
+                return "view/login";
             }
 
         } catch (Exception e) {
@@ -140,6 +140,22 @@ public class UserController {
       userService.modifyUser(user);
       request.getSession().setAttribute("user",userService.getInformation(uid));
       request.setAttribute("msg","修改成功 <a href='http://localhost:8080/index'>返回首页</a>");
+      return "view/notification_message";
+  }
+
+  /** 修改用户密码*/
+  @RequestMapping(value = "/resetPassword")
+  public String modifyPassword(HttpServletRequest request,@RequestParam("resetPassword") String resetPassword) throws Exception{
+      try {
+          User user = (User)request.getSession().getAttribute("user");
+          userService.modifyPassword(user.getUid(),resetPassword);
+          User resetUser = userService.login(user.getUsername(),resetPassword);
+          request.getSession().setAttribute("user",resetUser);
+          request.setAttribute("msg","修改密码成功，<a href='http://localhost:8080/index'>返回首页</a>");
+      } catch (Exception e) {
+          request.setAttribute("msg","修改密码失败，请重新修改");
+          return "view/notification_message";
+      }
       return "view/notification_message";
   }
 }

@@ -96,4 +96,11 @@ public class ViewController {
         }
         return "view/orderSure_directBuy";
     }
+
+    @RequestMapping(value = "/changePassword")
+    public String changePassword(HttpServletRequest request,Model model) throws Exception{
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        return "view/change_password";
+    }
 }

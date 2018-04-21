@@ -39,6 +39,11 @@
             font-weight: normal;
             padding-right: 17px;
         }
+        #footer_bottom{
+            position: fixed;
+            top: auto;
+            bottom: 0px;
+        }
     </style>
 </head>
 <body>
@@ -47,12 +52,12 @@
      style="width:100%;height:460px;background:#FF2C4C url('${pageContext.request.contextPath}/images/loginbg.jpg') no-repeat;">
     <div class="row">
         <div class="col-md-7">
-            <!--<img src="${pageContext.request.contextPath}/image/login.jpg" width="500" height="330" alt="会员登录" title="会员登录">-->
+            <img src="${pageContext.request.contextPath}/image/login.jpg" width="500" height="330" alt="会员登录" title="会员登录">
         </div>
 
         <div class="col-md-5">
             <div style="width:440px;border:1px solid #E7E7E7;padding:20px 0 20px 30px;border-radius:5px;margin-top:60px;background:#fff;">
-                <font>会员登录</font>USER LOGIN ${msg }
+               <strong>会员登录</strong>&nbsp;&nbsp;&nbsp;&nbsp;<font>${msg}</font>
 
                 <div>&nbsp;</div>
                 <form class="form-horizontal" action="/Login" method="post">
@@ -112,22 +117,20 @@
     </div>
 </div>
 
-<div style="margin-top:50px;">
-    <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势"/>
-</div>
-
-<div style="text-align: center;margin-top: 5px;">
-    <ul class="list-inline">
-        <li><a>关于我们</a></li>
-        <li><a>联系我们</a></li>
-        <li><a>招贤纳士</a></li>
-        <li><a>法律声明</a></li>
-        <li><a>友情链接</a></li>
-        <li><a target="_blank">支付方式</a></li>
-        <li><a target="_blank">配送方式</a></li>
-        <li><a>服务声明</a></li>
-        <li><a>广告声明</a></li>
-    </ul>
+<div class="container-fluid" id="footer_bottom">
+    <div style="text-align: center;margin-top: 5px;">
+        <ul class="list-inline">
+            <li><a href="info.html">关于我们</a></li>
+            <li><a>联系我们</a></li>
+            <li><a>招贤纳士</a></li>
+            <li><a>法律声明</a></li>
+            <li><a>友情链接</a></li>
+            <li><a>支付方式</a></li>
+            <li><a>配送方式</a></li>
+            <li><a>服务声明</a></li>
+            <li><a>广告声明</a></li>
+        </ul>
+    </div>
 </div>
 </body>
 <script type="text/javascript">

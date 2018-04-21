@@ -42,5 +42,12 @@
         </set>
         WHERE uid = #{uid}
     </update>
+    <update id="modifyPassword">
+        UPDATE user_info
+        <set>
+            password = #{1}
+        </set>
+        WHERE uid = #{0}
+    </update>
 
 </mapper>

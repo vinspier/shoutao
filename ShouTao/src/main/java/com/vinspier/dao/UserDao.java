@@ -14,4 +14,5 @@ public interface UserDao {
     User getByUsernameAndPassword(String username,String password) throws Exception;
     User getUserByUid(String uid) throws Exception;
     void modify(User user) throws Exception;
+    void modifyPassword(String uid,String password) throws Exception;
 }

@@ -45,7 +45,23 @@
                 <li>欢迎:<a href="/userInformation?uid=${user.uid}">${user.username }</a></li>
                 <li><a href="/order_list">我的订单</a></li>
                 <li><a href="/cart">我的购物车</a></li>
-                <li><a href="${pageContext.request.contextPath }/logout">退出</a></li>
+                <li><div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">设置
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/userInformation?uid=${user.uid}">查看个人信息</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/changePassword">修改密码</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/logout">退出</a>
+                        </li>
+                    </ul>
+                </div></li>
             </c:if>
         </ol>
     </div>

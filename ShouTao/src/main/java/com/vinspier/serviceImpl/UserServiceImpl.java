@@ -56,4 +56,8 @@ public class UserServiceImpl implements UserService{
     public void modifyUser(User user) throws Exception{
         userDao.modify(user);
     }
+
+     public void modifyPassword(String uid,String password) throws Exception{
+        userDao.modifyPassword(uid,password);
+    }
 }

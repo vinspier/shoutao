@@ -20,6 +20,12 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
     <script src="../js/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        #footer_bottom{
+            top:auto;
+            bottom: 0px;
+        }
+    </style>
 </head>
 
 <body>
@@ -147,12 +153,7 @@
         时间：2015-12-30
         描述：页脚部分
     -->
-    <div class="container-fluid">
-        <div style="margin-top:50px;">
-            <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-                 title="我们的优势"/>
-        </div>
-
+    <div class="container-fluid" id="footer_bottom">
         <div style="text-align: center;margin-top: 5px;">
             <ul class="list-inline">
                 <li><a href="info.html">关于我们</a></li>

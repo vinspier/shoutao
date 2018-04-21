@@ -63,7 +63,7 @@
 
         .container .row div {
             /* position:relative;
- float:left; */
+            float:left; */
         }
 
         font {
@@ -72,6 +72,12 @@
             font-weight: normal;
             padding: 0 10px;
         }
+
+        #footer_bottom{
+            position: fixed;
+            bottom: 0px;
+        }
+
     </style>
 </head>
 
@@ -153,9 +159,7 @@
                 </tbody>
                 </c:forEach>
             </table>
-
         </div>
-
     </div>
 
     <div style="margin-right:130px;">
@@ -174,12 +178,7 @@
     </div>
     </c:if>
 
-    <div class="container-fluid">
-        <div style="margin-top:50px;">
-            <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-                 title="我们的优势"/>
-        </div>
-
+    <div class="container-fluid" id="footer_bottom">
         <div style="text-align: center;margin-top: 5px;">
             <ul class="list-inline">
                 <li><a href="info.html">关于我们</a></li>

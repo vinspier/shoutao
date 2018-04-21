@@ -11,4 +11,5 @@ public interface UserService {
     User login(String username, String password) throws Exception;
     User getInformation(String uid) throws Exception;
     void modifyUser(User user) throws Exception;
+    void modifyPassword(String uid,String password) throws Exception;
 }

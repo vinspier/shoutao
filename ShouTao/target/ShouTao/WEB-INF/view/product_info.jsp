@@ -30,6 +30,10 @@
             width: 100%;
             height: 300px;
         }
+        #footer_bottom{
+            position: fixed;
+            bottom: 0px;
+        }
     </style>
 </head>
 <body>
@@ -70,8 +74,8 @@
                         <input type="hidden" name="pid" value="${product.pid}">
                         <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
                             <input id="quantity" name="count" value="1" maxlength="4" size="10" type="text">
-                            <input type="button" id="add" onclick="addUp()" name="add" value="+" style="width: 30px">
                             <input type="button" id="delete" onclick="cutDown()" name="delete" value="-" style="width: 30px">
+                            <input type="button" id="add" onclick="addUp()" name="add" value="+" style="width: 30px">
                         </div>
                     </form>
                     <form action="/makeSureDirectBuy" method="post" id="directBuyForm">
@@ -113,23 +117,25 @@
         </div>
     </div>
 
-    <div style="margin-top:50px;">
-        <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-             title="我们的优势"/>
-    </div>
+    <div class="container-fluid" id="footer_bottom">
+        <div style="margin-top:50px;">
+            <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
+                 title="我们的优势"/>
+        </div>
 
-    <div style="text-align: center;margin-top: 5px;">
-        <ul class="list-inline">
-            <li><a>关于我们</a></li>
-            <li><a>联系我们</a></li>
-            <li><a>招贤纳士</a></li>
-            <li><a>法律声明</a></li>
-            <li><a>友情链接</a></li>
-            <li><a target="_blank">支付方式</a></li>
-            <li><a target="_blank">配送方式</a></li>
-            <li><a>服务声明</a></li>
-            <li><a>广告声明</a></li>
-        </ul>
+        <div style="text-align: center;margin-top: 5px;">
+            <ul class="list-inline">
+                <li><a href="info.html">关于我们</a></li>
+                <li><a>联系我们</a></li>
+                <li><a>招贤纳士</a></li>
+                <li><a>法律声明</a></li>
+                <li><a>友情链接</a></li>
+                <li><a>支付方式</a></li>
+                <li><a>配送方式</a></li>
+                <li><a>服务声明</a></li>
+                <li><a>广告声明</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 </body>
