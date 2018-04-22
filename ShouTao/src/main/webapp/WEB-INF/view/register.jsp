@@ -46,6 +46,43 @@
         }
     </style>
     <script type="text/javascript">
+        window.onload = function () {
+            createVerificationCode();
+        }
+        function createVerificationCode(){
+            var createVerificationCode = "";
+            var codeLength = 6;
+            var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+            for(var i = 0; i < codeLength; i++){
+                var charNum = Math.floor(Math.random() * 52);
+                createVerificationCode += codeChars[charNum];
+            }
+            console.log(createVerificationCode);
+            $("#verificationCode").val(createVerificationCode);
+        }
+
+        function validateVerificationCode(){
+            var submitAction = true;
+            var inputVerificationCode = $("#inputVerificationCode").val().toUpperCase();
+            var verificationCode = $("#verificationCode").val().toUpperCase();
+            if (inputVerificationCode == ""){
+                submitAction = false;
+                alert("请输入验证码");
+                $("#inputVerificationCode").focus();
+            }else {
+                if(inputVerificationCode != verificationCode){
+                    submitAction = false;
+                    alert("验证码输入错误");
+                    createVerificationCode();
+                    $("#inputVerificationCode").focus();
+                }
+            }
+            if(submitAction){
+                submitForm();
+            }
+        }
         function checkedItems() {
             var empty = "";
             var passwordSet = $("#inputPassword3").val();
@@ -75,7 +112,7 @@
             }
 
             if(empty == ""){
-                submitForm();
+                validateVerificationCode();
             }
 
         }
@@ -159,15 +196,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="date" class="col-sm-2 control-label">验证码</label>
+                    <label for="inputVerificationCode" class="col-sm-2 control-label">验证码</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control">
-
+                        <input type="text" class="form-control" id="inputVerificationCode">
                     </div>
-                    <div class="col-sm-2">
-                        <img src="../image/captcha.jhtml"/>
+                    <div class="col-sm-3">
+                        <input type="text" readonly="readonly" class="form-control" id="verificationCode">
                     </div>
-
                 </div>
 
                 <div class="form-group">
@@ -185,13 +220,6 @@
     </div>
 </div>
 
-
-<div class="container-fluid" id="footer_bottom">
-    <div style="margin-top:50px;">
-        <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-             title="我们的优势"/>
-    </div>
-
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
             <li><a href="info.html">关于我们</a></li>
@@ -205,7 +233,6 @@
             <li><a>广告声明</a></li>
         </ul>
     </div>
-</div>
 </body>
 </html>
 

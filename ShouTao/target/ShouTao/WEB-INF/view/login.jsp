@@ -45,6 +45,53 @@
             bottom: 0px;
         }
     </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            createVerificationCode();
+            var val = "${cookie.saveName.value}";
+            if(val != ""){
+                document.getElementById("username").value = decodeURI(val);
+            }
+        }
+        function createVerificationCode(){
+            var createVerificationCode = "";
+            var codeLength = 6;
+            var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+            for(var i = 0; i < codeLength; i++){
+                var charNum = Math.floor(Math.random() * 52);
+                createVerificationCode += codeChars[charNum];
+            }
+            console.log(createVerificationCode);
+            $("#verificationCode").val(createVerificationCode);
+        }
+
+        function validateVerificationCode(){
+            var submitAction = true;
+            var inputVerificationCode = $("#inputVerificationCode").val().toUpperCase();
+            var verificationCode = $("#verificationCode").val().toUpperCase();
+            if (inputVerificationCode == ""){
+                submitAction = false;
+                alert("请输入验证码");
+                $("#inputVerificationCode").focus();
+            }else {
+                if(inputVerificationCode != verificationCode){
+                    submitAction = false;
+                    alert("验证码输入错误");
+                    createVerificationCode();
+                    $("#inputVerificationCode").focus();
+                }
+            }
+            if(submitAction){
+                loginFormSubmit();
+            }
+        }
+
+        function loginFormSubmit() {
+            document.getElementById("loginForm").submit();
+        }
+    </script>
 </head>
 <body>
 <%@include file="head.jsp" %>
@@ -60,8 +107,7 @@
                <strong>会员登录</strong>&nbsp;&nbsp;&nbsp;&nbsp;<font>${msg}</font>
 
                 <div>&nbsp;</div>
-                <form class="form-horizontal" action="/Login" method="post">
-
+                <form class="form-horizontal" id="loginForm" action="/Login" method="post">
                     <div class="form-group">
                         <label for="username" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-6">
@@ -76,14 +122,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">验证码</label>
+                        <label for="inputVerificationCode" class="col-sm-2 control-label">验证码</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="inputPassword3" placeholder="请输入验证码">
+                            <input type="text" class="form-control" id="inputVerificationCode" placeholder="请输入验证码">
                         </div>
                         <div class="col-sm-3">
-                            <img src="../image/captcha.jhtml"/>
+                            <input type="text" readonly="readonly" class="form-control" id="verificationCode">
                         </div>
-
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -99,9 +144,11 @@
                             </div>
                         </div>
                     </div>
+                </form>
+                <form class="form-horizontal">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <input type="submit" width="100" value="登录" name="submit" border="0"
+                            <input type="button" onclick="validateVerificationCode()" width="100" value="登录" name="submit" border="0"
                                    style="background: url('${pageContext.request.contextPath}/images/login.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                            height:35px;width:100px;color:white;">
                             <a href="/register">
@@ -117,7 +164,7 @@
     </div>
 </div>
 
-<div class="container-fluid" id="footer_bottom">
+
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
             <li><a href="info.html">关于我们</a></li>
@@ -131,10 +178,6 @@
             <li><a>广告声明</a></li>
         </ul>
     </div>
-</div>
+
 </body>
-<script type="text/javascript">
-    var val = "${cookie.saveName.value}";
-    document.getElementById("username").value = decodeURI(val);
-</script>
 </html>
