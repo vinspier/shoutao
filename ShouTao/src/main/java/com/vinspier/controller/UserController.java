@@ -1,6 +1,8 @@
 package com.vinspier.controller;
 
+import com.vinspier.pojo.Role;
 import com.vinspier.pojo.User;
+import com.vinspier.service.RoleService;
 import com.vinspier.service.UserService;
 import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
     /**用户注册*/
     @RequestMapping(value = "/Register")
     public String register(HttpServletRequest request, @ModelAttribute User user) throws ServletException,IOException{
         try {
+            user.setRoleId("1");
             userService.register(user);
             request.setAttribute("msg","恭喜你,注册成功,请登录邮箱完成激活");
         } catch (Exception e) {
@@ -60,49 +65,46 @@ public class UserController {
     public String login(HttpServletRequest request, HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password") String password) throws ServletException,IOException{
         try {
             User loginUser = userService.login(username,password);
-            if(loginUser != null) {
-                request.getSession().setAttribute("user", loginUser);
-                if (Constant.USER_IS_ACTIVE != loginUser.getState()) {
-                    String emailMsg="恭喜"+loginUser.getRealname()+":成为我们商城的一员,请登录邮箱</a>激活";
-                    System.out.println(emailMsg);
-                    request.setAttribute("msg", "此用户未激活，请先登录邮箱激活后登录");
-                    return "view/notification_message";
-                }
-                //将登陆的用户保存在session中
-                request.getSession().setAttribute("user",loginUser);
+                if (loginUser != null) {
+                    request.getSession().setAttribute("user", loginUser);
+                    if (Constant.USER_IS_ACTIVE != loginUser.getState()) {
+                        String emailMsg = "恭喜" + loginUser.getRealname() + ":成为我们商城的一员,请登录邮箱</a>激活";
+                        System.out.println(emailMsg);
+                        request.setAttribute("msg", "此用户未激活，请先登录邮箱激活后登录");
+                        return "view/notification_message";
+                    }
+                    //将登陆的用户保存在session中
+                    request.getSession().setAttribute("user", loginUser);
 
 
-                //判断是否记住用户名
-                if (Constant.SAVE_NAME.equals(request.getParameter("saveName"))) {
-                    Cookie saveNameCookie = new Cookie("saveName", URLEncoder.encode(username, "utf-8"));
-                    saveNameCookie.setPath(request.getContextPath() + "/");
-                    saveNameCookie.setMaxAge(Integer.MAX_VALUE);
-                    response.addCookie(saveNameCookie);
+                    //判断是否记住用户名
+                    if (Constant.SAVE_NAME.equals(request.getParameter("saveName"))) {
+                        Cookie saveNameCookie = new Cookie("saveName", URLEncoder.encode(username, "utf-8"));
+                        saveNameCookie.setPath(request.getContextPath() + "/");
+                        saveNameCookie.setMaxAge(Integer.MAX_VALUE);
+                        response.addCookie(saveNameCookie);
+                    } else {
+                        Cookie saveNameCookie = new Cookie("saveName", "");
+                        saveNameCookie.setPath(request.getContextPath() + "/");
+                        saveNameCookie.setMaxAge(0);
+                        response.addCookie(saveNameCookie);
+                    }
+                    //判断自动登录
+                    if (Constant.AUTO_LOGIN.equals(request.getParameter("autoLogin"))) {
+                        Cookie autoLoginCookie = new Cookie("autoLoginCookie", URLEncoder.encode(loginUser.getUsername(), "utf-8") + "@" + URLEncoder.encode(loginUser.getPassword(), "utf-8"));
+                        autoLoginCookie.setPath(request.getContextPath() + "/");
+                        autoLoginCookie.setMaxAge(60 * 60 * 24 * 7);
+                        response.addCookie(autoLoginCookie);
+                    } else {
+                        Cookie autoLoginCookie = new Cookie("autoLoginCookie", "");
+                        autoLoginCookie.setPath(request.getContextPath() + "/");
+                        autoLoginCookie.setMaxAge(0);
+                        response.addCookie(autoLoginCookie);
+                    }
+                } else {
+                    request.setAttribute("msg", "用户名或密码有误");
+                    return "view/login";
                 }
-                else{
-                    Cookie saveNameCookie = new Cookie("saveName","");
-                    saveNameCookie.setPath(request.getContextPath()+"/");
-                    saveNameCookie.setMaxAge(0);
-                    response.addCookie(saveNameCookie);
-                }
-                //判断自动登录
-                if(Constant.AUTO_LOGIN.equals(request.getParameter("autoLogin"))){
-                    Cookie autoLoginCookie = new Cookie("autoLoginCookie",URLEncoder.encode(loginUser.getUsername(),"utf-8")+"@"+URLEncoder.encode(loginUser.getPassword(),"utf-8"));
-                    autoLoginCookie.setPath(request.getContextPath()+"/");
-                    autoLoginCookie.setMaxAge(60*60*24*7);
-                    response.addCookie(autoLoginCookie);
-                }
-                else {
-                    Cookie autoLoginCookie = new Cookie("autoLoginCookie","");
-                    autoLoginCookie.setPath(request.getContextPath()+"/");
-                    autoLoginCookie.setMaxAge(0);
-                    response.addCookie(autoLoginCookie);
-                }
-            }
-            else {
-                request.setAttribute("msg", "用户名或密码有误");
-                return "view/login";
-            }
 
         } catch (Exception e) {
             request.setAttribute("msg","登录失败");

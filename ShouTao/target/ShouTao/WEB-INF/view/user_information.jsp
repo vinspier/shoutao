@@ -138,10 +138,6 @@
 </div>
 
 <div class="container-fluid" id="footer_bottom" >
-    <div style="margin-top:50px;" align="center">
-        <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势" style="align-self: center"/>
-    </div>
-
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
             <li><a href="info.html">关于我们</a></li>

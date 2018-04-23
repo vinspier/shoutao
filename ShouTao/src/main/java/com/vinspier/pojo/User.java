@@ -18,6 +18,8 @@ public class User {
     private Integer state;
     private String code;
 
+    private String roleId;
+
     public User() {
     }
 
@@ -107,5 +109,13 @@ public class User {
 
     public void setReceivedAddress(String receivedAddress) {
         this.receivedAddress = receivedAddress;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 }

@@ -5,10 +5,10 @@
 <mapper namespace="com.vinspier.dao.UserDao">
 
     <insert id="save" parameterType="user">
-        INSERT INTO user_info (uid,username,password,realname,telephone,birthday,sex,state,code,email,receivedAddress)
+        INSERT INTO user_info (uid,username,password,realname,telephone,birthday,sex,state,code,email,receivedAddress,roleId)
         VALUES (#{uid,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
         #{realname,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},#{birthday,jdbcType=VARCHAR},
-        #{sex,jdbcType=VARCHAR},#{state,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{receivedAddress,jdbcType=VARCHAR});
+        #{sex,jdbcType=VARCHAR},#{state,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{receivedAddress,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR});
     </insert>
 
     <select id="getByUsernameAndPassword"  resultType="user">

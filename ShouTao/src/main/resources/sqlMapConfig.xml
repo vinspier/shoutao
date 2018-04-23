@@ -31,6 +31,8 @@
         <typeAlias type="com.vinspier.pojo.Order" alias="order"/>
         <typeAlias type="com.vinspier.pojo.OrderItem" alias="orderItem"/>
         <typeAlias type="com.vinspier.pojo.CartItem" alias="cartItem"/>
+        <typeAlias type="com.vinspier.pojo.Role" alias="role"/>
+        <typeAlias type="com.vinspier.pojo.Administrator" alias="administrator"/>
     </typeAliases>
     <mappers>
         <mapper resource="com/vinspier/daoMapper/UserMapper.xml"/>
@@ -39,5 +41,7 @@
         <mapper resource="com/vinspier/daoMapper/OrderMapper.xml"/>
         <mapper resource="com/vinspier/daoMapper/OrderMapper.xml"/>
         <mapper resource="com/vinspier/daoMapper/CartMapper.xml"/>
+        <mapper resource="com/vinspier/daoMapper/RoleMapper.xml"/>
+        <mapper resource="com/vinspier/daoMapper/AdministratorMapper.xml"/>
     </mappers>
 </configuration>

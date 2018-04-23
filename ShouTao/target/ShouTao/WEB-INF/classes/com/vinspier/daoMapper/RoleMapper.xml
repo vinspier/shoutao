@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vinspier.dao.RoleDao">
+
+    <select id="getById" parameterType="String" resultType="role">
+        SELECT * FROM role WHERE roleid = #{0}
+    </select>
+
+
+</mapper>

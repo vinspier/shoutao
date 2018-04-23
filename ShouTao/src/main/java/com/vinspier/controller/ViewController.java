@@ -1,5 +1,6 @@
 package com.vinspier.controller;
 
+import com.vinspier.pojo.Administrator;
 import com.vinspier.pojo.CartItem;
 import com.vinspier.pojo.Product;
 import com.vinspier.pojo.User;
@@ -37,6 +38,15 @@ public class ViewController {
             return "redirect:index";
         }
         return "view/login";
+    }
+
+    @RequestMapping(value = "/adminLogin")
+    public String admin_login_index(HttpServletRequest request) {
+        Administrator admin = (Administrator) request.getSession().getAttribute("admin");
+        if (admin != null) {
+            return "redirect:adminIndex";
+        }
+        return "admin/login";
     }
 
     @RequestMapping(value = "/index")

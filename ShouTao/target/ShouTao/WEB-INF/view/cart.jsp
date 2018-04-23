@@ -178,7 +178,7 @@
     </div>
     </c:if>
 </div>
-
+<div class="container-fluid" id="footer_bottom" >
         <div style="text-align: center;margin-top: 5px;">
             <ul class="list-inline">
                 <li><a href="info.html">关于我们</a></li>
@@ -192,7 +192,7 @@
                 <li><a>广告声明</a></li>
             </ul>
         </div>
-
+</div>
 </body>
 
 <script type="text/javascript">
