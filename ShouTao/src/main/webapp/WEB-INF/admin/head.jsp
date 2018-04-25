@@ -118,16 +118,16 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看上架商品</a>
+                                    <a role="menuitem" tabindex="-1" href="/getProductToPage?pageNumber=1&flag=0">管理上架商品</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看下架商品</a>
+                                    <a role="menuitem" tabindex="-1" href="/getProductToPage?pageNumber=1&flag=1">管理下架商品</a>
                                 </li>
                                 <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="/">上传商品</a>
+                                <a role="menuitem" tabindex="-1" href="/#">上传商品</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看所有商品</a>
+                                    <a role="menuitem" tabindex="-1" href="/getProductToPage?pageNumber=1&flag=2">管理所有商品</a>
                                 </li>
                             </ul>
                         </div>

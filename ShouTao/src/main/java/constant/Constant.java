@@ -29,13 +29,15 @@ public interface Constant {
 	//热门
 	int PRODUCT_IS_HOT = 1;
 
-	//上架
+	//上架商品
 	int PRODUCT_FLAG_UP = 0;
-	//下架
+	//下架商品
 	int PRODUCT_FLAG_DOWN = 1;
+	/**数据库里所有商品*/
+	int PRODUCT_FLAG_ALL = 2;
 
 	//每页展示的条数
-	int PRODUCT_PAGE_SIZE = 12;
+	int PRODUCT_PAGE_SIZE = 18;
 
 	/**未付款*/
 	int ORDER_UN_PAY = 0;

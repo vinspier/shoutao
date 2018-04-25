@@ -18,13 +18,43 @@
     <select id="getTotalRecord"  resultType="java.lang.Integer">
         SELECT COUNT(*) FROM product WHERE cid = #{0} AND pflag = #{1}
     </select>
+    <select id="getTotalRecordCount"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM product
+    </select>
+    <select id="getTotalRecordState" parameterType="int" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM product WHERE pflag = #{0}
+    </select>
 
     <select id="getByPage"  resultType="product">
         SELECT * FROM product WHERE cid = #{0} AND pflag = #{1} limit #{2},#{3}
+    </select>
+    <select id="getByPage_allPflag"  resultType="product">
+        SELECT * FROM product limit #{0},#{1}
+    </select>
+    <select id="getByPage_pflagCondition"  resultType="product">
+        SELECT * FROM product WHERE pflag = #{0} limit #{1},#{2}
     </select>
 
     <select id="searchByPage"  resultType="product">
         SELECT * FROM product WHERE pname LIKE "%"#{0}"%" AND pflag = #{1} limit #{2},#{3}
     </select>
+
+    <update id="resetPflag" parameterType="int">
+        UPDATE product
+        <set>
+            pflag = #{1}
+        </set>
+        WHERE pid = #{0}
+    </update>
+    <update id="resetIsHot" parameterType="int">
+        UPDATE product
+        <set>
+            is_hot = #{1}
+        </set>
+        WHERE pid = #{0}
+    </update>
+    <delete id="deleteProduct" parameterType="String">
+        DELETE FROM product WHERE pid = #{0}
+    </delete>
 
 </mapper>

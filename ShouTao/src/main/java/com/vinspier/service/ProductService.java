@@ -14,5 +14,9 @@ public interface ProductService {
     List<Product> findNew() throws Exception;
     Product getById(String pid) throws  Exception;
     Page<Product> getByPage(int pageNumber, int pageSize, String cid) throws Exception;
+    Page<Product> getProductToPage(int pflag,int pageNumber, int pageSize) throws Exception;
     Page<Product> searchByPage(int pageNumber, int pageSize, String searchContent) throws Exception;
+    void resetPflag(String pid,int pflag) throws Exception;
+    void resetIsHot(String pid,int is_hot) throws Exception;
+    void deleteProduct(String pid) throws Exception;
 }

@@ -35,6 +35,33 @@
             bottom: 0px;
         }
     </style>
+    <script type="text/javascript">
+        function product_down(pid,flag) {
+            if(confirm("确定下架该商品?")){
+                location.href = "/admin_resetPflag?pid="+pid+"&flag="+flag;
+            }
+        }
+        function product_up(pid,flag) {
+            if(confirm("确定上架该商品?")){
+                location.href = "/admin_resetPflag?pid="+pid+"&flag="+flag;
+            }
+        }
+        function product_resetNotHot(pid,is_hot) {
+            if(confirm("确定取消商品热门属性?")){
+                location.href = "/admin_resetIsHot?pid="+pid+"&is_hot="+is_hot;
+            }
+        }
+        function product_resetHot(pid,is_hot) {
+            if(confirm("确定恢复商品热门?")){
+                location.href = "/admin_resetIsHot?pid="+pid+"&is_hot="+is_hot;
+            }
+        }
+        function product_delete(pid) {
+            if(confirm("确定要从商城中删除该商品?")){
+                location.href = "/admin_deleteProduct?pid="+pid;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -43,8 +70,7 @@
 <div class="container">
     <div class="row">
         <div style="border: 1px solid #e4e4e4;width:930px;margin-bottom:10px;margin:0 auto;padding:10px;margin-bottom:10px;">
-            <a href="/index">首页&nbsp;&nbsp;&gt;</a>
-            <a href="/getByPage?pageNumber=1&cid=${category.cid}">${category.cname}&nbsp;&nbsp;&gt;</a>
+            <a href="/adminIndex">首页&nbsp;&nbsp;&gt;</a>
             <a>${fn:substring(product.pname,0 ,10 )}···</a>
         </div>
 
@@ -72,24 +98,40 @@
 
                     <form action="/addToCart" method="post" id="cartMessage">
                         <input type="hidden" name="pid" value="${product.pid}">
-                        <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
-                            <input id="quantity" name="count" value="1" maxlength="4" size="10" type="text">
-                            <input type="button" id="delete" onclick="cutDown()" name="delete" value="-" style="width: 30px">
-                            <input type="button" id="add" onclick="addUp()" name="add" value="+" style="width: 30px">
+                        <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;"><strong>商品状态：</strong>
+                            <c:if test="${product.pflag == 0}">上架中</c:if>
+                            <c:if test="${product.pflag == 1}">已下架</c:if>
                         </div>
-                    </form>
-                    <form action="/makeSureDirectBuy" method="post" id="directBuyForm">
-                        <input type="hidden" name="pid" value="${product.pid}">
                     </form>
 
                     <div style="margin:20px 0 10px 0;;text-align: center;">
-                        <a href="javascript:void(0)" onclick="subForm()">
+                        <c:if test="${product.pflag == 0}">
+                            <a href="javascript:void(0)" onclick="product_down('${product.pid}','1')">
+                                <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
+                                       value="下架" type="button">
+                            </a>
+                        </c:if>
+                        <c:if test="${product.pflag == 1}">
+                            <a href="javascript:void(0)" onclick="product_up('${product.pid}','0')">
+                                <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
+                                       value="上架" type="button">
+                            </a>
+                        </c:if>
+                        <c:if test="${product.is_hot == 0}">
+                            <a href="javascript:void(0)" onclick="product_resetHot('${product.pid}','1')">
+                                <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
+                                       value="设置热门商品" type="button">
+                            </a>
+                        </c:if>
+                        <c:if test="${product.is_hot == 1}">
+                            <a href="javascript:void(0)" onclick="product_resetNotHot('${product.pid}','0')">
+                                <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
+                                       value="取消热门商品" type="button">
+                            </a>
+                        </c:if>
+                        <a href="javascript:void(0)" onclick="product_delete('${product.pid}','1')">
                             <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
-                                   value="加入购物车" type="button">
-                        </a>
-                        <a href="javascript:void(0)" onclick="subDirectBuyForm()">
-                            <input style="background: url('${pageContext.request.contextPath}/images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
-                                   value="直接购买" type="button">
+                                   value="删除商品" type="button">
                         </a>
                     </div>
 
@@ -119,8 +161,6 @@
 
     <div class="container-fluid" id="footer_bottom">
         <div style="margin-top:50px;">
-            <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-                 title="我们的优势"/>
         </div>
 
         <div style="text-align: center;margin-top: 5px;">

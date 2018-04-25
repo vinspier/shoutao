@@ -172,10 +172,42 @@ public class AdminController {
         return "admin/notification_message";
     }
 
+    @RequestMapping(value = "/admin_resetPflag")
+    public String admin_resetPflag(HttpServletRequest request,@RequestParam("pid") String pid,@RequestParam("flag") String pflag)throws Exception{
+        try {
+            productService.resetPflag(pid,Integer.parseInt(pflag));
+            request.setAttribute("msg","操作成功");
+        } catch (Exception e) {
+            request.setAttribute("msg","操作失败 请重试");
+        }
+        return "admin/notification_message";
+    }
+    @RequestMapping(value = "/admin_resetIsHot")
+    public String admin_resetIsHot(HttpServletRequest request,@RequestParam("pid") String pid,@RequestParam("is_hot") String is_hot)throws Exception{
+        try {
+            productService.resetIsHot(pid,Integer.parseInt(is_hot));
+            request.setAttribute("msg","操作成功");
+        } catch (Exception e) {
+            request.setAttribute("msg","操作失败 请重试");
+        }
+        return "admin/notification_message";
+    }
+
     @RequestMapping(value = "/admin_deleteUser")
     public String admin_deleteUser(HttpServletRequest request,@RequestParam("uid") String uid) throws Exception{
         userService.deleteUserByUid(uid);
         request.setAttribute("msg","删除成功，<a href='/admin_checkAllUsersByState?state=2'>返回</a>查看用户列表");
+        return "admin/notification_message";
+    }
+
+    @RequestMapping(value = "/admin_deleteProduct")
+    public String admin_deleteProduct(HttpServletRequest request,@RequestParam("pid") String pid)throws Exception{
+        try {
+            productService.deleteProduct(pid);
+            request.setAttribute("msg","删除成功");
+        } catch (Exception e) {
+            request.setAttribute("msg","删除失败 请重新尝试");
+        }
         return "admin/notification_message";
     }
 

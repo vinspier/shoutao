@@ -48,13 +48,20 @@
                         <li><a href="/index">首页</a></li>
                     </ol>
                 </div>--%>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <strong><span class="navbar-brand">所有<c:if test="${flag == 0}">上架的</c:if><c:if test="${flag == 1}">下架的</c:if><c:if test="${flag == 0}"></c:if>商品：${total}个</span></strong>
+                </div>
+            </div>
+        </nav>
 
     <c:forEach items="${productPage.data}" var="p">
         <div class="col-md-2">
-            <a href="/getByPid?pid=${p.pid}">
+            <a href="/admin_getByPid?pid=${p.pid}">
                 <img src="../${p.pimage}" width="170" height="170" style="display: inline-block;">
             </a>
-            <p><a href="/getByPid?pid=${p.pid}" style='color:green'>${fn:substring(p.pname,0,10)}..</a></p>
+            <p><a href="/admin_getByPid?pid=${p.pid}" style='color:green'>${fn:substring(p.pname,0,10)}..</a></p>
             <p><font color="#FF0000">商城价：&yen;${p.shop_price}</font></p>
         </div>
     </c:forEach>
@@ -77,7 +84,7 @@
         <%-- 不是第一页 --%>
         <c:if test="${productPage.pageNumber != 1 }">
             <li>
-                <a href="/getByPage?pageNumber=${productPage.pageNumber-1}&cid=${param.cid}" aria-label="Previous">
+                <a href="/getProductToPage?pageNumber=${productPage.pageNumber-1}&flag=${flag}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -92,7 +99,7 @@
             </c:if>
             <c:if test="${productPage.pageNumber != n}">
                 <li>
-                    <a href="/getByPage?pageNumber=${n}&cid=${param.cid}">${n}</a>
+                    <a href="/getProductToPage?pageNumber=${n}&flag=${flag}">${n}</a>
                 </li>
             </c:if>
         </c:forEach>
@@ -109,7 +116,7 @@
         <%-- 不是最后一页 --%>
         <c:if test="${productPage.pageNumber != productPage.totalPage }">
             <li>
-                <a href="/getByPage?pageNumber=${productPage.pageNumber+1}&cid=${param.cid}" aria-label="Next">
+                <a href="/getProductToPage?pageNumber=${productPage.pageNumber+1}&flag=${flag}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -139,8 +146,6 @@
 </div>
 <div class="container-fluid" id="footer_bottom">
     <div style="margin-top:50px;">
-        <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-             title="我们的优势"/>
     </div>
 
     <div style="text-align: center;margin-top: 5px;">

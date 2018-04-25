@@ -14,6 +14,13 @@ public interface ProductDao {
     List<Product> findNewProducts(int pflag) throws Exception;
     Product getById(String pid) throws Exception;
     int getTotalRecord(String cid,int pflag) throws Exception;
+    int getTotalRecordState(int pflag) throws Exception;
+    int getTotalRecordCount() throws  Exception;
     List<Product> getByPage(String cid,int pflag,int startIndex,int pageSize) throws Exception;
+    List<Product> getByPage_allPflag(int startIndex,int pageSize) throws Exception;
+    List<Product> getByPage_pflagCondition(int pflag,int startIndex,int pageSize) throws Exception;
     List<Product> searchByPage(String searchContent,int pflag,int startIndex,int pageSize) throws Exception;
+    void resetPflag(String pid,int pflag) throws Exception;
+    void resetIsHot(String pid,int is_hot) throws Exception;
+    void deleteProduct(String pid) throws Exception;
  }
