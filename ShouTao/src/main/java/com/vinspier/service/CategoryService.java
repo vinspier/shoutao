@@ -10,4 +10,7 @@ import java.util.List;
 public interface CategoryService {
     List<Category> findAll() throws Exception;
     Category getByCid(String cid) throws Exception;
+    void addCategory(Category category) throws Exception;
+    void deleteCategoryByCid(String cid) throws Exception;
+    int checkName(String name) throws Exception;
 }

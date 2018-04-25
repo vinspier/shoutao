@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>用户信息</title>
+    <title>商品分类表信息</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css"/>
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -42,16 +42,16 @@
             padding: 0 10px;
         }
 
-        #footer_bottom{
+        #footer_bottom {
             position: fixed;
             bottom: 0px;
         }
 
     </style>
     <script type="text/javascript">
-        function admin_activeUser(uid,username) {
-            if(confirm("确认要激活  "+username+"  用户吗")){
-                location.href = "/admin_activeUser?uid="+uid;
+        function category_delete(cid, cname) {
+            if (confirm("确认要删除  " + cname + "  分类吗")) {
+                location.href = "/category_delete?cid=" + cid;
             }
         }
     </script>
@@ -67,47 +67,38 @@
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <c:if test="${state == 0}">
-                        <strong><span class="navbar-brand">未激活状态的用户：${users.size()}</span></strong>
-                        </c:if>
-                        <c:if test="${state == 1}">
-                            <strong><span class="navbar-brand">已激活状态的用户：${users.size()}</span></strong>
-                        </c:if>
-                        <c:if test="${state == 2}">
-                            <strong><span class="navbar-brand">所有状态的用户：${users.size()}</span></strong>
-                        </c:if>
+                        <strong><span class="navbar-brand">所有分类信息：${categories.size()}个</span></strong>
+                        <span>
+                            <a href="/category_add_form">
+                                 <input type="button" width="100" value="添加分类" name="add" border="0"
+                               style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+                                       height:35px;width:100px;color:white;">
+                            </a>
+                        </span>
                     </div>
                 </div>
             </nav>
             <hr/>
-            <c:forEach items="${users}" var="user" varStatus="indexOf">
+            <c:forEach items="${categories}" var="cat" varStatus="indexOf">
             <table class="table table-bordered">
                 <tbody>
                 <tr class="warning">
-                    <th style="text-align: center">用户编号</th>
-                    <th style="text-align: center">用户名称</th>
-                    <th style="text-align: center">用户密码</th>
-                    <th style="text-align: center">用户状态</th>
-                    <th style="text-align: center">用户余额</th>
+                    <th style="text-align: center">分类编号</th>
+                    <th style="text-align: center">分类名称</th>
+                    <th style="text-align: center">操作</th>
                 </tr>
                 <tr class="active">
-                    <td width="15%" style="text-align: center">
-                       ${user.uid}
+                    <td width="25%" style="text-align: center">
+                            ${cat.cid}
                     </td>
                     <td width="25%" style="text-align: center">
-                        <a href="/admin_userInformation?uid=${user.uid}">${user.username}</a>
+                        <a href="getByPage?pageNumber=1&cid=${cat.cid}">
+                                ${cat.cname}
+                        </a>
                     </td>
                     <td width="25%" style="text-align: center">
-                            ${user.password}
-                    </td>
-                    <td width="25%" style="text-align: center">
-                        <c:if test="${user.state == 0}">
-                            <a href="javascript:void(0)" onclick="admin_activeUser('${user.uid}','${user.username}')">未激活</a>
-                        </c:if>
-                        <c:if test="${user.state == 1}"><a>已激活</a></c:if>
-                    </td>
-                    <td width="25%" style="text-align: center">
-                            <a href="/check_balance?uid=${user.uid}">${user.balance}</a>
+                        <a href="javascript:void(0)" onclick="category_delete('${cat.cid}','${cat.cname}')">删除</a>
+                        <a href="javascript:void(0)" onclick="">修改</a>
                     </td>
                 </tr>
                 </tbody>

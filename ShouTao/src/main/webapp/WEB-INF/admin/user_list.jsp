@@ -48,6 +48,13 @@
         }
 
     </style>
+    <script type="text/javascript">
+        function admin_activeUser(uid,username) {
+            if(confirm("确认要激活  "+username+"  用户吗")){
+                location.href = "/admin_activeUser?uid="+uid;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -61,13 +68,13 @@
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <c:if test="${state == 0}">
-                        <strong><span class="navbar-brand">未激活状态的用户：</span></strong>
+                        <strong><span class="navbar-brand">未激活状态的用户：${users.size()}</span></strong>
                         </c:if>
                         <c:if test="${state == 1}">
-                            <strong><span class="navbar-brand">已激活状态的用户：</span></strong>
+                            <strong><span class="navbar-brand">已激活状态的用户：${users.size()}</span></strong>
                         </c:if>
                         <c:if test="${state == 2}">
-                            <strong><span class="navbar-brand">所有状态的用户：</span></strong>
+                            <strong><span class="navbar-brand">所有状态的用户：${users.size()}</span></strong>
                         </c:if>
                     </div>
                 </div>
@@ -95,28 +102,13 @@
                     </td>
                     <td width="25%" style="text-align: center">
                         <c:if test="${user.state == 0}">
-                            <a>未激活</a>
+                            <a href="javascript:void(0)" onclick="admin_activeUser('${user.uid}','${user.username}')">未激活</a>
                         </c:if>
                         <c:if test="${user.state == 1}"><a>已激活</a></c:if>
                     </td>
                     <td width="25%" style="text-align: center">
                             <a href="/check_balance?uid=${user.uid}">${user.balance}</a>
                     </td>
-                    <c:if test="${roles[indexOf.count-1].roleId == '1'}">
-                    <td width="25%" style="text-align: center">
-                        普通管理员
-                    </td>
-                    </c:if>
-                    <c:if test="${roles[indexOf.count-1].roleId == '3'}">
-                        <td width="25%" style="text-align: center">
-                            最高权限管理员
-                        </td>
-                    </c:if>
-                    <c:if test="${roleBiggest == 1}">
-                        <td width="10%" style="text-align: center">
-                            <a href="/admin_delete?adminId=${admin.adminId}">删除该管理者</a>
-                        </td>
-                    </c:if>
                 </tr>
                 </tbody>
                 </c:forEach>

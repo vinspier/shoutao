@@ -23,6 +23,26 @@ public class CategoryServiceImpl implements CategoryService {
     public  List<Category> findAll() throws Exception{
        return categoryDao.findAll();
     }
+
+    public void addCategory(Category category) throws Exception{
+        categoryDao.addCategory(category);
+    }
+
+    public void deleteCategoryByCid(String cid) throws Exception{
+        categoryDao.deleteCategoryByCid(cid);
+    }
+
+     public int checkName(String name) throws Exception{
+        List<String> categoryNames = categoryDao.loadCategoryNames();
+        if(categoryNames.contains(name)){
+            return Constant.NAME_INAVALIABLE;
+        }else{
+            return Constant.NAME_AVALIABLE;
+        }
+
+     }
+
+
     // 从redis里取数据
     public String findFromRedis() throws Exception{
         Jedis jedis = JedisUtils.getJedis();

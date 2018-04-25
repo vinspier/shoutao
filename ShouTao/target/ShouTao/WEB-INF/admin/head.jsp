@@ -140,11 +140,11 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看分类</a>
+                                    <a role="menuitem" tabindex="-1" href="/category_list">查看分类</a>
                                 </li>
 
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">添加分类</a>
+                                    <a role="menuitem" tabindex="-1" href="/category_add_form">添加分类</a>
                                 </li>
                             </ul>
                         </div>

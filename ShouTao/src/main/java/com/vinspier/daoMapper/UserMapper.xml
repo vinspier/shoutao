@@ -39,6 +39,10 @@
         WHERE code = #{code}
     </select>
 
+    <delete id="deleteUserByUid" parameterType="String">
+        DELETE FROM user_info WHERE uid = #{0}
+    </delete>
+
     <update id="active" parameterType="user">
         UPDATE user_info
         <set>
@@ -46,6 +50,13 @@
           state = #{state}
         </set>
         WHERE uid = #{uid}
+    </update>
+    <update id="activeByUid" parameterType="String">
+        UPDATE user_info
+        <set>
+            state = #{1}
+        </set>
+        WHERE uid = #{0}
     </update>
     <update id="modify" parameterType="user">
         UPDATE user_info

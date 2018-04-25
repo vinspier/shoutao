@@ -44,6 +44,10 @@ public class UserServiceImpl implements UserService{
         userDao.active(user);
         return user;
     }
+    /**管理员激活用户*/
+    public void activeByUid(String uid) throws Exception{
+        userDao.activeByUid(uid,Constant.USER_IS_ACTIVE);
+    }
     /**
      * 用户登录
      */
@@ -81,11 +85,15 @@ public class UserServiceImpl implements UserService{
     public int checkUserNameExist(String username)throws Exception{
         List<String> usernames = userDao.getAllUserName();
         if(!usernames.contains(username)){
-            return Constant.USER_NAME_AVALIABLE;
+            return Constant.NAME_AVALIABLE;
+        }else {
+            return Constant.NAME_INAVALIABLE;
         }
-        if(usernames.contains(username)){
-            return Constant.USER_NAME_INAVALIABLE;
-        }
-        return 0;
+
+    }
+
+    /**删除用户*/
+    public void deleteUserByUid(String uid) throws Exception{
+        userDao.deleteUserByUid(uid);
     }
 }

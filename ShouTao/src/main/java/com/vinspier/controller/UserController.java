@@ -164,6 +164,7 @@ public class UserController {
       return "view/notification_message";
   }
 
+  /**判断用户名是否已存在*/
   @RequestMapping(value = "/username_avaliable")
   public void username_avaliable(HttpServletRequest request,HttpServletResponse response) throws Exception{
       request.setCharacterEncoding("utf-8");

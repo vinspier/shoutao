@@ -6,10 +6,20 @@
     <select id="findAll" resultType="category">
     SELECT * FROM category
     </select>
+    <select id="loadCategoryNames" resultType="String">
+        SELECT cname FROM category
+    </select>
 
     <select id="getByCid" parameterType="String" resultType="category">
         SELECT * FROM category WHERE cid = #{0}
     </select>
 
+    <insert id="addCategory" parameterType="category">
+        INSERT INTO category (cid,cname) VALUES (#{cid,jdbcType=VARCHAR},#{cname,jdbcType=VARCHAR})
+    </insert>
+
+    <delete id="deleteCategoryByCid" parameterType="String">
+        DELETE FROM category WHERE cid = #{0}
+    </delete>
 
 </mapper>

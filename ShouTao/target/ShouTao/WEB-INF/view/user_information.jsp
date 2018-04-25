@@ -118,7 +118,7 @@
                 <div class="form-group">
                     <label for="dateTime" class="col-sm-2 control-label">出生日期</label>
                     <div class="col-sm-6">
-                        <input type="date" id="dateTime" class="form-control" name="birthday" value="${user.birthday}">
+                        <input type="text" id="dateTime" class="form-control" name="birthday" value="${user.birthday}">
                     </div>
                 </div>
 

@@ -124,4 +124,8 @@ public class ViewController {
     public String admin_addNew() throws Exception{
         return "admin/admin_addNew";
     }
+    @RequestMapping (value = "/category_add_form")
+    public String category_add_form() throws Exception{
+        return "admin/category_add";
+    }
 }

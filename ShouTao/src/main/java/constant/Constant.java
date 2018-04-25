@@ -58,6 +58,6 @@ public interface Constant {
 	Double USER_BALANCE = 500000.0;
 
 	/**定义用户名是否可用*/
-	int USER_NAME_AVALIABLE = 1;
-	int USER_NAME_INAVALIABLE = 0;
+	int NAME_AVALIABLE = 1;
+	int NAME_INAVALIABLE = 0;
 }

@@ -45,8 +45,8 @@
         }
     </style>
     <script type="text/javascript">
-        var empty ="";
         function checkItems() {
+            var empty ="";
             if($("#username").val() == null || $("#username").val() == ""){
                 empty = "no";
                 alert("用户名修改后不应为空");
@@ -65,6 +65,11 @@
         function submitModifyForm() {
             document.getElementById("form-horizontal").submit();
         }
+        function makeSure_deleteUser(uid) {
+            if(confirm("确认删除该用户吗？")){
+                location.href = "/admin_deleteUser?uid="+uid;
+            }
+        }
     </script>
 </head>
 <body>
@@ -75,7 +80,7 @@
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
             <div align="center"><font>用户信息</font>USER INFORMATION</div>
             <br/>
-            <form class="form-horizontal" id="form-horizontal" style="margin-top:5px;align-self: center" method="post" action="/modifyUserInformation?uid=${user.uid}" >
+            <form class="form-horizontal" id="form-horizontal" style="margin-top:5px;align-self: center" method="post" action="/admin_modifyUserInformation?uid=${user.uid}" >
                 <input type="hidden" name="method" value="regist">
                 <div  class="form-group">
                     <label for="username" class="col-sm-2 control-label">用户名</label>
@@ -131,11 +136,13 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
-                                                                                    style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+                               style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                                                                             height:35px;width:100px;color:white;">
-                        <input type="button"  onclick="checkItems()" width="100" value="删除该用户" name="modify" border="0"
+                        <a href="javascript:void (0)" onclick="makeSure_deleteUser('${user.uid}')">
+                        <input type="button"   width="100" value="删除该用户" name="delete" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">
+                        </a>
                     </div>
                 </div>
 

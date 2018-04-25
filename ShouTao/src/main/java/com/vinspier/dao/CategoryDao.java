@@ -11,5 +11,9 @@ import java.util.List;
 @Repository
 public interface CategoryDao {
     List<Category> findAll() throws Exception;
+    List<String> loadCategoryNames() throws Exception;
     Category getByCid(String cid) throws Exception;
+    void addCategory(Category category) throws Exception;
+    void deleteCategoryByCid(String cid) throws Exception;
+
 }
