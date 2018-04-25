@@ -48,6 +48,18 @@
         }
 
     </style>
+    <script type="text/javascript">
+        function deleteOrderItem(oid) {
+            if(confirm("确定取消该订单吗？")){
+                location.href = "/deleteOrderByOid?oid=" + oid;
+            }
+        }
+        function deleteOrderItem1(oid) {
+            if(confirm("确定删除该订单吗？")){
+                location.href = "/deleteOrderByOid?oid=" + oid;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -87,8 +99,13 @@
                         <c:if test="${order.state == 2}">状态：已发货</c:if>
                         <c:if test="${order.state == 3}">状态：已完成</c:if>
                     </th>
+                    <c:if test="${order.state == 2 || order.state == 3}">
+                        <th>发货单号:${order.deliveryNumber}</th>
+                    </c:if>
                     <th colspan="2">订单时间:<fmt:formatDate value="${order.ordertime}" pattern="yyyy-MM-dd HH:mm;ss"/></th>
-                    <th>操作</th>
+                    <c:if test="${order.state == 0 || order.state == 1}">
+                        <th></th>
+                    </c:if>
                 </tr>
                 <tr class="warning">
                     <th>图片</th>
@@ -100,10 +117,10 @@
                         <c:if test="${order.state == 1}"><a href="javascript:void (0)">提醒发货</a> </c:if>
                         <c:if test="${order.state == 0}">
                             <a href="/getOrderById?oid=${order.oid}">付款</a>
-                            <a href="/deleteOrderByOid?oid=${order.oid}">删除</a>
+                            <a href="javascript:void(0);" onclick="deleteOrderItem('${order.oid}')">取消订单</a>
                         </c:if>
                         <c:if test="${order.state == 3}">
-                            <a href="/deleteOrderByOid?oid=${order.oid}">删除订单</a>
+                            <a href="javascript:void(0);" onclick="deleteOrderItem1('${order.oid}')">删除订单</a>
                         </c:if>
                         <c:if test="${order.state == 2}">
                             <a href="/#">确认收货</a>

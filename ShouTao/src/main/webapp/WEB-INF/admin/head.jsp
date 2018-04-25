@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <script language="javascript">
-        $().ready(function () {
+        /**        $().ready(function () {
             //发送ajax 查询所有分类
             $.post("/findCategory", function (obj) {
                 //alert(obj);
@@ -20,7 +20,7 @@
                     $("#category_list").append("<li><a href='/getByPage?pageNumber=1&cid=" + this.cid + "'>" + this.cname + "</a></li>");
                 });
             }, "json");
-        });
+        });*/
     </script>
 </head>
 <body>
@@ -39,25 +39,51 @@
         <ol class="list-inline">
             <c:if test="${not empty admin }">
                 <li>管理员:<strong>${admin.adminName}</strong></li>
-<%--                <li><a href="/order_list">我的订单</a></li>
-                <li><a href="/cart">我的购物车</a></li>--%>
-                <li><div class="dropdown">
-                    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">设置
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="/userInformation?uid=${user.uid}">查看个人信息</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="/changePassword">修改密码</a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="/admin_logout">退出</a>
-                        </li>
-                    </ul>
-                </div></li>
+                <c:if test="${adminLevel == 0}">
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                                设置
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_information?adminId=${admin.adminId}">查看个人信息</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_changePassword">修改密码</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_logout">退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </c:if>
+                <c:if test="${adminLevel == 1}">
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">
+                                设置
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_information?adminId=${admin.adminId}">查看个人信息</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_list">查看所有管理员</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_changePassword">修改密码</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_logout">退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </c:if>
             </c:if>
         </ol>
     </div>
@@ -84,12 +110,95 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" id="category_list">
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu0" data-toggle="dropdown">
+                                商品管理
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看上架商品</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看下架商品</a>
+                                </li>
+                                <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="/">上传商品</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看所有商品</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu3" data-toggle="dropdown">
+                                分类管理
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看分类</a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">添加分类</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu4" data-toggle="dropdown">
+                                订单管理
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看待发货订单</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看已发货订单</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看已完成订单</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/">查看所有订单</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu5" data-toggle="dropdown">
+                                用户管理
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_checkAllUsersByState?state=2">查看所有用户</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_checkAllUsersByState?state=1">查看已激活用户</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/admin_checkAllUsersByState?state=0">查看未激活用户</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
-                <form class="navbar-form navbar-right" id="searchForm" role="search" method="post" action="/searchByPage?pageNumber=1">
+                <form class="navbar-form navbar-right" id="searchForm" role="search" method="post"
+                      action="/searchByPage?pageNumber=1">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="searchContent" name="searchContent" placeholder="Search">
+                        <input type="text" class="form-control" id="searchContent" name="searchContent"
+                               placeholder="Search">
                     </div>
-                    <input type="button" onclick="checkSearchContent()" class="btn btn-default" value="Submit">Submit</input>
+                    <input type="button" onclick="checkSearchContent()" class="btn btn-default"
+                           value="Submit">Submit</input>
                 </form>
 
             </div>
@@ -100,9 +209,9 @@
 </div>
 <script type="text/javascript">
     function checkSearchContent() {
-        if($("#searchContent").val() == ""){
+        if ($("#searchContent").val() == "") {
             $("#searchContent").focus();
-        }else{
+        } else {
             searchFormSubmit()
         }
     }

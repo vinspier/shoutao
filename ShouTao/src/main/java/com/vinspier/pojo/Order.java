@@ -17,6 +17,7 @@ public class Order {
     private String contactname;
 
     private String telephone;
+    private String deliveryNumber;
 
     private User user;
 
@@ -96,5 +97,13 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public String getDeliveryNumber() {
+        return deliveryNumber;
+    }
+
+    public void setDeliveryNumber(String deliveryNumber) {
+        this.deliveryNumber = deliveryNumber;
     }
 }

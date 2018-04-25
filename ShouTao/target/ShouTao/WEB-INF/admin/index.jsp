@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>管理平台首页</title>
+    <title>秀淘商城管理平台</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
     <script src="../js/jquery-1.11.3.min.js" type="text/javascript"></script>

@@ -3,6 +3,7 @@ package com.vinspier.serviceImpl;
 import com.vinspier.dao.CartDao;
 import com.vinspier.dao.OrderDao;
 import com.vinspier.dao.ProductDao;
+import com.vinspier.dao.UserDao;
 import com.vinspier.pojo.*;
 import com.vinspier.service.OrderService;
 import com.vinspier.utils.UUIDUtils;
@@ -25,6 +26,8 @@ public class OrderServiceImpl implements OrderService {
     private CartDao cartDao;
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private UserDao userDao;
 
     public Order createOrder(List<String> itemIds, String address, String contactname, String telephone,User user) throws Exception{
         Order order = new Order();
@@ -110,7 +113,15 @@ public class OrderServiceImpl implements OrderService {
         orderDao.orderDeleteByOid(oid);
    }
 
-   public void orderPayDone(String oid) throws Exception{
-        orderDao.orderPayDone(oid,Constant.ORDER_UN_DELIVERY);
+   public String orderPayDone(String oid,String uid) throws Exception{
+        Double balance = userDao.getUserByUid(uid).getBalance();
+        Double total = orderDao.getOrderByOrderID(oid).getTotal();
+        if(balance>0&&balance>total){
+            orderDao.orderPayDone(oid,Constant.ORDER_UN_DELIVERY);
+            userDao.updateBalance(uid,balance-total);
+            return "付款成功！      <a href='/order_list'>查看我的订单</a>";
+        }else{
+            return "余额不足！请充值后再付款      <a href='/index'>返回首页</a>";
+        }
    }
 }

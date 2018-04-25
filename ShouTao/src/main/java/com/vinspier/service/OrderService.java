@@ -17,5 +17,5 @@ public interface OrderService {
     List<Order> getOrderByUidAndState(String uid,Integer state) throws Exception;
     List<OrderItem> getOrderItems(String oid) throws Exception;
     void orderDeleteByOid(String oid) throws Exception;
-    void orderPayDone(String oid) throws Exception;
+    String orderPayDone(String oid,String uid) throws Exception;
 }

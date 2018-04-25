@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
-            <div align="center"><font>会员信息</font>USER INFORMATION</div>
+            <div align="center"><font>用户信息</font>USER INFORMATION</div>
             <br/>
             <form class="form-horizontal" id="form-horizontal" style="margin-top:5px;align-self: center" method="post" action="/modifyUserInformation?uid=${user.uid}" >
                 <input type="hidden" name="method" value="regist">
@@ -83,11 +83,17 @@
                         <input type="text" class="form-control" id="username" value="${user.username}" name="username">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="usercaption" class="col-sm-2 control-label">姓名</label>
+                <div  class="form-group">
+                    <label for="password" class="col-sm-2 control-label">用户密码</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="usercaption" value="${user.realname}" name="realname">
+                        <input type="text" class="form-control" id="password" value="${user.password}" name="password">
                     </div>
+                </div>
+                <div class="form-group">
+                <label for="usercaption" class="col-sm-2 control-label">真实姓名</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="usercaption" value="${user.realname}" name="realname">
+                </div>
                 </div>
                 <div class="form-group">
                     <label for="receivedAddress" class="col-sm-2 control-label">收货地址</label>
@@ -118,17 +124,21 @@
                 <div class="form-group">
                     <label for="dateTime" class="col-sm-2 control-label">出生日期</label>
                     <div class="col-sm-6">
-                        <input type="date" id="dateTime" class="form-control" name="birthday" value="${user.birthday}">
+                        <input type="text" id="dateTime" class="form-control" name="birthday" value="${user.birthday}">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
+                                                                                    style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+                                                                                            height:35px;width:100px;color:white;">
+                        <input type="button"  onclick="checkItems()" width="100" value="删除该用户" name="modify" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">
                     </div>
                 </div>
+
             </form>
         </div>
 
@@ -137,6 +147,7 @@
     </div>
 </div>
 
+<div class="container-fluid" id="footer_bottom" >
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
             <li><a href="info.html">关于我们</a></li>
@@ -150,6 +161,7 @@
             <li><a>广告声明</a></li>
         </ul>
     </div>
+</div>
 </body>
 </html>
 

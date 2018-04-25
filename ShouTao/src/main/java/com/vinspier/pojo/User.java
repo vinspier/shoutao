@@ -19,6 +19,7 @@ public class User {
     private String code;
 
     private String roleId;
+    private double balance;
 
     public User() {
     }
@@ -117,5 +118,13 @@ public class User {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

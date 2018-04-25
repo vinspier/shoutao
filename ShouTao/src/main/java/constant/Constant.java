@@ -5,12 +5,12 @@ public interface Constant {
 	 * 用户未激活
 	 */
 	int USER_IS_NOT_ACTIVE = 0;
-	
-	
 	/**
 	 * 用户已激活
 	 */
 	int USER_IS_ACTIVE = 1;
+	/**所有状态的用户*/
+	int USER_ALL = 2;
 	
 	
 	/**
@@ -42,10 +42,16 @@ public interface Constant {
 	/**未发货*/
 	int ORDER_UN_DELIVERY = 1;
 
+	/**	配置第三方邮件服务器*/
 	String MAIL_TRANSPORT_PROTOCOL = "smtp";
 	String MAIL_SMTP_HOST = "smtp.163.com";
 	String MAIL_SMTP_AUTH = "true";
 	String MAIL_SENDER = "17767160232@163.com";
 	String MAIL_SENDER_PASSWORD = "Ff13073886467";
+
+	/**定义角色名称*/
+	String ROLE_CHARACTER_ADMINISTRATOR = "3";//最高管理员
+	String ROLE_CHARACTER_ADMIN = "1";//普通管理员
+	String ROLE_CHARACTER_USER = "2";//用户
 
 }

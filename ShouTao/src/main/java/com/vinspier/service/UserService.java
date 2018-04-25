@@ -2,6 +2,8 @@ package com.vinspier.service;
 
 import com.vinspier.pojo.User;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/11/20 0020.
  */
@@ -12,4 +14,7 @@ public interface UserService {
     User getInformation(String uid) throws Exception;
     void modifyUser(User user) throws Exception;
     void modifyPassword(String uid,String password) throws Exception;
+    List<User> getAllUsers() throws Exception;
+    List<User> getAllUsersNotActive() throws Exception;
+    List<User> getAllUsersActive() throws Exception;
 }

@@ -6,6 +6,27 @@
     <select id="getByNameAndPassword"  resultType="administrator">
         SELECT * FROM adminis WHERE adminName = #{0} and password = #{1}
     </select>
-
+    <select id="getByAdminId"  resultType="administrator">
+        SELECT * FROM adminis WHERE adminId = #{0}
+    </select>
+    <select id="adminList" parameterType="int" resultType="administrator">
+        SELECT * FROM adminis WHERE adminId != #{0}
+    </select>
+    <select id="adminAll" resultType="administrator">
+        SELECT * FROM adminis
+    </select>
+    <update id="resetPassword">
+        UPDATE adminis
+        <set>
+            password = #{1}
+        </set>
+        WHERE adminId = #{0}
+    </update>
+    <delete id="deleteAdmin" parameterType="int">
+        DELETE FROM adminis WHERE adminId = #{0}
+    </delete>
+    <insert id="addNewAdmin" parameterType="administrator">
+        INSERT INTO adminis (adminName,password,roleId) VALUES (#{adminName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR})
+    </insert>
 
 </mapper>

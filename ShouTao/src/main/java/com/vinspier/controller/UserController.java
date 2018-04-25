@@ -28,13 +28,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
     /**用户注册*/
     @RequestMapping(value = "/Register")
     public String register(HttpServletRequest request, @ModelAttribute User user) throws ServletException,IOException{
         try {
-            user.setRoleId("1");
+            user.setRoleId(Constant.ROLE_CHARACTER_USER);
             userService.register(user);
             request.setAttribute("msg","恭喜你,注册成功,请登录邮箱完成激活");
         } catch (Exception e) {
@@ -120,12 +118,19 @@ public class UserController {
         return "redirect:/index";
     }
 
-  /**  显示用户信息    */
+  /**  获取用户信息    */
   @RequestMapping(value = "/userInformation")
   public String userInformation(@RequestParam("uid") String uid, Model model) throws Exception{
       model.addAttribute("user",userService.getInformation(uid));
       return "view/user_information";
   }
+    /**  查询余额信息    */
+    @RequestMapping(value = "/check_balance")
+    public String check_balance(@RequestParam("uid") String uid, Model model) throws Exception{
+        model.addAttribute("user",userService.getInformation(uid));
+        return "view/check_balance";
+    }
+
 
   /**更新用户信息*/
   @RequestMapping(value = "/modifyUserInformation")

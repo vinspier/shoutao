@@ -96,8 +96,8 @@
         <div class="col-md-2"></div>
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
             <br/>
-            <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/resetPassword" >
-                <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${user.password}">
+            <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/admin_resetPassword" >
+                <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${admin.password}">
                 <div  class="form-group">
                     <label for="inputPasswordOrigin" class="col-sm-2 control-label">原始密码</label>
                     <div class="col-sm-6">

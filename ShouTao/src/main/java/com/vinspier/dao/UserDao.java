@@ -3,6 +3,8 @@ package com.vinspier.dao;
 import com.vinspier.pojo.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/11/20 0020.
  */
@@ -15,4 +17,8 @@ public interface UserDao {
     User getUserByUid(String uid) throws Exception;
     void modify(User user) throws Exception;
     void modifyPassword(String uid,String password) throws Exception;
+    void updateBalance(String uid,double balance) throws Exception;
+    List<User> getAllUsers() throws Exception;
+    List<User> getAllUsersNotActive(int state) throws Exception;
+    List<User> getAllUsersActive(int state) throws Exception;
 }

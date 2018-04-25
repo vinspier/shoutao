@@ -56,6 +56,9 @@
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1" href="/changePassword">修改密码</a>
                         </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/check_balance?uid=${user.uid}">查询余额</a>
+                        </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1" href="/logout">退出</a>

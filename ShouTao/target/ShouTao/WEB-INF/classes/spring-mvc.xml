@@ -13,7 +13,10 @@
     <context:component-scan base-package="com.vinspier.controller"/>
     <context:annotation-config/>
     <mvc:annotation-driven/>
-
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
     <!--静态资源管理-->
     <mvc:default-servlet-handler/>
     <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
@@ -24,10 +27,8 @@
     <mvc:resources location="/WEB-INF/bank_img/" mapping="/bank_img/**"/>
     <mvc:resources location="/WEB-INF/fonts/" mapping="/fonts/**"/>
     <mvc:resources location="/WEB-INF/products/" mapping="/products/**"/>
+    <mvc:resources location="/WEB-INF/upload/" mapping="/upload/**"/>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+
 
 </beans>

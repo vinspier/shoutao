@@ -46,7 +46,7 @@ public class ViewController {
         if (admin != null) {
             return "redirect:adminIndex";
         }
-        return "admin/login";
+        return "admin/admin_login";
     }
 
     @RequestMapping(value = "/index")
@@ -112,5 +112,16 @@ public class ViewController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
         return "view/change_password";
+    }
+    @RequestMapping(value = "/admin_changePassword")
+    public String admin_changePassword(HttpServletRequest request,Model model) throws Exception{
+        Administrator admin = (Administrator) request.getSession().getAttribute("admin");
+        model.addAttribute("admin",admin);
+        return "admin/change_password";
+    }
+
+    @RequestMapping(value = "/admin_addNew")
+    public String admin_addNew() throws Exception{
+        return "admin/admin_addNew";
     }
 }

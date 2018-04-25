@@ -134,8 +134,8 @@ public class OrderController {
 
     @RequestMapping(value = "/payDone")
     public String payDone(HttpServletRequest request,@RequestParam("oid") String oid) throws Exception{
-        orderService.orderPayDone(oid);
-        String message = "付款成功!      <a href=\"/order_list\">查看我的订单</a>";
+        User user = (User)request.getSession().getAttribute("user");
+        String message =  orderService.orderPayDone(oid,user.getUid());
         request.setAttribute("msg",message);
         return "view/notification_message";
     }

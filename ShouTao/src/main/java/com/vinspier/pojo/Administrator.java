@@ -1,16 +1,16 @@
 package com.vinspier.pojo;
 
 public class Administrator {
-    private String adminId;
+    private int adminId;
     private String adminName;
     private String password;
     private String roleId;
 
-    public String getAdminId() {
+    public int getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(String adminId) {
+    public void setAdminId(int adminId) {
         this.adminId = adminId;
     }
 

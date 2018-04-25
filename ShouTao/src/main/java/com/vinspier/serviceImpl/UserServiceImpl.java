@@ -9,6 +9,8 @@ import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/11/20 0020.
  */
@@ -57,7 +59,18 @@ public class UserServiceImpl implements UserService{
         userDao.modify(user);
     }
 
+   /** 修改用户密码*/
      public void modifyPassword(String uid,String password) throws Exception{
         userDao.modifyPassword(uid,password);
+    }
+   /** 获取所有用户信息*/
+    public List<User> getAllUsers() throws Exception{
+        return userDao.getAllUsers();
+    }
+    public List<User> getAllUsersNotActive() throws Exception{
+        return userDao.getAllUsersNotActive(Constant.USER_IS_NOT_ACTIVE);
+    }
+    public List<User> getAllUsersActive() throws Exception{
+        return userDao.getAllUsersActive(Constant.USER_IS_ACTIVE);
     }
 }

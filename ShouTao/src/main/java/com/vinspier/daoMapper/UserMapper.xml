@@ -5,11 +5,21 @@
 <mapper namespace="com.vinspier.dao.UserDao">
 
     <insert id="save" parameterType="user">
-        INSERT INTO user_info (uid,username,password,realname,telephone,birthday,sex,state,code,email,receivedAddress,roleId)
+        INSERT INTO user_info (uid,username,password,realname,telephone,birthday,sex,state,code,email,receivedAddress,roleId,balance)
         VALUES (#{uid,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
         #{realname,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},#{birthday,jdbcType=VARCHAR},
-        #{sex,jdbcType=VARCHAR},#{state,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{receivedAddress,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR});
+        #{sex,jdbcType=VARCHAR},#{state,jdbcType=INTEGER},#{code,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},
+        #{receivedAddress,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR},#{balance,jdbcType=DOUBLE});
     </insert>
+    <select id="getAllUsers" resultType="user">
+        SELECT * FROM user_info
+    </select>
+    <select id="getAllUsersActive" parameterType="int" resultType="user">
+        SELECT  * FROM user_info WHERE state = #{0}
+    </select>
+    <select id="getAllUsersNotActive" parameterType="int" resultType="user">
+        SELECT  * FROM user_info WHERE state = #{0}
+    </select>
 
     <select id="getByUsernameAndPassword"  resultType="user">
         SELECT * FROM user_info
@@ -46,6 +56,13 @@
         UPDATE user_info
         <set>
             password = #{1}
+        </set>
+        WHERE uid = #{0}
+    </update>
+    <update id="updateBalance">
+        UPDATE user_info
+        <set>
+            balance = #{1}
         </set>
         WHERE uid = #{0}
     </update>
