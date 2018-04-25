@@ -9,6 +9,7 @@ import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,13 +22,14 @@ public class UserServiceImpl implements UserService{
 
     /**用户注册*/
     public void register(User user) throws Exception{
+        user.setRoleId(Constant.ROLE_CHARACTER_USER);
         user.setUid(UUIDUtils.getId());
         user.setCode(UUIDUtils.getCode());
         user.setState(Constant.USER_IS_NOT_ACTIVE);
+        user.setBalance(Constant.USER_BALANCE);
         userDao.save(user);
         String emailMsg="恭喜"+user.getRealname()+":成为我们商城的一员,<a href='http://localhost:8080/Active?code="+user.getCode()+"'>点此激活</a>";
-        System.out.println(emailMsg);
-        // MailUtil.sendMail(user.getUsername(),user.getEmail(),emailMsg);
+        MailUtil.sendMail(user.getUsername(),user.getEmail(),emailMsg);
     }
     /**
      * 用户激活
@@ -67,10 +69,23 @@ public class UserServiceImpl implements UserService{
     public List<User> getAllUsers() throws Exception{
         return userDao.getAllUsers();
     }
+    /** 获取未激活用户信息*/
     public List<User> getAllUsersNotActive() throws Exception{
         return userDao.getAllUsersNotActive(Constant.USER_IS_NOT_ACTIVE);
     }
+    /** 获取已激活用户信息*/
     public List<User> getAllUsersActive() throws Exception{
         return userDao.getAllUsersActive(Constant.USER_IS_ACTIVE);
+    }
+    /**判断用户名是否已存在*/
+    public int checkUserNameExist(String username)throws Exception{
+        List<String> usernames = userDao.getAllUserName();
+        if(!usernames.contains(username)){
+            return Constant.USER_NAME_AVALIABLE;
+        }
+        if(usernames.contains(username)){
+            return Constant.USER_NAME_INAVALIABLE;
+        }
+        return 0;
     }
 }

@@ -3,6 +3,7 @@ package com.vinspier.dao;
 import com.vinspier.pojo.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,4 +22,5 @@ public interface UserDao {
     List<User> getAllUsers() throws Exception;
     List<User> getAllUsersNotActive(int state) throws Exception;
     List<User> getAllUsersActive(int state) throws Exception;
+    ArrayList<String> getAllUserName()throws Exception;
 }

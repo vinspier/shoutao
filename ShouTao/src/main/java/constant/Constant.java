@@ -54,4 +54,10 @@ public interface Constant {
 	String ROLE_CHARACTER_ADMIN = "1";//普通管理员
 	String ROLE_CHARACTER_USER = "2";//用户
 
+	/**定义用户模拟的初始账户资金*/
+	Double USER_BALANCE = 500000.0;
+
+	/**定义用户名是否可用*/
+	int USER_NAME_AVALIABLE = 1;
+	int USER_NAME_INAVALIABLE = 0;
 }

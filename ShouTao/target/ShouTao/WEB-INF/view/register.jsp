@@ -119,6 +119,17 @@
         function submitForm() {
             document.getElementById("form-horizontal").submit();
         }
+        $().ready(function () {
+            $("#username").change(function () {
+                var username = $("#username").val();
+                $.post("/username_avaliable?username="+username,function (data) {
+                    if(data == "0"){
+                        alert("该用户名称已存在，请输入其他名称");
+                        $("#username").focus();
+                    }
+                },"json");
+            });
+        })
     </script>
 
 </head>

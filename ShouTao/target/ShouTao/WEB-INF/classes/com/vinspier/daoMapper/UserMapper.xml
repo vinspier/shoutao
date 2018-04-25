@@ -20,6 +20,9 @@
     <select id="getAllUsersNotActive" parameterType="int" resultType="user">
         SELECT  * FROM user_info WHERE state = #{0}
     </select>
+    <select id="getAllUserName" resultType="String">
+        SELECT username FROM user_info
+    </select>
 
     <select id="getByUsernameAndPassword"  resultType="user">
         SELECT * FROM user_info

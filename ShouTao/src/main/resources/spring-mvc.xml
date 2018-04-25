@@ -12,7 +12,9 @@
 
     <context:component-scan base-package="com.vinspier.controller"/>
     <context:annotation-config/>
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+
+    </mvc:annotation-driven>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>

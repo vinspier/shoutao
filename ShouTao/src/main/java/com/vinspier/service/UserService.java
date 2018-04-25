@@ -17,4 +17,5 @@ public interface UserService {
     List<User> getAllUsers() throws Exception;
     List<User> getAllUsersNotActive() throws Exception;
     List<User> getAllUsersActive() throws Exception;
+    int checkUserNameExist(String username)throws Exception;
 }

@@ -5,6 +5,7 @@ import com.vinspier.pojo.User;
 import com.vinspier.service.RoleService;
 import com.vinspier.service.UserService;
 import constant.Constant;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 
 /**
@@ -32,7 +34,6 @@ public class UserController {
     @RequestMapping(value = "/Register")
     public String register(HttpServletRequest request, @ModelAttribute User user) throws ServletException,IOException{
         try {
-            user.setRoleId(Constant.ROLE_CHARACTER_USER);
             userService.register(user);
             request.setAttribute("msg","恭喜你,注册成功,请登录邮箱完成激活");
         } catch (Exception e) {
@@ -64,10 +65,7 @@ public class UserController {
         try {
             User loginUser = userService.login(username,password);
                 if (loginUser != null) {
-                    request.getSession().setAttribute("user", loginUser);
                     if (Constant.USER_IS_ACTIVE != loginUser.getState()) {
-                        String emailMsg = "恭喜" + loginUser.getRealname() + ":成为我们商城的一员,请登录邮箱</a>激活";
-                        System.out.println(emailMsg);
                         request.setAttribute("msg", "此用户未激活，请先登录邮箱激活后登录");
                         return "view/notification_message";
                     }
@@ -164,5 +162,16 @@ public class UserController {
           return "view/notification_message";
       }
       return "view/notification_message";
+  }
+
+  @RequestMapping(value = "/username_avaliable")
+  public void username_avaliable(HttpServletRequest request,HttpServletResponse response) throws Exception{
+      request.setCharacterEncoding("utf-8");
+      response.setContentType("text/html:charset=utf-8");
+      String username = new String(request.getParameter("username").getBytes(),"utf-8");
+      int avaliable = userService.checkUserNameExist(username);
+      PrintWriter out = response.getWriter();
+      JSONArray jsonArray = JSONArray.fromObject(avaliable);
+      out.println(jsonArray.toString());
   }
 }
