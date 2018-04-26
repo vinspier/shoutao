@@ -1,13 +1,7 @@
 package com.vinspier.controller;
 
-import com.vinspier.pojo.Administrator;
-import com.vinspier.pojo.Product;
-import com.vinspier.pojo.Role;
-import com.vinspier.pojo.User;
-import com.vinspier.service.AdministratorService;
-import com.vinspier.service.ProductService;
-import com.vinspier.service.RoleService;
-import com.vinspier.service.UserService;
+import com.vinspier.pojo.*;
+import com.vinspier.service.*;
 import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +27,8 @@ public class AdminController {
     private RoleService roleService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "/admin_login")
     public String adminLogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("adminName") String name, @RequestParam("password") String password)throws Exception{
@@ -60,8 +56,8 @@ public class AdminController {
             }
         } catch (Exception e) {
             request.setAttribute("msg","登录失败 请重新登录");
+            return "admin/notification_message";
         }
-        return null;
     }
 
     @RequestMapping(value = "/admin_information")
@@ -174,23 +170,33 @@ public class AdminController {
 
     @RequestMapping(value = "/admin_resetPflag")
     public String admin_resetPflag(HttpServletRequest request,@RequestParam("pid") String pid,@RequestParam("flag") String pflag)throws Exception{
-        try {
-            productService.resetPflag(pid,Integer.parseInt(pflag));
-            request.setAttribute("msg","操作成功");
-        } catch (Exception e) {
-            request.setAttribute("msg","操作失败 请重试");
-        }
+         String message =  productService.resetPflag(pid,Integer.parseInt(pflag));
+         request.setAttribute("msg",message);
         return "admin/notification_message";
     }
     @RequestMapping(value = "/admin_resetIsHot")
     public String admin_resetIsHot(HttpServletRequest request,@RequestParam("pid") String pid,@RequestParam("is_hot") String is_hot)throws Exception{
-        try {
-            productService.resetIsHot(pid,Integer.parseInt(is_hot));
-            request.setAttribute("msg","操作成功");
-        } catch (Exception e) {
-            request.setAttribute("msg","操作失败 请重试");
-        }
+           String message =  productService.resetIsHot(pid,Integer.parseInt(is_hot));
+           request.setAttribute("msg",message);
         return "admin/notification_message";
+    }
+
+    @RequestMapping(value = "/getOrderByState")
+    public String getOrderByState(HttpServletRequest request,@RequestParam("state") String state,Model model) throws Exception{
+        List<Order> orderList = new ArrayList<Order>();
+        try {
+            if(Integer.parseInt(state) == Constant.ORDER_ALL_STATE){
+                orderList = administratorService.getOrderAllState();
+            }else {
+                orderList = administratorService.getOrderByState(Integer.parseInt(state));
+            }
+            model.addAttribute("orderList",orderList);
+            model.addAttribute("state",Integer.parseInt(state));
+        }catch (Exception e){
+            request.setAttribute("msg","查询失败请重新尝试");
+            return "admin/notification_message";
+        }
+        return "admin/order_list";
     }
 
     @RequestMapping(value = "/admin_deleteUser")
@@ -207,6 +213,36 @@ public class AdminController {
             request.setAttribute("msg","删除成功");
         } catch (Exception e) {
             request.setAttribute("msg","删除失败 请重新尝试");
+        }
+        return "admin/notification_message";
+    }
+
+    @RequestMapping(value = "/admin_deleteOrderByOid")
+    public String admin_deleteOrderByOid(@RequestParam("oid") String oid,HttpServletRequest request) throws Exception{
+        try {
+            orderService.orderDeleteByOid(oid);
+            request.setAttribute("msg","删除成功 返回查看所有用户"+"<a href='/getOrderByState?state=4'>订单信息</a>");
+        }catch (Exception e){
+            request.setAttribute("msg","删除失败，请重新尝试");
+        }
+        return "admin/notification_message";
+    }
+
+    @RequestMapping(value = "/deliveryWriteNumber")
+    public String deliveryWriteNumber(@RequestParam("uid") String uid,@RequestParam("oid") String oid,Model model) throws Exception{
+        Order order = administratorService.getOrderByOid(uid,oid);
+        model.addAttribute("order",order);
+        System.out.println(order);
+        return "admin/order_delivery";
+    }
+
+    @RequestMapping(value = "/admin_deliveryOrder")
+    public String admin_deliveryOrder(@RequestParam("oid") String oid,@RequestParam("deliveryNumber") String deliveryNumber,HttpServletRequest request)throws Exception{
+        try{
+            administratorService.deliveryOrder(oid,deliveryNumber);
+            request.setAttribute("msg","发货成功 返回查看其他"+"<a href='/getOrderByState?state=1'>未发货订单信息</a>");
+        }catch (Exception e){
+            request.setAttribute("msg","发货失败，请重新操作");
         }
         return "admin/notification_message";
     }

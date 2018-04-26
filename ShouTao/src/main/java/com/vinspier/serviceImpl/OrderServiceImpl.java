@@ -101,9 +101,6 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getOrderByUid(uid);
     }
 
-    public List<Order> getOrderByUidAndState(String uid,Integer state) throws Exception{
-        return orderDao.getOrderByUidAndState(uid,state);
-    }
 
     public List<OrderItem> getOrderItems(String oid) throws Exception{
         return orderDao.getOrderItems(oid);
@@ -124,4 +121,8 @@ public class OrderServiceImpl implements OrderService {
             return "余额不足！请充值后再付款      <a href='/index'>返回首页</a>";
         }
    }
+
+   public void orderReceivedDone(String oid) throws Exception{
+        orderDao.orderReceivedDone(oid,Constant.ORDER_RECEIVED_DONE);
+    }
 }

@@ -1,6 +1,7 @@
 package com.vinspier.service;
 
 import com.vinspier.pojo.Administrator;
+import com.vinspier.pojo.Order;
 
 import java.util.List;
 
@@ -11,4 +12,8 @@ public interface AdministratorService {
     List<Administrator> adminList(int id) throws Exception;
     void deleteAdmin(int adminId) throws Exception;
     int addNewAdmin(Administrator admin) throws  Exception;
+    List<Order> getOrderByState(int state) throws Exception;
+    List<Order> getOrderAllState() throws Exception;
+    Order getOrderByOid(String uid,String oid) throws Exception;
+    void deliveryOrder(String oid,String deliveryNumber) throws Exception;
 }

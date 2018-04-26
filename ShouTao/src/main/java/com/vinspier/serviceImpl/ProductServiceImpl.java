@@ -75,13 +75,48 @@ public class ProductServiceImpl implements ProductService {
         return productPage;
     }
 
-     public void resetPflag(String pid,int pflag) throws Exception{
-        productDao.resetPflag(pid,pflag);
-    }
+     public String resetPflag(String pid,int pflag) throws Exception{
+        String message = "";
+         try {
+             productDao.resetPflag(pid,pflag);
+             if(pflag == 1){
+                 message = "商品下架成功";
+             }
+             if(pflag == 0){
+                 message = "商品上架成功";
+             }
+         } catch (Exception e) {
+             if(pflag == 1){
+                 message = "商品下架失败";
+             }
+             if(pflag == 0){
+                 message = "商品上架失败";
+             }
+         }
+         return message;
+     }
 
-     public void resetIsHot(String pid,int is_hot) throws Exception{
-        productDao.resetIsHot(pid,is_hot);
-    }
+     public String resetIsHot(String pid,int is_hot) throws Exception{
+        String message = "";
+         try {
+             productDao.resetIsHot(pid,is_hot);
+             if(is_hot == 1){
+                 message = "设置热门商品成功";
+             }
+             if(is_hot == 0){
+                 message = "取消商品热门属性成功";
+             }
+         } catch (Exception e) {
+             if(is_hot == 1){
+                 message = "设置热门商品失败";
+             }
+             if(is_hot == 0){
+                 message = "取消商品热门属性失败";
+             }
+             return message;
+         }
+         return message;
+     }
 
     public void deleteProduct(String pid) throws Exception{
         productDao.deleteProduct(pid);

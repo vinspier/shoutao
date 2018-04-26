@@ -157,16 +157,19 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看待发货订单</a>
+                                    <a role="menuitem" tabindex="-1" href="/getOrderByState?state=0">查看未付款订单</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看已发货订单</a>
+                                    <a role="menuitem" tabindex="-1" href="/getOrderByState?state=1">查看待发货订单</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看已完成订单</a>
+                                    <a role="menuitem" tabindex="-1" href="/getOrderByState?state=2">查看已发货订单</a>
                                 </li>
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/">查看所有订单</a>
+                                    <a role="menuitem" tabindex="-1" href="/getOrderByState?state=3">查看已完成订单</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="/getOrderByState?state=4">查看所有订单</a>
                                 </li>
                             </ul>
                         </div>

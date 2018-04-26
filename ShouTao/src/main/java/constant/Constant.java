@@ -43,6 +43,12 @@ public interface Constant {
 	int ORDER_UN_PAY = 0;
 	/**未发货*/
 	int ORDER_UN_DELIVERY = 1;
+	/**已发货*/
+	int ORDER_ALREADY_DELIVERY = 2;
+	/**已完成*/
+	int ORDER_RECEIVED_DONE = 3;
+	/**所有状态的订单*/
+	int ORDER_ALL_STATE = 4;
 
 	/**	配置第三方邮件服务器*/
 	String MAIL_TRANSPORT_PROTOCOL = "smtp";

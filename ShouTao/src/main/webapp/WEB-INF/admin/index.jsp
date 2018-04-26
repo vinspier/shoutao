@@ -96,11 +96,11 @@
 
             <c:forEach items="${hotProducts}" var="hot">
                 <div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-                    <a href="/getByPid?pid=${hot.pid}">
+                    <a href="/admin_getByPid?pid=${hot.pid}">
                         <img src="../${hot.pimage}" width="130" height="130" style="display: inline-block;">
                     </a>
                     <p>
-                        <a href="/getByPid?pid=${hot.pid}" style='color:#666'>${fn:substring(hot.pname,0 ,10)}...</a>
+                        <a href="/admin_getByPid?pid=${hot.pid}" style='color:#666'>${fn:substring(hot.pname,0 ,10)}...</a>
                     </p>
                     <p><font color="#E4393C" style="font-size:16px">&yen;${hot.shop_price}</font></p>
                 </div>
@@ -135,12 +135,12 @@
 
             <c:forEach items="${newProducts }" var="np">
                 <div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-                    <a href="/getByPid?pid=${np.pid}">
+                    <a href="/admin_getByPid?pid=${np.pid}">
                         <img src="${pageContext.request.contextPath}/${np.pimage}" width="130" height="130"
                              style="display: inline-block;">
                     </a>
                     <p>
-                        <a href="/getByPid?pid=${np.pid}" style='color:#666'>${fn:substring(np.pname,0,10) }..</a>
+                        <a href="/admin_getByPid?pid=${np.pid}" style='color:#666'>${fn:substring(np.pname,0,10) }..</a>
                     </p>
                     <p><font color="#E4393C" style="font-size:16px">&yen;${np.shop_price }</font></p>
                 </div>

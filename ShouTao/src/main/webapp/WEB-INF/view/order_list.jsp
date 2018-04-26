@@ -72,7 +72,7 @@
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <span class="navbar-brand">订单信息</span>
+                        <span class="navbar-brand">我的订单信息</span>
                     </div>
                     <div>
                         <ul class="nav navbar-nav">
@@ -123,7 +123,7 @@
                             <a href="javascript:void(0);" onclick="deleteOrderItem1('${order.oid}')">删除订单</a>
                         </c:if>
                         <c:if test="${order.state == 2}">
-                            <a href="/#">确认收货</a>
+                            <a href="/orderReceivedDone?oid=${order.oid}">确认收货</a>
                         </c:if>
                     </th>
                 </tr>

@@ -14,8 +14,8 @@ public interface OrderService {
     Order createDirectBuyOrder(String pid,int count,String address, String contactname, String telephone, User user) throws Exception;
     Order getOrderByOrderID(String orderID) throws Exception;
     List<Order> getOrderByUid(String uid) throws Exception;
-    List<Order> getOrderByUidAndState(String uid,Integer state) throws Exception;
     List<OrderItem> getOrderItems(String oid) throws Exception;
     void orderDeleteByOid(String oid) throws Exception;
     String orderPayDone(String oid,String uid) throws Exception;
+    void orderReceivedDone(String oid) throws Exception;
 }

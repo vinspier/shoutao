@@ -48,6 +48,30 @@
         </association>
     </resultMap>
 
+    <select id="getOrderAllState" resultMap="OrderMap">
+        select * from orders ord,user_info us ORDER BY ordertime DESC
+    </select>
+    <select id="getOrderByState" parameterType="java.lang.Integer" resultMap="OrderMap">
+        select * from orders ord,user_info us WHERE ord.uid = us.uid AND ord.state = #{0} ORDER BY ordertime DESC
+    </select>
+    <resultMap id="OrderMap" type="com.vinspier.pojo.Order">
+        <id property="oid" column="oid"/>
+        <result property="ordertime" column="ordertime"/>
+        <result property="total" column="total"/>
+        <result property="state" column="state"/>
+        <result property="address" column="address"/>
+        <result property="contactname" column="contactname"/>
+        <result property="telephone" column="telephone"/>
+        <result property="deliveryNumber" column="deliveryNumber"/>
+        <association property="user" javaType="com.vinspier.pojo.User">
+            <id property="uid" column="uid"/>
+            <result property="username" column="username"/><result property="password" column="password"/><result property="realname" column="realname"/>
+            <result property="sex" column="sex"/><result property="email" column="email"/><result property="birthday" column="birthday"/>
+            <result property="telephone" column="telephone"/><result property="receivedAddress" column="receivedAddress"/><result property="state" column="state"/>
+            <result property="code" column="code"/><result property="roleId" column="roleId"/><result property="balance" column="balance"/>
+        </association>
+    </resultMap>
+
     <delete id="orderItemsDeleteByOid" parameterType="String" >
         DELETE FROM orderitem WHERE oid = #{0}
     </delete>
@@ -58,6 +82,21 @@
         UPDATE orders
         <set>
             state = #{1}
+        </set>
+        WHERE oid = #{0}
+    </update>
+    <update id="orderReceivedDone" parameterType="int">
+        UPDATE orders
+        <set>
+            state = #{1}
+        </set>
+        WHERE oid = #{0}
+    </update>
+    <update id="deliveryOrder">
+        UPDATE orders
+        <set>
+            deliveryNumber = #{1},
+            state = #{2}
         </set>
         WHERE oid = #{0}
     </update>

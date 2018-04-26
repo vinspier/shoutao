@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>我的订单</title>
+    <title>订单发货</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css"/>
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -49,14 +49,10 @@
 
     </style>
     <script type="text/javascript">
-        function deleteOrderItem(oid) {
-            if(confirm("确定取消该订单吗？")){
-                location.href = "/deleteOrderByOid?oid=" + oid;
-            }
-        }
-        function deleteOrderItem1(oid) {
-            if(confirm("确定删除该订单吗？")){
-                location.href = "/deleteOrderByOid?oid=" + oid;
+        function admin_deliveryOrder(oid) {
+            var deliveryNumber = $("#deliveryNumber").val();
+            if(confirm("确认发货吗")){
+                location.href = "/admin_deliveryOrder?oid=" + oid+"&deliveryNumber="+deliveryNumber;
             }
         }
     </script>
@@ -72,40 +68,26 @@
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <span class="navbar-brand">我的订单信息</span>
-                    </div>
-                    <div>
-                        <ul class="nav navbar-nav">
-                            <li><a href="/order_list">所有订单(${allCounts})</a></li>
-                            <li><a href="/getOrdersByState?uid=${user.uid}&state=0">待付款(${unPay})</a></li>
-                            <li><a href="/getOrdersByState?uid=${user.uid}&state=1">待发货(${unDelivery})</a></li>
-                            <li><a href="/getOrdersByState?uid=${user.uid}&state=2">已发货(${alreadyDelivery})</a></li>
-                            <li><a href="/getOrdersByState?uid=${user.uid}&state=3">已完成(${alreadyDone})</a></li>
-                        </ul>
+                        <span class="navbar-brand">订单发货
+                        </span>
                     </div>
                 </div>
             </nav>
             <hr/>
-            <c:forEach items="${orders}" var="order">
             <table class="table table-bordered">
                 <tbody>
                 <tr class="success">
+                    <th colspan="1">用户名称:${order.user.username}</th>
                     <th colspan="2">订单编号:${order.oid}</th>
-                    <th colspan="1">
-                        <c:if test="${order.state == 0}">
-                            状态：<a href="/getOrderById?oid=${order.oid}">未付款</a>
-                        </c:if>
-                        <c:if test="${order.state == 1}">状态：待发货</c:if>
-                        <c:if test="${order.state == 2}">状态：已发货</c:if>
-                        <c:if test="${order.state == 3}">状态：已完成</c:if>
-                    </th>
-                    <c:if test="${order.state == 2 || order.state == 3}">
-                        <th>发货单号:${order.deliveryNumber}</th>
-                    </c:if>
                     <th colspan="2">订单时间:<fmt:formatDate value="${order.ordertime}" pattern="yyyy-MM-dd HH:mm;ss"/></th>
-                    <c:if test="${order.state == 0 || order.state == 1}">
-                        <th></th>
-                    </c:if>
+                    <th colspan="1">代发货
+                    </th>
+                </tr>
+                <tr class="success">
+                    <th colspan="1">联系人:${order.contactname}</th>
+                    <th colspan="2">联系电话:${order.telephone}</th>
+                    <th colspan="2">联系地址:${order.address}</th>
+                    <th >总金额：￥${order.total}</th>
                 </tr>
                 <tr class="warning">
                     <th>图片</th>
@@ -114,17 +96,6 @@
                     <th>数量</th>
                     <th>小计</th>
                     <th>
-                        <c:if test="${order.state == 1}"><a href="javascript:void (0)">提醒发货</a> </c:if>
-                        <c:if test="${order.state == 0}">
-                            <a href="/getOrderById?oid=${order.oid}">付款</a>
-                            <a href="javascript:void(0);" onclick="deleteOrderItem('${order.oid}')">取消订单</a>
-                        </c:if>
-                        <c:if test="${order.state == 3}">
-                            <a href="javascript:void(0);" onclick="deleteOrderItem1('${order.oid}')">删除订单</a>
-                        </c:if>
-                        <c:if test="${order.state == 2}">
-                            <a href="/orderReceivedDone?oid=${order.oid}">确认收货</a>
-                        </c:if>
                     </th>
                 </tr>
                 <c:forEach items="${order.orderItems}" var="orderItem">
@@ -158,9 +129,35 @@
                     </c:forEach>
                 </tr>
                 </tbody>
-                </c:forEach>
             </table>
         </div>
+    </div>
+</div>
+
+<div class="container" style="width:100%;background:url('${pageContext.request.contextPath}/image/register.jpg');">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
+            <br/>
+            <form class="form-horizontal" id="deliveryOrder" style="margin-top:5px;align-self: center" method="post" >
+                <div  class="form-group">
+                    <label for="deliveryNumber" class="col-sm-2 control-label">订单编号</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="deliveryNumber" name="inputPasswordOrigin" placeholder="请输入发货单号" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="button"  onclick="admin_deliveryOrder('${order.oid}')" width="100" value="确认发货" name="modify" border="0"
+                               style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+                                       height:35px;width:100px;color:white;">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-2"></div>
+
     </div>
 </div>
 

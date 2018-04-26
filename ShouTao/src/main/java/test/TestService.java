@@ -5,6 +5,7 @@ import com.vinspier.dao.OrderDao;
 import com.vinspier.dao.ProductDao;
 import com.vinspier.dao.UserDao;
 import com.vinspier.pojo.*;
+import com.vinspier.service.AdministratorService;
 import com.vinspier.service.CartService;
 import com.vinspier.utils.MailUtil;
 import com.vinspier.utils.UUIDUtils;
@@ -32,6 +33,9 @@ public class TestService {
     private CartDao cartDao;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private AdministratorService administratorService;
+
 
     @Test
     public void service() throws Exception{
@@ -140,12 +144,17 @@ public class TestService {
         emailUtil.sendMail("fxb","954579147@qq.com",emailMsg);
     }
 
-    @Test
+ /*   @Test
     public void searchByPage() throws Exception{
         List<Product> productList = productDao.searchByPage("华为",0,1,8);
         for(Product product: productList){
             System.out.println(product.getPname());
         }
-    }
+    }*/
 
+    @Test
+    public void getOrderByState() throws Exception{
+        List<Order> orders = administratorService.getOrderAllState();
+        System.out.println(orders.size());
+    }
 }

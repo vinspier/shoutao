@@ -101,6 +101,8 @@
                         <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;"><strong>商品状态：</strong>
                             <c:if test="${product.pflag == 0}">上架中</c:if>
                             <c:if test="${product.pflag == 1}">已下架</c:if>
+                            <c:if test="${product.is_hot == 0}">非热门商品</c:if>
+                            <c:if test="${product.is_hot == 1}">热门商品</c:if>
                         </div>
                     </form>
 

@@ -3,6 +3,7 @@ package com.vinspier.controller;
 import com.vinspier.pojo.*;
 
 import com.vinspier.service.OrderService;
+import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +53,6 @@ public class OrderController {
     @RequestMapping(value = "/getOrderById")
     public String orderInformation(HttpServletRequest request,Model model) throws Exception{
         Order order = orderService.getOrderByOrderID(request.getParameter("oid"));
-
         List<OrderItem> orderItems = orderService.getOrderItems(order.getOid());
         for (OrderItem orderItem : orderItems) {
             orderItem.setProduct(orderItem.getProduct());
@@ -74,10 +74,10 @@ public class OrderController {
         int alreadyDone = 0;
         while(orderIterator.hasNext()){
             Order order = orderIterator.next();
-            if(order.getState() == 0){unPay++;}
-            if(order.getState() == 1){unDelivery++;}
-            if(order.getState() == 2){alreadyDelivery++;}
-            if(order.getState() == 3){alreadyDone++;}
+            if(order.getState() == Constant.ORDER_UN_PAY){unPay++;}
+            if(order.getState() == Constant.ORDER_UN_DELIVERY){unDelivery++;}
+            if(order.getState() == Constant.ORDER_ALREADY_DELIVERY){alreadyDelivery++;}
+            if(order.getState() == Constant.ORDER_RECEIVED_DONE){alreadyDone++;}
             if(order.getState() == Integer.parseInt(state)){
                 List<OrderItem> orderItems = orderService.getOrderItems(order.getOid());
                 for (OrderItem orderItem : orderItems) {
@@ -137,6 +137,17 @@ public class OrderController {
         User user = (User)request.getSession().getAttribute("user");
         String message =  orderService.orderPayDone(oid,user.getUid());
         request.setAttribute("msg",message);
+        return "view/notification_message";
+    }
+
+    @RequestMapping(value = "/orderReceivedDone")
+    public String orderReceivedDone(HttpServletRequest request,@RequestParam("oid") String oid) throws Exception{
+        try {
+            orderService.orderReceivedDone(oid);
+            request.setAttribute("msg","收获成功 返回查看"+"<a href='/order_list'>我的订单</a>"+"信息");
+        } catch (Exception e) {
+            request.setAttribute("msg","收货失败，请重新尝试");
+        }
         return "view/notification_message";
     }
 }

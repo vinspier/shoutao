@@ -92,7 +92,7 @@
                             ${cat.cid}
                     </td>
                     <td width="25%" style="text-align: center">
-                        <a href="getByPage?pageNumber=1&cid=${cat.cid}">
+                        <a href="admin_getByPage?pageNumber=1&cid=${cat.cid}">
                                 ${cat.cname}
                         </a>
                     </td>
