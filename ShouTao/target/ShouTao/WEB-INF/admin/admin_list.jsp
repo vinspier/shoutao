@@ -48,6 +48,13 @@
         }
 
     </style>
+    <script type="text/javascript">
+        function deleteAdmin(id) {
+            if(confirm("确认删除该管理员？")){
+                location.href = "/admin_delete?adminId="+id;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -112,7 +119,7 @@
                     </c:if>
                     <c:if test="${roleBiggest == 1}">
                         <td width="10%" style="text-align: center">
-                            <a href="/admin_delete?adminId=${admin.adminId}">删除该管理者</a>
+                            <a href="javascript:void(0)" onclick="deleteAdmin('${admin.adminId}')">删除该管理者</a>
                         </td>
                     </c:if>
                 </tr>

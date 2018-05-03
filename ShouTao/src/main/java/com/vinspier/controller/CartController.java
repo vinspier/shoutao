@@ -90,8 +90,6 @@ public class CartController {
         return "redirect:/cart";
     }
 
-
-
     @RequestMapping(value = "/cart")
     public String listCart(HttpServletRequest request,Model model) throws Exception{
         List<com.vinspier.pojo.CartItem> cartItems = cartService.cartList(((User)request.getSession().getAttribute("user")).getUid());

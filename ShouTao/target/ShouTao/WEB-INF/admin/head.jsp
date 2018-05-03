@@ -124,7 +124,7 @@
                                     <a role="menuitem" tabindex="-1" href="/getProductToPage?pageNumber=1&flag=1">管理下架商品</a>
                                 </li>
                                 <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="/#">上传商品</a>
+                                <a role="menuitem" tabindex="-1" href="/product_upload_input">上传商品</a>
                                 </li>
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" href="/getProductToPage?pageNumber=1&flag=2">管理所有商品</a>

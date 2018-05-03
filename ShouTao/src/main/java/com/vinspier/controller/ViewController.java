@@ -1,10 +1,8 @@
 package com.vinspier.controller;
 
-import com.vinspier.pojo.Administrator;
-import com.vinspier.pojo.CartItem;
-import com.vinspier.pojo.Product;
-import com.vinspier.pojo.User;
+import com.vinspier.pojo.*;
 import com.vinspier.service.CartService;
+import com.vinspier.service.CategoryService;
 import com.vinspier.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +23,8 @@ public class ViewController {
     private ProductService productService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/register")
     public String register_index() {
@@ -127,5 +127,12 @@ public class ViewController {
     @RequestMapping (value = "/category_add_form")
     public String category_add_form() throws Exception{
         return "admin/category_add";
+    }
+
+    @RequestMapping(value = "/product_upload_input")
+    public String product_upload_input(Model model) throws Exception{
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList",categoryList);
+        return "admin/product_upload";
     }
 }

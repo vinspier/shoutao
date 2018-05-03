@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>修改密码</title>
+    <title>上传商品</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
     <script src="../js/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -84,6 +84,11 @@
                 submitResetForm();
             }
         }
+        function make_sureResetPassword() {
+            if(confirm("确认修改密码？")){
+                checkItems();
+            }
+        }
         function submitResetForm() {
             document.getElementById("resetPasswordForm").submit();
         }
@@ -95,32 +100,71 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
-            <div align="center"><font>密码修改</font>RESET PASSWORD</div>
+            <div align="center"><font>上传商品: </font>PRODUCT UPLOAD</div>
             <br/>
-            <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/admin_resetPassword" >
-                <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${admin.password}">
+            <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/resetPassword" >
+                <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${user.password}">
+                <div class="form-group">
+                    <label for="shop_price" class="col-sm-2 control-label">选择文件：</label>
+                    <div class="col-sm-6">
+                        <input type="file" id="file" name="file" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pname" class="col-sm-2 control-label">商品名称：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-contro" id="pname" name="pname" value="" placeholder="输入商品名称" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="market_price" class="col-sm-2 control-label">商品标价：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-contro" id="market_price" name="market_price" value="" placeholder="输入商品标价" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="shop_price" class="col-sm-2 control-label">商品售价：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-contro" id="shop_price" name="shop_price" value="" placeholder="输入商品售价" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pdesc" class="col-sm-2 control-label">商品描述：</label>
+                    <div class="col-sm-6">
+                        <textarea  class="form-contro" id="pdesc" name="pdesc" value="" placeholder="输入商品描述"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="shop_price" class="col-sm-2 control-label">设置属性：</label>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="autoLogin"
+                                       value="1" >直接上架
+                            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>
+                                <input type="checkbox" name="autoLogin"
+                                       value="1" >设置热门
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 <div  class="form-group">
-                    <label for="inputPasswordOrigin" class="col-sm-2 control-label">原始密码</label>
+                    <label for="categoryList" class="col-sm-2 control-label">选择分类：</label>
                     <div class="col-sm-6">
-                        <input type="password" class="form-control" id="inputPasswordOrigin" name="inputPasswordOrigin" value="" >
+                        <select class="categoryList" id="categoryList" name="categoryList" onchange="express_change()">
+                            <option value="">--请选择--</option>
+                            <c:if test="${not empty categoryList && categoryList.size() > 0 }">
+                                <c:forEach items="${categoryList }" var="ca">
+                                    <option id="cid" value="${ca.cid }">${ca.cname }</option>
+                                </c:forEach>
+                            </c:if>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="resetPassword" class="col-sm-2 control-label">重置密码</label>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="resetPassword" name="resetPassword" value="" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="checkResetPassword" class="col-sm-2 control-label">校验重置密码</label>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="checkResetPassword" name="checkResetPassword" value="" >
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
+                        <input type="button"  onclick="make_sureResetPassword()" width="100" value="上传" name="modify" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">
                     </div>

@@ -95,6 +95,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
+            <div align="center"><font>密码修改</font>RESET PASSWORD</div>
             <br/>
             <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/admin_resetPassword" >
                 <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${admin.password}">

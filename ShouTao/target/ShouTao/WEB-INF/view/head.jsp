@@ -38,8 +38,8 @@
     <div class="col-md-3" style="padding-top:20px">
         <ol class="list-inline">
             <c:if test="${empty user }">
-                <li><a href="${pageContext.request.contextPath }/login">亲，登录</a></li>
-                <li><a href="${pageContext.request.contextPath }/register">免费注册</a></li>
+                <li><a href="/login">亲，登录</a></li>
+                <li><a href="/register">免费注册</a></li>
             </c:if>
             <c:if test="${not empty user }">
                 <li>欢迎:<a href="/userInformation?uid=${user.uid}">${user.username }</a></li>

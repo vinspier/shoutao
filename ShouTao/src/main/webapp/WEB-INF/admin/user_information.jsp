@@ -65,8 +65,8 @@
         function submitModifyForm() {
             document.getElementById("form-horizontal").submit();
         }
-        function makeSure_deleteUser(uid) {
-            if(confirm("确认删除该用户吗？")){
+        function makeSure_deleteUser(uid,username) {
+            if(confirm("确认删除"+username+"用户吗？")){
                 location.href = "/admin_deleteUser?uid="+uid;
             }
         }
@@ -138,7 +138,7 @@
                         <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                                                                             height:35px;width:100px;color:white;">
-                        <a href="javascript:void (0)" onclick="makeSure_deleteUser('${user.uid}')">
+                        <a href="javascript:void (0)" onclick="makeSure_deleteUser('${user.uid}','${user.username}')">
                         <input type="button"   width="100" value="删除该用户" name="delete" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">

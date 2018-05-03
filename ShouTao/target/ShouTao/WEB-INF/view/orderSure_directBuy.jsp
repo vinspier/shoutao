@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>订单详情</title>
+    <title>确认订单信息</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css"/>
     <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -133,8 +133,6 @@
 
 <div class="container-fluid" id="footer_bottom">
     <div style="margin-top:50px;">
-        <img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势"
-             title="我们的优势"/>
     </div>
 
     <div style="text-align: center;margin-top: 5px;">

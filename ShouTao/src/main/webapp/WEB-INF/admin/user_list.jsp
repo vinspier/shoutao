@@ -107,7 +107,7 @@
                         <c:if test="${user.state == 1}"><a>已激活</a></c:if>
                     </td>
                     <td width="25%" style="text-align: center">
-                            <a href="/check_balance?uid=${user.uid}">${user.balance}</a>
+                            <a href="javascript:void(0)">${user.balance}</a>
                     </td>
                 </tr>
                 </tbody>

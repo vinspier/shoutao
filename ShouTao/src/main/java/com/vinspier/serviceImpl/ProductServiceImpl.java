@@ -25,6 +25,17 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findNew() throws Exception{
         return productDao.findNewProducts(Constant.PRODUCT_FLAG_UP);
     }
+    public Page<Product> searchByPage(int pageNumber, int pageSize, String searchContent) throws Exception{
+        Page<Product> productPage = new Page<Product>(pageNumber,pageSize);
+
+        List<Product> productList = productDao.searchByPage(searchContent,Constant.PRODUCT_FLAG_UP,productPage.getStartIndex(),productPage.getPageSize());
+        productPage.setData(productList);
+
+        int totalRecords = productDao.getTotalRecord(searchContent,Constant.PRODUCT_FLAG_UP);
+        productPage.setTotalRecord(totalRecords);
+
+        return productPage;
+    }
 
     public Product getById(String pid) throws Exception{
         return productDao.getById(pid);
@@ -60,18 +71,6 @@ public class ProductServiceImpl implements ProductService {
         }
         productPage.setData(productList);
         productPage.setTotalRecord(totalRecords);
-        return productPage;
-    }
-
-    public Page<Product> searchByPage(int pageNumber, int pageSize, String searchContent) throws Exception{
-        Page<Product> productPage = new Page<Product>(pageNumber,pageSize);
-
-        List<Product> productList = productDao.searchByPage(searchContent,Constant.PRODUCT_FLAG_UP,productPage.getStartIndex(),productPage.getPageSize());
-        productPage.setData(productList);
-
-        int totalRecords = productDao.getTotalRecord(searchContent,Constant.PRODUCT_FLAG_UP);
-        productPage.setTotalRecord(totalRecords);
-
         return productPage;
     }
 

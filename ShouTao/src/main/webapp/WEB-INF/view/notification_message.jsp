@@ -23,8 +23,23 @@
 <div class="container-fluid">
     <%@include file="head.jsp" %>
 
-    <div class="container-fluid">
-        <h3>${msg}</h3>
+    <div class="container" style="width:100%;background:url('${pageContext.request.contextPath}/image/register.jpg');">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
+                <div align="center"><font>信息提示: </font>NOTIFICATION INFORMATION</div>
+                <br/>
+                <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/resetPassword" >
+                    <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${user.password}">
+                    <div class="container-fluid" align="center">
+                        <h3>${msg}</h3>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-2"></div>
+
+        </div>
     </div>
 
 </div>

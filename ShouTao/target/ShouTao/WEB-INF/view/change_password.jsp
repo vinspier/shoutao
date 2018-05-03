@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>修改密码</title>
+    <title>密码修改</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
     <script src="../js/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -84,6 +84,11 @@
                 submitResetForm();
             }
         }
+        function make_sureResetPassword() {
+            if(confirm("确认修改密码？")){
+                checkItems();
+            }
+        }
         function submitResetForm() {
             document.getElementById("resetPasswordForm").submit();
         }
@@ -95,6 +100,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
+            <div align="center"><font>密码修改</font>RESET PASSWORD</div>
             <br/>
             <form class="form-horizontal" id="resetPasswordForm" style="margin-top:5px;align-self: center" method="post" action="/resetPassword" >
                 <input type="hidden" name="passwordOrigin" id="passwordOrigin" value="${user.password}">
@@ -119,7 +125,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
+                        <input type="button"  onclick="make_sureResetPassword()" width="100" value="确认修改" name="modify" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">
                     </div>

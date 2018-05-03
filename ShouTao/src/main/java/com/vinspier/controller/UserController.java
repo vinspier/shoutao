@@ -32,7 +32,7 @@ public class UserController {
     private UserService userService;
     /**用户注册*/
     @RequestMapping(value = "/Register")
-    public String register(HttpServletRequest request, @ModelAttribute User user) throws ServletException,IOException{
+    public String register(HttpServletRequest request,User user) throws Exception{
         try {
             userService.register(user);
             request.setAttribute("msg","恭喜你,注册成功,请登录邮箱完成激活");
@@ -44,7 +44,7 @@ public class UserController {
 
     /**用户激活*/
     @RequestMapping(value = "/Active")
-    public String active(HttpServletRequest request) throws ServletException,IOException{
+    public String active(HttpServletRequest request) throws Exception{
         try {
             String code = request.getParameter("code");
             User user = userService.active(code);
@@ -128,7 +128,6 @@ public class UserController {
         model.addAttribute("user",userService.getInformation(uid));
         return "view/check_balance";
     }
-
 
   /**更新用户信息*/
   @RequestMapping(value = "/modifyUserInformation")
