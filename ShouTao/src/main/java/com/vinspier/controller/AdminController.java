@@ -1,20 +1,30 @@
 package com.vinspier.controller;
 
+import com.mchange.io.FileUtils;
+import com.vinspier.entity.Page;
 import com.vinspier.pojo.*;
 import com.vinspier.service.*;
+import com.vinspier.utils.UUIDUtils;
 import constant.Constant;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +39,8 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/admin_login")
     public String adminLogin(HttpServletRequest request, HttpServletResponse response, @RequestParam("adminName") String name, @RequestParam("password") String password)throws Exception{
@@ -139,6 +151,27 @@ public class AdminController {
         return "admin/user_list";
     }
 
+    /**管理员搜索实现*/
+    @RequestMapping(value = "/admin_searchByPage")
+    public String admin_searchByPage(HttpServletRequest request,@RequestParam("pageNumber") String pageNumber,@RequestParam("searchContent") String searchContent,Model model) throws Exception{
+        try {
+            int pageNumber1 = Integer.parseInt(pageNumber);
+            int pageSize = Constant.PRODUCT_PAGE_SIZE;
+            Page<Product> productPage = productService.searchByPage(pageNumber1,pageSize,searchContent);
+            if(productPage.getData() == null || productPage.getData().size() <= 0){
+                request.setAttribute("msg","未找到和   [ "+searchContent+" ]   相关的商品");
+                return "admin/notification_message";
+            }else {
+                model.addAttribute("isSearch",Constant.PAGINATION_DISPLAY_ORIGIN_A);
+                model.addAttribute("searchContent",searchContent);
+                model.addAttribute("productPage",productPage);
+                return "admin/product_list";
+            }
+        } catch (NumberFormatException e) {
+            return "redirect:adminIndex";
+        }
+    }
+
     /**  获取用户信息    */
     @RequestMapping(value = "/admin_userInformation")
     public String admin_userInformation(@RequestParam("uid") String uid, Model model) throws Exception{
@@ -172,17 +205,101 @@ public class AdminController {
         return "admin/notification_message";
     }
 
+    /**管理员查询不同状态下的商品*/
+    @RequestMapping(value = "/getProductToPage")
+    public String getProductToPage(HttpServletRequest request,@RequestParam("flag") String pflag,Model model) throws Exception{
+        try {
+            int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+            int pageSize = Constant.PRODUCT_PAGE_SIZE;
+            Page<Product> productPage = productService.getProductToPage(Integer.parseInt(pflag),pageNumber,pageSize);
+            model.addAttribute("flag",Integer.parseInt(pflag));
+            model.addAttribute("isState",Constant.PAGINATION_DISPLAY_ORIGIN_C);
+            model.addAttribute("productPage",productPage);
+        } catch (NumberFormatException e) {
+            request.setAttribute("msg","分页查询失败");
+        }
+        return "admin/product_list";
+    }
+    /**设置商品上下架状态*/
     @RequestMapping(value = "/admin_resetPflag")
     public String admin_resetPflag(HttpServletRequest request,@RequestParam("pid") String pid,@RequestParam("flag") String pflag)throws Exception{
          String message =  productService.resetPflag(pid,Integer.parseInt(pflag));
          request.setAttribute("msg",message);
         return "admin/notification_message";
     }
+    /**设置商品热门与非热门属性*/
     @RequestMapping(value = "/admin_resetIsHot")
     public String admin_resetIsHot(HttpServletRequest request,@RequestParam("pid") String pid,@RequestParam("is_hot") String is_hot)throws Exception{
            String message =  productService.resetIsHot(pid,Integer.parseInt(is_hot));
            request.setAttribute("msg",message);
         return "admin/notification_message";
+    }
+    /**新商品上传*/
+    @RequestMapping(value = "/product_upload")
+    public String product_upload(HttpServletRequest request,@RequestParam("file") MultipartFile file)throws Exception{
+        try {
+            Product product = new Product();
+            product.setPname(request.getParameter("pname"));
+            String market_price = request.getParameter("market_price");
+            if(market_price == null || "".equals(market_price)){
+                market_price += "0";
+            }
+            product.setMarket_price(Double.parseDouble(market_price));
+            String shop_price = request.getParameter("shop_price");
+            if(shop_price == null || "".equals(shop_price)){
+                shop_price += "0";
+            }
+            product.setShop_price(Double.parseDouble(shop_price));
+            product.setPdesc(request.getParameter("pdesc"));
+            String flag = request.getParameter("flag_up");
+            System.out.println(flag+"1");
+            if(flag != null && "yes".equals(flag)){
+                product.setPflag(Constant.PRODUCT_FLAG_UP);
+            }else{
+                product.setPflag(Constant.PRODUCT_FLAG_DOWN);
+            }
+            String is_hot = request.getParameter("is_hot");
+            System.out.println(is_hot+"2");
+            if(is_hot != null && "yes".equals(is_hot)){
+                product.setIs_hot(Constant.PRODUCT_IS_HOT);
+            }else{
+                product.setIs_hot(Constant.PRODUCT_NOT_HOT);
+            }
+            product.setCid(request.getParameter("cid"));
+            String realPath = request.getSession().getServletContext().getRealPath("");
+            String message =  productService.uploadProduct(product,file,realPath);
+            request.setAttribute("msg",message);
+        }catch (Exception e){
+            return "admin/notification_message";
+        }
+        return "admin/notification_message";
+    }
+    /**通过商品id获取该商品信息*/
+    @RequestMapping(value = "/admin_getByPid")
+    public String admin_getByPid(@Param("pid") String pid, Model model) throws Exception{
+        Product product = productService.getById(pid);
+        Category category = categoryService.getByCid(product.getCid());
+        model.addAttribute("product",product);
+        model.addAttribute("category",category);
+        return "admin/product_info";
+    }
+
+
+    /**管理员查询某一分类下的商品*/
+    @RequestMapping(value = "/admin_getByPage")
+    public String admin_getByPage(HttpServletRequest request, @Param("cid") String cid, Model model) throws Exception{
+        try {
+            int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+            int pageSize = Constant.PRODUCT_PAGE_SIZE;
+            Page<Product> productPage = productService.getByPage(pageNumber,pageSize,cid);
+            Category category = categoryService.getByCid(cid);
+            model.addAttribute("productPage",productPage);
+            model.addAttribute("category",category);
+            model.addAttribute("isCategory",Constant.PAGINATION_DISPLAY_ORIGIN_B);
+        } catch (Exception e) {
+            request.setAttribute("msg","分页查询失败");
+        }
+        return "admin/product_list";
     }
     @RequestMapping(value = "/admin_deleteProduct")
     public String admin_deleteProduct(HttpServletRequest request,@RequestParam("pid") String pid)throws Exception{

@@ -50,7 +50,7 @@ public class CategoryController {
     public String category_add(@RequestParam("cname") String cname) throws Exception{
         Category category = new Category();
         category.setCid(UUIDUtils.getId());
-        category.setCid(cname);
+        category.setCname(cname);
         categoryService.addCategory(category);
         return "redirect:category_list";
     }

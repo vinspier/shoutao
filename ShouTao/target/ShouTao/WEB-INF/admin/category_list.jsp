@@ -88,15 +88,15 @@
                     <th style="text-align: center">操作</th>
                 </tr>
                 <tr class="active">
-                    <td width="25%" style="text-align: center">
+                    <td width="35%" style="text-align: center">
                             ${cat.cid}
                     </td>
-                    <td width="25%" style="text-align: center">
-                        <a href="admin_getByPage?pageNumber=1&cid=${cat.cid}">
+                    <td width="35%" style="text-align: center">
+                        <a href="/admin_getByPage?pageNumber=1&cid=${cat.cid}">
                                 ${cat.cname}
                         </a>
                     </td>
-                    <td width="25%" style="text-align: center">
+                    <td width="30%" style="text-align: center">
                         <a href="javascript:void(0)" onclick="category_delete('${cat.cid}','${cat.cname}')">删除</a>
                         <a href="javascript:void(0)" onclick="">修改</a>
                     </td>
@@ -111,7 +111,7 @@
 <div class="container-fluid" id="footer_bottom">
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
-            <li><a href="info.html">关于我们</a></li>
+            <li><a>关于我们</a></li>
             <li><a>联系我们</a></li>
             <li><a>招贤纳士</a></li>
             <li><a>法律声明</a></li>

@@ -3,6 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vinspier.dao.ProductDao">
 
+    <insert id="uploadProduct" parameterType="product">
+        INSERT INTO product (pid, pname, market_price, shop_price, pimage, pdate, is_hot, pdesc, pflag, cid) VALUES
+         (#{pid,jdbcType=VARCHAR},#{pname,jdbcType=VARCHAR},#{market_price,jdbcType=DOUBLE},#{shop_price,jdbcType=DOUBLE},
+         #{pimage,jdbcType=VARCHAR},#{pdate,jdbcType=VARCHAR},#{is_hot,jdbcType=INTEGER},#{pdesc,jdbcType=VARCHAR},#{pflag,jdbcType=INTEGER},#{cid,jdbcType=VARCHAR})
+    </insert>
     <select id="findHotProducts"  resultType="product">
         SELECT * FROM product WHERE is_hot = #{0} AND pflag = #{1} ORDER BY pdate limit 15
     </select>
@@ -25,6 +30,9 @@
         SELECT COUNT(*) FROM product WHERE pflag = #{0}
     </select>
 
+    <select id="getOnCid"  resultType="product">
+        SELECT * FROM product WHERE cid = #{0} AND pflag = #{1}
+    </select>
     <select id="getByPage"  resultType="product">
         SELECT * FROM product WHERE cid = #{0} AND pflag = #{1} limit #{2},#{3}
     </select>
@@ -36,7 +44,7 @@
     </select>
 
     <select id="searchByPage"  resultType="product">
-        SELECT * FROM product WHERE pname LIKE "%"#{0}"%" AND pflag = #{1} limit #{2},#{3}
+        SELECT * FROM product WHERE (pname OR pdesc) LIKE "%"#{0}"%" AND pflag = #{1}
     </select>
 
     <update id="resetPflag" parameterType="int">

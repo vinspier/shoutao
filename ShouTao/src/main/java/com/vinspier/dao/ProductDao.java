@@ -1,8 +1,10 @@
 package com.vinspier.dao;
 
 import com.vinspier.pojo.Product;
+import constant.Constant;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +21,10 @@ public interface ProductDao {
     List<Product> getByPage(String cid,int pflag,int startIndex,int pageSize) throws Exception;
     List<Product> getByPage_allPflag(int startIndex,int pageSize) throws Exception;
     List<Product> getByPage_pflagCondition(int pflag,int startIndex,int pageSize) throws Exception;
-    List<Product> searchByPage(String searchContent,int pflag,int startIndex,int pageSize) throws Exception;
+    ArrayList<Product> getOnCid(String cid,int pflag) throws Exception;
+    ArrayList<Product> searchByPage(String searchContent, int pflag) throws Exception;
     void resetPflag(String pid,int pflag) throws Exception;
     void resetIsHot(String pid,int is_hot) throws Exception;
     void deleteProduct(String pid) throws Exception;
+    void uploadProduct(Product product) throws Exception;
  }

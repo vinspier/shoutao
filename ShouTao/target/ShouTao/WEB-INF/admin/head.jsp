@@ -9,18 +9,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <script language="javascript">
-        /**        $().ready(function () {
-            //发送ajax 查询所有分类
-            $.post("/findCategory", function (obj) {
-                //alert(obj);
-                //遍历json列表,获取每一个分类,包装成li标签,插入到ul内部
-                //$.each($(obj),function(){});
-                $(obj).each(function () {
-                    $("#category_list").append("<li><a href='/getByPage?pageNumber=1&cid=" + this.cid + "'>" + this.cname + "</a></li>");
-                });
-            }, "json");
-        });*/
+    <script type="text/javascript">
+        function checkSearchContent() {
+            if ($("#searchContent").val() == "") {
+                $("#searchContent").focus();
+            } else {
+                searchFormSubmit()
+            }
+        }
+        function searchFormSubmit() {
+            $("#searchForm").submit();
+        }
     </script>
 </head>
 <body>
@@ -39,28 +38,6 @@
         <ol class="list-inline">
             <c:if test="${not empty admin }">
                 <li>管理员:<strong>${admin.adminName}</strong></li>
-                <c:if test="${adminLevel == 0}">
-                    <li>
-                        <div class="dropdown">
-                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-                                设置
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/admin_information?adminId=${admin.adminId}">查看个人信息</a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/admin_changePassword">修改密码</a>
-                                </li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/admin_logout">退出</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </c:if>
-                <c:if test="${adminLevel == 1}">
                     <li>
                         <div class="dropdown">
                             <button type="button" class="btn dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown">
@@ -69,11 +46,13 @@
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="/admin_information?adminId=${admin.adminId}">查看个人信息</a>
+                                    <a role="menuitem" tabindex="-1" href="/admin_information?adminId=${admin.adminId}">查看信息</a>
                                 </li>
+                                <c:if test="${adminLevel == 1}">
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" href="/admin_list">查看所有管理员</a>
                                 </li>
+                                </c:if>
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" href="/admin_changePassword">修改密码</a>
                                 </li>
@@ -83,7 +62,6 @@
                             </ul>
                         </div>
                     </li>
-                </c:if>
             </c:if>
         </ol>
     </div>
@@ -195,7 +173,7 @@
                     </li>
                 </ul>
                 <form class="navbar-form navbar-right" id="searchForm" role="search" method="post"
-                      action="/searchByPage?pageNumber=1">
+                      action="/admin_searchByPage?pageNumber=1">
                     <div class="form-group">
                         <input type="text" class="form-control" id="searchContent" name="searchContent"
                                placeholder="Search">
@@ -210,17 +188,5 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-<script type="text/javascript">
-    function checkSearchContent() {
-        if ($("#searchContent").val() == "") {
-            $("#searchContent").focus();
-        } else {
-            searchFormSubmit()
-        }
-    }
-    function searchFormSubmit() {
-        $("#searchForm").submit();
-    }
-</script>
 </body>
 </html>

@@ -88,7 +88,7 @@
         <div class="col-md-10" id="hotProduct">
 
             <div class="col-md-6" style="text-align:center;height:200px;padding:0px;">
-                <a href="product_info.htm">
+                <a >
                     <img src="${pageContext.request.contextPath}/products/hao/middle01.jpg" width="516px" height="200px"
                          style="display: inline-block;">
                 </a>
@@ -127,7 +127,7 @@
         </div>
         <div class="col-md-10">
             <div class="col-md-6" style="text-align:center;height:200px;padding:0px;">
-                <a href="product_info.htm">
+                <a>
                     <img src="${pageContext.request.contextPath}/products/hao/middle01.jpg" width="516px" height="200px"
                          style="display: inline-block;">
                 </a>
@@ -156,7 +156,7 @@
     <div class="container-fluid" id="footer_bottom">
         <div style="text-align: center;margin-top: 5px;">
             <ul class="list-inline">
-                <li><a href="info.html">关于我们</a></li>
+                <li><a>关于我们</a></li>
                 <li><a>联系我们</a></li>
                 <li><a>招贤纳士</a></li>
                 <li><a>法律声明</a></li>

@@ -28,10 +28,11 @@ public interface Constant {
 
 	//热门
 	int PRODUCT_IS_HOT = 1;
+	int PRODUCT_NOT_HOT = 0;
 
-	//上架商品
+	/**上架商品*/
 	int PRODUCT_FLAG_UP = 0;
-	//下架商品
+	/**下架商品*/
 	int PRODUCT_FLAG_DOWN = 1;
 	/**数据库里所有商品*/
 	int PRODUCT_FLAG_ALL = 2;
@@ -68,4 +69,9 @@ public interface Constant {
 	/**定义用户名是否可用*/
 	int NAME_AVALIABLE = 1;
 	int NAME_INAVALIABLE = 0;
+
+	/**定义商品分页展示的来源*/
+	String PAGINATION_DISPLAY_ORIGIN_A = "search_type";//搜索分页展示
+	String PAGINATION_DISPLAY_ORIGIN_B = "category_type";//分类分页展示
+	String PAGINATION_DISPLAY_ORIGIN_C = "state_type";//管理员查询不同状态下的分页展示
 }

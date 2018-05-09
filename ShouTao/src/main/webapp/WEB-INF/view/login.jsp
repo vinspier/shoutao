@@ -98,7 +98,7 @@
      style="width:100%;height:460px;background:#FF2C4C url('${pageContext.request.contextPath}/images/loginbg.jpg') no-repeat;">
     <div class="row">
         <div class="col-md-7">
-            <img src="${pageContext.request.contextPath}/image/login.jpg" width="500" height="330" alt="会员登录" title="会员登录">
+            <img src="${pageContext.request.contextPath}/image/login.jpg" width="500" height="330" alt="" title="">
         </div>
 
         <div class="col-md-5">
@@ -126,7 +126,7 @@
                             <input type="text" class="form-control" id="inputVerificationCode" placeholder="请输入验证码">
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" readonly="readonly" class="form-control" id="verificationCode">
+                            <input type="text" readonly="readonly" class="form-control" id="verificationCode" onclick="createVerificationCode()">
                         </div>
                     </div>
                     <div class="form-group">
@@ -135,7 +135,7 @@
                                 <label>
                                     <input type="checkbox" name="autoLogin"
                                            value="yes" ${not empty cookie.autoLoginCookie ?"checked='checked'":""}> 自动登录
-                                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
                                 <label>
                                     <input type="checkbox" name="saveName"
                                            value="ok" ${not empty cookie.saveNameCookie ?"checked='checked'":""}> 记住用户名
@@ -166,7 +166,7 @@
 <div class="container-fluid" id="footer_bottom" >
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
-            <li><a href="info.html">关于我们</a></li>
+            <li><a>关于我们</a></li>
             <li><a>联系我们</a></li>
             <li><a>招贤纳士</a></li>
             <li><a>法律声明</a></li>

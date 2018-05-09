@@ -19,4 +19,8 @@ public class UUIDUtils {
 		return getId();
 	}
 
+	public static String resetPictureName(){
+		return getId().substring(0,20);
+	}
+
 }

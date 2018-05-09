@@ -3,6 +3,7 @@ package com.vinspier.service;
 
 import com.vinspier.entity.Page;
 import com.vinspier.pojo.Product;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface ProductService {
     String resetPflag(String pid,int pflag) throws Exception;
     String resetIsHot(String pid,int is_hot) throws Exception;
     void deleteProduct(String pid) throws Exception;
+    String uploadProduct(Product product, MultipartFile file,String realPath) throws Exception;
 }

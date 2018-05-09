@@ -140,7 +140,7 @@
                             <input type="text" class="form-control" id="inputVerificationCode" placeholder="请输入验证码">
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" readonly="readonly" class="form-control" id="verificationCode">
+                            <input type="text" readonly="readonly" class="form-control" id="verificationCode" onclick="createVerificationCode()">
                         </div>
                     </div>
                 </form>
@@ -162,7 +162,7 @@
 <div class="container-fluid" id="footer_bottom">
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
-            <li><a href="info.html">关于我们</a></li>
+            <li><a>关于我们</a></li>
             <li><a>联系我们</a></li>
             <li><a>招贤纳士</a></li>
             <li><a>法律声明</a></li>

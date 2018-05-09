@@ -14,6 +14,9 @@
         SELECT * FROM category WHERE cid = #{0}
     </select>
 
+    <select id="searchContent" parameterType="String" resultType="category">
+        SELECT * FROM category where cname LIKE "%"#{0}"%"
+    </select>
     <insert id="addCategory" parameterType="category">
         INSERT INTO category (cid,cname) VALUES (#{cid,jdbcType=VARCHAR},#{cname,jdbcType=VARCHAR})
     </insert>

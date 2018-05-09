@@ -71,6 +71,7 @@
     <div class="row">
         <div style="border: 1px solid #e4e4e4;width:930px;margin-bottom:10px;margin:0 auto;padding:10px;margin-bottom:10px;">
             <a href="/adminIndex">首页&nbsp;&nbsp;&gt;</a>
+            <a href="/admin_getByPage?pageNumber=1&cid=${category.cid}">${category.cname}&nbsp;&nbsp;&gt;</a>
             <a>${fn:substring(product.pname,0 ,10 )}···</a>
         </div>
 
@@ -147,7 +148,6 @@
             </div>
 
             <div>
-                <img src="../${product.pimage}">
                 <th>${product.pname}</th>
             </div>
 
@@ -160,24 +160,23 @@
 
         </div>
     </div>
+</div>
+<div class="container-fluid" id="footer_bottom">
+    <div style="margin-top:50px;">
+    </div>
 
-    <div class="container-fluid" id="footer_bottom">
-        <div style="margin-top:50px;">
-        </div>
-
-        <div style="text-align: center;margin-top: 5px;">
-            <ul class="list-inline">
-                <li><a href="info.html">关于我们</a></li>
-                <li><a>联系我们</a></li>
-                <li><a>招贤纳士</a></li>
-                <li><a>法律声明</a></li>
-                <li><a>友情链接</a></li>
-                <li><a>支付方式</a></li>
-                <li><a>配送方式</a></li>
-                <li><a>服务声明</a></li>
-                <li><a>广告声明</a></li>
-            </ul>
-        </div>
+    <div style="text-align: center;margin-top: 5px;">
+        <ul class="list-inline">
+            <li><a>关于我们</a></li>
+            <li><a>联系我们</a></li>
+            <li><a>招贤纳士</a></li>
+            <li><a>法律声明</a></li>
+            <li><a>友情链接</a></li>
+            <li><a>支付方式</a></li>
+            <li><a>配送方式</a></li>
+            <li><a>服务声明</a></li>
+            <li><a>广告声明</a></li>
+        </ul>
     </div>
 </div>
 </body>

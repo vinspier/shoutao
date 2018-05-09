@@ -51,7 +51,16 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <strong><span class="navbar-brand">所有<c:if test="${flag == 0}">上架的</c:if><c:if test="${flag == 1}">下架的</c:if><c:if test="${flag == 0}"></c:if>商品：${total}个</span></strong>
+                    <strong><span class="navbar-brand">
+                        <c:if test="${not empty flag}">
+                            <c:if test="${flag == 2}">所有</c:if>
+                            <c:if test="${flag == 0}">所有上架的</c:if>
+                            <c:if test="${flag == 1}">所有下架的</c:if>商品：${productPage.totalRecord}个
+                        </c:if>
+                        <c:if test="${not empty category}" >
+                            所有 ${category.cname} 商品：${productPage.totalRecord}个
+                        </c:if>
+                    </span></strong>
                 </div>
             </div>
         </nav>
@@ -84,9 +93,15 @@
         <%-- 不是第一页 --%>
         <c:if test="${productPage.pageNumber != 1 }">
             <li>
-                <a href="/getProductToPage?pageNumber=${productPage.pageNumber-1}&flag=${flag}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
+                <c:if test="${not empty isState}">
+                    <a href="/getProductToPage?pageNumber=${productPage.pageNumber-1}&flag=${flag}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                </c:if>
+                <c:if test="${not empty isCategory}">
+                    <a href="/admin_getByPage?pageNumber=${productPage.pageNumber-1}&cid=${category.cid}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                </c:if>
+                <c:if test="${not empty isSearch}">
+                    <a href="/admin_searchByPage?pageNumber=${productPage.pageNumber-1}&searchContent=${searchContent}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                </c:if>
             </li>
         </c:if>
 
@@ -99,7 +114,15 @@
             </c:if>
             <c:if test="${productPage.pageNumber != n}">
                 <li>
-                    <a href="/getProductToPage?pageNumber=${n}&flag=${flag}">${n}</a>
+                    <c:if test="${not empty isState}">
+                         <a href="/getProductToPage?pageNumber=${n}&flag=${flag}">${n}</a>
+                    </c:if>
+                    <c:if test="${not empty isCategory}">
+                        <a href="/admin_getByPage?pageNumber=${n}&cid=${category.cid}">${n}</a>
+                    </c:if>
+                    <c:if test="${not empty isSearch}">
+                        <a href="/admin_searchByPage?pageNumber=${n}&searchContent=${searchContent}">${n}</a>
+                    </c:if>
                 </li>
             </c:if>
         </c:forEach>
@@ -116,9 +139,15 @@
         <%-- 不是最后一页 --%>
         <c:if test="${productPage.pageNumber != productPage.totalPage }">
             <li>
-                <a href="/getProductToPage?pageNumber=${productPage.pageNumber+1}&flag=${flag}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+                <c:if test="${not empty isState}">
+                    <a href="/getProductToPage?pageNumber=${productPage.pageNumber+1}&flag=${flag}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+                </c:if>
+                <c:if test="${not empty isCategory}">
+                    <a href="/admin_getByPage?pageNumber=${productPage.pageNumber+1}&cid=${category.cid}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+                </c:if>
+                <c:if test="${not empty isSearch}">
+                    <a href="/admin_searchByPage?pageNumber=${productPage.pageNumber+1}&searchContent=${searchContent}" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a>
+                </c:if>
             </li>
         </c:if>
 
@@ -150,7 +179,7 @@
 
     <div style="text-align: center;margin-top: 5px;">
         <ul class="list-inline">
-            <li><a href="info.html">关于我们</a></li>
+            <li><a>关于我们</a></li>
             <li><a>联系我们</a></li>
             <li><a>招贤纳士</a></li>
             <li><a>法律声明</a></li>
