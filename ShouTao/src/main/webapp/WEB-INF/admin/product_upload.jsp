@@ -46,50 +46,6 @@
         }
     </style>
     <script type="text/javascript">
-/*        function checkItems() {
-            var empty = "";
-            var originPassword = $("#passwordOrigin").val();
-            var inputPasswordOrigin = $("#inputPasswordOrigin").val();
-            var resetPassword = $("#resetPassword").val();
-            var checkResetPassword = $("#checkResetPassword").val();
-            if(inputPasswordOrigin == ""){
-                empty = "no";
-                alert("请输入原始密码");
-                $("#inputPasswordOrigin").focus();
-            }else{
-                if(resetPassword == ""){
-                    empty = "no";
-                    alert("请输入重置密码");
-                    $("#resetPassword").focus();
-                }else{
-                    if(checkResetPassword == ""){
-                        empty = "no";
-                        alert("请输入校验密码")
-                        $("#checkResetPassword").focus();
-                    }else{
-                        if(originPassword != inputPasswordOrigin){
-                            empty = "no";
-                            alert("原始密码输入错误，请重新输入");
-                            $("#inputPasswordOrigin").focus();
-                        }else{
-                            if(resetPassword != checkResetPassword){
-                                empty = "no";
-                                alert("重置密码与校验密码不一致，请重新输入重置密码和校验密码");
-                                $("#checkResetPassword").focus();
-                            }
-                        }
-                    }
-                }
-            }
-            if(empty == ""){
-                submitResetForm();
-            }
-        }
-        function make_sureResetPassword() {
-            if(confirm("确认修改密码？")){
-                checkItems();
-            }
-        }*/
         function checkItems() {
             if($("#pname").val() == ""){
                 alert("请输入商品名称");

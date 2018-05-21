@@ -21,4 +21,5 @@ public interface ProductService {
     String resetIsHot(String pid,int is_hot) throws Exception;
     void deleteProduct(String pid) throws Exception;
     String uploadProduct(Product product, MultipartFile file,String realPath) throws Exception;
+    void editProduct(Product product) throws Exception;
 }

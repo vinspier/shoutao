@@ -135,4 +135,13 @@ public class ViewController {
         model.addAttribute("categoryList",categoryList);
         return "admin/product_upload";
     }
+
+    @RequestMapping(value = "/toEdit")
+    public String toEdit(Model model,@RequestParam("pid") String pid) throws Exception{
+        Product product = productService.getById(pid);
+        model.addAttribute("product",product);
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList",categoryList);
+        return "admin/product_edit";
+    }
 }

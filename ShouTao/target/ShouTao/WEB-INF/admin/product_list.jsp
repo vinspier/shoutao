@@ -68,7 +68,7 @@
     <c:forEach items="${productPage.data}" var="p">
         <div class="col-md-2">
             <a href="/admin_getByPid?pid=${p.pid}">
-                <img src="../${p.pimage}" width="170" height="170" style="display: inline-block;">
+                <img src="../${p.pimage}" width="120" height="120" style="display: inline-block;">
             </a>
             <p><a href="/admin_getByPid?pid=${p.pid}" style='color:green'>${fn:substring(p.pname,0,10)}..</a></p>
             <p><font color="#FF0000">商城价：&yen;${p.shop_price}</font></p>

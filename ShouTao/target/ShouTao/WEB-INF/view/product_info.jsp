@@ -50,14 +50,11 @@
 
         <div style="margin:0 auto;width:950px;">
             <div class="col-md-6">
-                <img style="opacity: 1;width:400px;height:350px;" title="" class="medium" src="../${product.pimage}">
+                <img style="opacity: 1;width:280px;height:230px;" title="" class="medium" src="../${product.pimage}">
             </div>
 
             <div class="col-md-6">
                 <div><strong>${product.pname}</strong></div>
-                <div style="border-bottom: 1px dotted #dddddd;width:350px;margin:10px 0 10px 0;">
-                    <div>编号：${product.pid}</div>
-                </div>
 
                 <div style="margin:10px 0 10px 0;">商城价: <strong
                         style="color:#ef0101;">￥：${product.shop_price}元/份</strong> 市场价：
@@ -98,15 +95,6 @@
         </div>
         <div class="clear"></div>
         <div style="width:950px;margin:0 auto;">
-            <div style="background-color:#d3d3d3;width:400px;padding:10px 10px;margin:10px 0 10px 0;">
-                <strong>商品简介</strong>
-            </div>
-
-            <div>
-                <img src="../${product.pimage}">
-                <th>${product.pname}</th>
-            </div>
-
             <div style="background-color:#d3d3d3;width:400px;padding:10px 10px;margin:10px 0 10px 0;">
                 <strong>商品详情</strong>
             </div>

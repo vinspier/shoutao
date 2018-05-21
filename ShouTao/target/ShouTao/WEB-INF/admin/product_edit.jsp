@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>上传商品</title>
+    <title>商品编辑</title>
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"/>
     <script src="../js/jquery-1.11.3.min.js" type="text/javascript"></script>
@@ -51,19 +51,16 @@
                 alert("请输入商品名称");
                 $("#pname").focus();
             }else{
-                if($("#picture").val()==""){
-                    alert("未选择图片");
-                    return;
-                }else{
                     var selectedOption = $("#cidSelect option:selected");
                     $("#cid").val(selectedOption.val());
                     submitResetForm();
-                }
             }
         }
 
         function submitResetForm() {
-            document.getElementById("productUploadForm").submit();
+            if(confirm("确认编辑修改并更新？")){
+                document.getElementById("productEditForm").submit();
+            }
         }
     </script>
 </head>
@@ -73,53 +70,32 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
-            <div align="center"><font>上传商品: </font>PRODUCT UPLOAD</div>
+            <div align="center"><font>商品编辑: </font>PRODUCT EDIT</div>
             <br/>
-            <form class="form-horizontal" id="productUploadForm" enctype="multipart/form-data" style="margin-top:5px;align-self: center" method="post" action="/product_upload" >
+            <form class="form-horizontal" id="productEditForm" enctype="multipart/form-data" style="margin-top:5px;align-self: center" method="post" action="/product_edit?pid=${product.pid}" >
                 <input type="hidden" id="cid" name="cid" value="">
                 <div class="form-group">
                     <label for="pname" class="col-sm-2 control-label">商品名称：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-contro" id="pname" name="pname" value="" placeholder="输入商品名称" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="shop_price" class="col-sm-2 control-label">选择文件：</label>
-                    <div class="col-sm-6">
-                        <input type="file" id="picture" name="file" value="">
+                        <input type="text" class="form-contro" id="pname" name="pname" value="${product.pname}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="market_price" class="col-sm-2 control-label">商品标价：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-contro" id="market_price" name="market_price" value="" placeholder="输入商品标价" >元
+                        <input type="text" class="form-contro" id="market_price" name="market_price" value="${product.market_price}">元
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="shop_price" class="col-sm-2 control-label">商品售价：</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-contro" id="shop_price" name="shop_price" value="" placeholder="输入商品售价" >元
+                        <input type="text" class="form-contro" id="shop_price" name="shop_price" value="${product.shop_price}" >元
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="pdesc" class="col-sm-2 control-label">商品描述：</label>
                     <div class="col-sm-6">
-                        <textarea  class="form-contro" id="pdesc" name="pdesc" value="" placeholder="输入商品描述"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="shop_price" class="col-sm-2 control-label">设置属性：</label>
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="flag_up" value="yes" >直接上架
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="is_hot" value="yes" >热门商品
-                            </label>
-                        </div>
+                        <textarea  class="form-contro" id="pdesc" name="pdesc" value="">${product.pdesc}</textarea>
                     </div>
                 </div>
                 <div  class="form-group">
@@ -127,8 +103,11 @@
                     <div class="col-sm-6">
                         <select  id="cidSelect" name="cidSelect">
                             <c:if test="${not empty categoryList && categoryList.size() > 0 }">
-                                <c:forEach items="${categoryList }" var="ca">
-                                    <option  value="${ca.cid }">${ca.cname }</option>
+                                <c:forEach items="${categoryList}" var="ca">
+                                    <c:if test="${product.cid.equals(ca.cid)}">
+                                    <option  value="${ca.cid}" selected="selected">${ca.cname}</option>
+                                    </c:if>
+                                    <option  value="${ca.cid}">${ca.cname}</option>
                                 </c:forEach>
                             </c:if>
                         </select>
@@ -136,7 +115,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button"  onclick="checkItems()" width="100" value="上传" name="modify" border="0"
+                        <input type="button"  onclick="checkItems()" width="100" value="确认修改" name="modify" border="0"
                                style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
                                        height:35px;width:100px;color:white;">
                     </div>

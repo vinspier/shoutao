@@ -168,4 +168,8 @@ public class ProductServiceImpl implements ProductService {
         }
         return "上传成功，返回"+"<a href='/adminIndex' >首页</a>";
     }
+
+    public void editProduct(Product product) throws Exception{
+        productDao.editProduct(product);
+    }
 }

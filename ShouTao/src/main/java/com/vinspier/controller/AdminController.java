@@ -252,14 +252,12 @@ public class AdminController {
             product.setShop_price(Double.parseDouble(shop_price));
             product.setPdesc(request.getParameter("pdesc"));
             String flag = request.getParameter("flag_up");
-            System.out.println(flag+"1");
             if(flag != null && "yes".equals(flag)){
                 product.setPflag(Constant.PRODUCT_FLAG_UP);
             }else{
                 product.setPflag(Constant.PRODUCT_FLAG_DOWN);
             }
             String is_hot = request.getParameter("is_hot");
-            System.out.println(is_hot+"2");
             if(is_hot != null && "yes".equals(is_hot)){
                 product.setIs_hot(Constant.PRODUCT_IS_HOT);
             }else{
@@ -273,6 +271,37 @@ public class AdminController {
             return "admin/notification_message";
         }
         return "admin/notification_message";
+    }
+
+    /**编辑商品*/
+    @RequestMapping(value = "/product_edit")
+    public String product_edit(HttpServletRequest request,@RequestParam("pid") String pid,Model model) throws Exception{
+        Product product = new Product();
+        product.setPid(pid);
+        product.setPname(request.getParameter("pname"));
+        String market_price = request.getParameter("market_price");
+        if(market_price == null || "".equals(market_price)){
+            market_price += "0";
+        }
+        product.setMarket_price(Double.parseDouble(market_price));
+        String shop_price = request.getParameter("shop_price");
+        if(shop_price == null || "".equals(shop_price)){
+            shop_price += "0";
+        }
+        product.setShop_price(Double.parseDouble(shop_price));
+        product.setPdesc(request.getParameter("pdesc"));
+        product.setCid(request.getParameter("cid"));
+        try{
+            productService.editProduct(product);
+        }catch (Exception e){
+            request.setAttribute("msg","编辑失败 重新编辑");
+            return "admin/notification_message";
+        }
+        Product getProduct = productService.getById(pid);
+        Category category = categoryService.getByCid(product.getCid());
+        model.addAttribute("product",getProduct);
+        model.addAttribute("category",category);
+        return "admin/product_info";
     }
     /**通过商品id获取该商品信息*/
     @RequestMapping(value = "/admin_getByPid")

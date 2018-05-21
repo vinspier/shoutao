@@ -27,4 +27,5 @@ public interface ProductDao {
     void resetIsHot(String pid,int is_hot) throws Exception;
     void deleteProduct(String pid) throws Exception;
     void uploadProduct(Product product) throws Exception;
+    void editProduct(Product product) throws Exception;
  }

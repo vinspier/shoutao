@@ -77,17 +77,16 @@
 
         <div style="margin:0 auto;width:950px;">
             <div class="col-md-6">
-                <img style="opacity: 1;width:400px;height:350px;" title="" class="medium" src="../${product.pimage}">
+                <img style="opacity: 1;width:280px;height:230px;" title="" class="medium" src="../${product.pimage}">
             </div>
-
             <div class="col-md-6">
-                <div><strong>${product.pname}</strong></div>
-                <div style="border-bottom: 1px dotted #dddddd;width:350px;margin:10px 0 10px 0;">
-                    <div>编号：${product.pid}</div>
+                <div>
+                    <strong>${product.pname}</strong>
+                        <a href="/toEdit?pid=${product.pid}">&nbsp;编辑</a>
                 </div>
 
                 <div style="margin:10px 0 10px 0;">商城价: <strong
-                        style="color:#ef0101;">￥：${product.shop_price}元/份</strong> 市场价：
+                        style="color:#ef0101;">￥：${product.shop_price}元/份</strong>&nbsp;&nbsp; 市场价：
                     <del>￥${product.market_price}元/份</del>
                 </div>
 
@@ -144,14 +143,6 @@
         <div class="clear"></div>
         <div style="width:950px;margin:0 auto;">
             <div style="background-color:#d3d3d3;width:400px;padding:10px 10px;margin:10px 0 10px 0;">
-                <strong>商品简介</strong>
-            </div>
-
-            <div>
-                <th>${product.pname}</th>
-            </div>
-
-            <div style="background-color:#d3d3d3;width:400px;padding:10px 10px;margin:10px 0 10px 0;">
                 <strong>商品详情</strong>
             </div>
             <div style="width: 700px">
@@ -161,24 +152,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" id="footer_bottom">
-    <div style="margin-top:50px;">
-    </div>
 
-    <div style="text-align: center;margin-top: 5px;">
-        <ul class="list-inline">
-            <li><a>关于我们</a></li>
-            <li><a>联系我们</a></li>
-            <li><a>招贤纳士</a></li>
-            <li><a>法律声明</a></li>
-            <li><a>友情链接</a></li>
-            <li><a>支付方式</a></li>
-            <li><a>配送方式</a></li>
-            <li><a>服务声明</a></li>
-            <li><a>广告声明</a></li>
-        </ul>
-    </div>
-</div>
 </body>
 
 <script type="text/javascript">
