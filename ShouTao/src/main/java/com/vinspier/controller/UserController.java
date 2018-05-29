@@ -1,6 +1,7 @@
 package com.vinspier.controller;
 
 import com.vinspier.pojo.Role;
+import com.vinspier.pojo.Suggestion;
 import com.vinspier.pojo.User;
 import com.vinspier.service.RoleService;
 import com.vinspier.service.UserService;
@@ -49,7 +50,7 @@ public class UserController {
             String code = request.getParameter("code");
             User user = userService.active(code);
             if(user == null){
-                request.setAttribute("msg","激活失败，请重新注册或者重新激活");
+                request.setAttribute("msg","用户已激活过，请直接登录");
                 return "view/notification_message";
             }
             request.setAttribute("msg","激活成功，请<a href='http://localhost:8080/login'>登录</a>");
@@ -118,9 +119,14 @@ public class UserController {
 
   /**  获取用户信息    */
   @RequestMapping(value = "/userInformation")
-  public String userInformation(@RequestParam("uid") String uid, Model model) throws Exception{
-      model.addAttribute("user",userService.getInformation(uid));
-      return "view/user_information";
+  public String userInformation(@RequestParam("uid") String uid, Model model,HttpServletRequest request) throws Exception{
+      if (request.getSession().getAttribute("user") != null){
+          model.addAttribute("user",userService.getInformation(uid));
+          return "view/user_information";
+      }else {
+          return "redirect:login";
+      }
+
   }
     /**  查询余额信息    */
     @RequestMapping(value = "/check_balance")
@@ -173,5 +179,25 @@ public class UserController {
       PrintWriter out = response.getWriter();
       JSONArray jsonArray = JSONArray.fromObject(avaliable);
       out.println(jsonArray.toString());
+  }
+
+  @RequestMapping(value = "/thumbsUp")
+  public String thumbsUp(@RequestParam("id") String id) throws Exception{
+      userService.thumbsUp(id);
+      return "redirect:to_suggest";
+  }
+
+  @RequestMapping(value = "/suggest")
+  public String suggest(HttpServletRequest request) throws Exception{
+      try {
+          Suggestion suggestion = new Suggestion();
+          suggestion.setSuggest_content(request.getParameter("content"));
+          suggestion.setUser((User) request.getSession().getAttribute("user"));
+          userService.suggest(suggestion);
+      } catch (Exception e) {
+          request.setAttribute("msg","提交建议失败，请重新提交");
+          return "view/notification_message";
+      }
+      return "redirect:to_suggest";
   }
 }

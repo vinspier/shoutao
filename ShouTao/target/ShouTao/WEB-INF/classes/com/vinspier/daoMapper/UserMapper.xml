@@ -81,4 +81,31 @@
         WHERE uid = #{0}
     </update>
 
+    <insert id="suggest" parameterType="suggestion">
+        insert into suggestion (id,suggest_content,like_count,uid)
+        values(#{id,jdbcType=VARCHAR},#{suggest_content,jdbcType=VARCHAR},#{like_count,jdbcType=INTEGER},#{user.uid,jdbcType=VARCHAR})
+    </insert>
+    <select id="getSuggestionById" parameterType="java.lang.String" resultType="suggestion">
+        SELECT * FROM suggestion WHERE id = #{0}
+    </select>
+    <select id="findAllSuggestion" resultMap="suggestionMapper">
+        SELECT * FROM suggestion s ,user_info u WHERE u.uid = s.uid ORDER BY like_count DESC
+    </select>
+    <resultMap id="suggestionMapper" type="com.vinspier.pojo.Suggestion">
+        <id property="id" column="id"/>
+        <result property="suggest_content" column="suggest_content"/>
+        <result property="like_count" column="like_count"/>
+        <association property="user" javaType="com.vinspier.pojo.User">
+            <id property="uid" column="uid"/>
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
+    <update id="thumbsUp" parameterType="suggestion">
+        UPDATE suggestion
+        <set>
+            like_count = #{like_count}
+        </set>
+        WHERE id = #{id}
+    </update>
+
 </mapper>

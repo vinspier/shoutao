@@ -411,4 +411,17 @@ public class AdminController {
         request.getSession().invalidate();
         return "redirect:adminLogin";
     }
+
+    @RequestMapping(value = "/suggestion_list")
+    public String userSuggestions(Model model) throws Exception{
+        List<Suggestion> suggestionList = administratorService.findAllSuggestion();
+        model.addAttribute("suggestionList",suggestionList);
+        return "admin/suggestion_list";
+    }
+
+    @RequestMapping(value = "/deleteSuggestion")
+    public String deleteSuggest(@RequestParam("id") String id) throws Exception{
+        administratorService.deleteSuggestionById(id);
+        return "redirect:suggestion_list";
+    }
 }

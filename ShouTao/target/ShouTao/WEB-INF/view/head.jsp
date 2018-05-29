@@ -59,6 +59,9 @@
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1" href="/check_balance?uid=${user.uid}">查询余额</a>
                         </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="/to_suggest">反馈建议</a>
+                        </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1" href="/logout">退出</a>

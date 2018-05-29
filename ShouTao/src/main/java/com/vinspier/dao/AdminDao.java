@@ -1,6 +1,7 @@
 package com.vinspier.dao;
 
 import com.vinspier.pojo.Administrator;
+import com.vinspier.pojo.Suggestion;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface AdminDao {
     List<Administrator> adminAll() throws Exception;
     void deleteAdmin(int adminId) throws Exception;
     void addNewAdmin(Administrator admin) throws  Exception;
+    void deleteSuggestionById(String id) throws Exception;
+    List<Suggestion> findAllSuggestion() throws Exception;
 }

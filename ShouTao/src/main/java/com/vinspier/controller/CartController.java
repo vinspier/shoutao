@@ -92,9 +92,14 @@ public class CartController {
 
     @RequestMapping(value = "/cart")
     public String listCart(HttpServletRequest request,Model model) throws Exception{
-        List<com.vinspier.pojo.CartItem> cartItems = cartService.cartList(((User)request.getSession().getAttribute("user")).getUid());
-        model.addAttribute("cartList",cartItems);
-        return "view/cart";
+        User user = (User) request.getSession().getAttribute("user");
+        if(user != null){
+            List<com.vinspier.pojo.CartItem> cartItems = cartService.cartList(user.getUid());
+            model.addAttribute("cartList",cartItems);
+            return "view/cart";
+        }else {
+            return "redirect:login";
+        }
     }
 
 

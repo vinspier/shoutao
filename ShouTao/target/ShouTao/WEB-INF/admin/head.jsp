@@ -168,6 +168,9 @@
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" href="/admin_checkAllUsersByState?state=0">查看未激活用户</a>
                                 </li>
+                                <li>
+                                    <a role="menuitem" tabindex="-1" href="/suggestion_list">查看用户反馈</a>
+                                </li>
                             </ul>
                         </div>
                     </li>

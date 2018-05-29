@@ -1,5 +1,6 @@
 package com.vinspier.dao;
 
+import com.vinspier.pojo.Suggestion;
 import com.vinspier.pojo.User;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +26,8 @@ public interface UserDao {
     List<User> getAllUsersActive(int state) throws Exception;
     ArrayList<String> getAllUserName()throws Exception;
     void deleteUserByUid(String uid) throws Exception;
+    void suggest(Suggestion suggestion) throws Exception;
+    List<Suggestion> findAllSuggestion() throws Exception;
+    void thumbsUp(Suggestion suggestion) throws Exception;
+    Suggestion getSuggestionById(String id) throws Exception;
 }

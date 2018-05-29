@@ -1,6 +1,7 @@
 package com.vinspier.serviceImpl;
 
 import com.vinspier.dao.UserDao;
+import com.vinspier.pojo.Suggestion;
 import com.vinspier.pojo.User;
 import com.vinspier.service.UserService;
 import com.vinspier.utils.MailUtil;
@@ -95,5 +96,21 @@ public class UserServiceImpl implements UserService{
     /**删除用户*/
     public void deleteUserByUid(String uid) throws Exception{
         userDao.deleteUserByUid(uid);
+    }
+
+    public void suggest(Suggestion suggestion) throws Exception{
+        suggestion.setId(UUIDUtils.getId());
+        suggestion.setLike_count(0);
+        userDao.suggest(suggestion);
+    }
+
+    public List<Suggestion> findAllSuggestion() throws Exception{
+        return userDao.findAllSuggestion();
+    }
+
+    public void thumbsUp(String id) throws Exception{
+        Suggestion suggestion = userDao.getSuggestionById(id);
+        suggestion.setLike_count(suggestion.getLike_count()+1);
+        userDao.thumbsUp(suggestion);
     }
 }

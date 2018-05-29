@@ -157,4 +157,16 @@ public class TestService {
         List<Order> orders = administratorService.getOrderAllState();
         System.out.println(orders.size());
     }
+
+    @Test
+    public void test_suggest() throws Exception{
+        Suggestion suggestion = new Suggestion();
+        suggestion.setSuggest_content("AFHAKLFA");
+        suggestion.setId(UUIDUtils.getId());
+        suggestion.setLike_count(21);
+        User user = new User();
+        user.setUid("EDC429AE2F444BF982E328608F8DAC7B");
+        suggestion.setUser(user);
+        userDao.suggest(suggestion);
+    }
 }

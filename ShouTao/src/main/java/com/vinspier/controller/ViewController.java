@@ -4,6 +4,7 @@ import com.vinspier.pojo.*;
 import com.vinspier.service.CartService;
 import com.vinspier.service.CategoryService;
 import com.vinspier.service.ProductService;
+import com.vinspier.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,8 @@ public class ViewController {
     private CartService cartService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/register")
     public String register_index() {
@@ -143,5 +146,12 @@ public class ViewController {
         List<Category> categoryList = categoryService.findAll();
         model.addAttribute("categoryList",categoryList);
         return "admin/product_edit";
+    }
+
+    @RequestMapping(value = "/to_suggest")
+    public String toSuggest(Model model) throws Exception{
+        List<Suggestion> suggestionList = userService.findAllSuggestion();
+        model.addAttribute("suggestionList",suggestionList);
+        return "view/user_suggest";
     }
 }

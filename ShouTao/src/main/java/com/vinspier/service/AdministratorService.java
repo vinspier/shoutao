@@ -2,6 +2,7 @@ package com.vinspier.service;
 
 import com.vinspier.pojo.Administrator;
 import com.vinspier.pojo.Order;
+import com.vinspier.pojo.Suggestion;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface AdministratorService {
     List<Order> getOrderAllState() throws Exception;
     Order getOrderByOid(String uid,String oid) throws Exception;
     void deliveryOrder(String oid,String deliveryNumber) throws Exception;
+    List<Suggestion> findAllSuggestion() throws Exception;
+    void deleteSuggestionById(String id) throws Exception;
 }

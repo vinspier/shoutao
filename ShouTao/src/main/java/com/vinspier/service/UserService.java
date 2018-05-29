@@ -1,5 +1,6 @@
 package com.vinspier.service;
 
+import com.vinspier.pojo.Suggestion;
 import com.vinspier.pojo.User;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface UserService {
     List<User> getAllUsersActive() throws Exception;
     int checkUserNameExist(String username)throws Exception;
     void deleteUserByUid(String uid) throws Exception;
+    void suggest(Suggestion suggestion) throws Exception;
+    List<Suggestion> findAllSuggestion() throws Exception;
+    void thumbsUp(String id) throws Exception;
 }

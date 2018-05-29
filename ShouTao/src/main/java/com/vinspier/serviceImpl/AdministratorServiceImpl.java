@@ -3,10 +3,7 @@ package com.vinspier.serviceImpl;
 import com.vinspier.dao.AdminDao;
 import com.vinspier.dao.OrderDao;
 import com.vinspier.dao.UserDao;
-import com.vinspier.pojo.Administrator;
-import com.vinspier.pojo.Order;
-import com.vinspier.pojo.OrderItem;
-import com.vinspier.pojo.User;
+import com.vinspier.pojo.*;
 import com.vinspier.service.AdministratorService;
 import constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +79,13 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     public void deliveryOrder(String oid,String deliveryNumber) throws Exception{
         orderDao.deliveryOrder(oid,deliveryNumber,Constant.ORDER_ALREADY_DELIVERY);
+    }
+
+    public List<Suggestion> findAllSuggestion() throws Exception{
+        return adminDao.findAllSuggestion();
+    }
+
+    public void deleteSuggestionById(String id) throws Exception{
+         adminDao.deleteSuggestionById(id);
     }
 }

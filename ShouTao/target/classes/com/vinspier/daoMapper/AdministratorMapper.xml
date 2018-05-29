@@ -29,4 +29,19 @@
         INSERT INTO adminis (adminName,password,roleId) VALUES (#{adminName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR})
     </insert>
 
+    <delete id="deleteSuggestionById" parameterType="String">
+        DELETE FROM suggestion WHERE id = #{0}
+    </delete>
+    <select id="findAllSuggestion" resultMap="suggestionMapper">
+        SELECT * FROM suggestion s,user_info u WHERE u.uid = s.uid ORDER BY like_count DESC
+    </select>
+    <resultMap id="suggestionMapper" type="com.vinspier.pojo.Suggestion">
+        <id property="id" column="id"/>
+        <result property="suggest_content" column="suggest_content"/>
+        <result property="like_count" column="like_count"/>
+        <association property="user" javaType="com.vinspier.pojo.User">
+            <id property="uid" column="uid"/>
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
 </mapper>
