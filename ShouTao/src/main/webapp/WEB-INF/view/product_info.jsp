@@ -65,7 +65,6 @@
                                                           style="background-color: #f07373;">限时抢购</a></div>
 
                 <div style="padding:10px;border:1px solid #e7dbb1;width:330px;margin:15px 0 10px 0;;background-color: #fffee6;">
-                    <div style="margin:5px 0 10px 0;">白色</div>
 
                     <form action="/addToCart" method="post" id="cartMessage">
                         <input type="hidden" name="pid" value="${product.pid}">

@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
     public Page<Product> searchByPage(int pageNumber, int pageSize, String searchContent) throws Exception{
         Page<Product> productPage = new Page<Product>(pageNumber,pageSize);
-        List<Product> productList = productDao.searchByPage(searchContent,Constant.PRODUCT_FLAG_UP);
+        List<Product> productList = productDao.searchByPage("%"+searchContent+"%",Constant.PRODUCT_FLAG_UP);
         List<Category> categoryList = categoryDao.searchContent(searchContent);
         for(Category c :categoryList){
             List<Product> productList1 = productDao.getOnCid(c.getCid(),Constant.PRODUCT_FLAG_UP);
@@ -148,7 +148,6 @@ public class ProductServiceImpl implements ProductService {
 
     public String uploadProduct(Product product,MultipartFile file,String realPath) throws Exception{
         try {
-            System.out.println(product.getIs_hot()+"-----"+product.getPflag());
             if(file == null){
                 throw new Exception("未收到上传的图片信息");
             }

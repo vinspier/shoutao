@@ -5,6 +5,7 @@ import com.vinspier.pojo.Suggestion;
 import com.vinspier.pojo.User;
 import com.vinspier.service.RoleService;
 import com.vinspier.service.UserService;
+import com.vinspier.utils.MailUtil;
 import constant.Constant;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,8 @@ public class UserController {
             User loginUser = userService.login(username,password);
                 if (loginUser != null) {
                     if (Constant.USER_IS_ACTIVE != loginUser.getState()) {
+                        String emailMsg="恭喜"+loginUser.getRealname()+":成为我们商城的一员,<a href='http://localhost:8080/Active?code="+loginUser.getCode()+"'>点此激活</a>";
+                        MailUtil.sendMail(loginUser.getUsername(),loginUser.getEmail(),emailMsg);
                         request.setAttribute("msg", "此用户未激活，请先登录邮箱激活后登录");
                         return "view/notification_message";
                     }

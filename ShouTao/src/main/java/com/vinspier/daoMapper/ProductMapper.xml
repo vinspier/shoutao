@@ -24,7 +24,7 @@
     </select>
 
     <select id="findNewProducts" parameterType="int" resultType="product">
-        SELECT * FROM product WHERE pflag = #{pflag} ORDER BY pdate limit 21
+        SELECT * FROM product WHERE pflag = #{pflag} ORDER BY pdate DESC limit 21
     </select>
 
     <select id="getById" parameterType="java.lang.String" resultType="product">
@@ -55,7 +55,7 @@
     </select>
 
     <select id="searchByPage"  resultType="product">
-        SELECT * FROM product WHERE (pname OR pdesc) LIKE "%"#{0}"%" AND pflag = #{1}
+        SELECT * FROM product WHERE (pname LIKE #{0} OR pdesc LIKE #{0}) AND pflag = #{1}
     </select>
 
     <update id="resetPflag" parameterType="int">

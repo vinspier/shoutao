@@ -169,4 +169,12 @@ public class TestService {
         suggestion.setUser(user);
         userDao.suggest(suggestion);
     }
+
+    @Test
+    public void test_search() throws Exception{
+        String search = "%华为%";
+        int up = 0;
+        List<Product> productList = productDao.searchByPage(search,up);
+        System.out.println(productList);
+    }
 }

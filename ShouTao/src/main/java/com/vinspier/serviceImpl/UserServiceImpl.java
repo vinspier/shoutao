@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService{
         user.setState(Constant.USER_IS_NOT_ACTIVE);
         user.setBalance(Constant.USER_BALANCE);
         userDao.save(user);
-        String emailMsg="恭喜"+user.getRealname()+":成为我们商城的一员,<a href='http://localhost:8080/Active?code="+user.getCode()+"'>点此激活</a>";
-        MailUtil.sendMail(user.getUsername(),user.getEmail(),emailMsg);
+       String emailMsg="恭喜"+user.getRealname()+":成为我们商城的一员,<a href='http://localhost:8080/Active?code="+user.getCode()+"'>点此激活</a>";
+       MailUtil.sendMail(user.getUsername(),user.getEmail(),emailMsg);
     }
     /**
      * 用户激活
